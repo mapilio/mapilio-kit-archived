@@ -20,7 +20,7 @@ Mapilio Tools is a library for processing and uploading images to [Visiosoft](ht
 ## Quickstart
 
 Download the latest `mapilio_tools` binaries for your platform
-here: https://github.com/mapilio/mapilio_tools/releases/tag/v0.0.3
+here: https://github.com/mapilio/mapilio_tools/releases/tag/v0.0.1
 
 See [more installation instructions](#installation) below.
 
