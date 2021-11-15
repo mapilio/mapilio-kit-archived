@@ -107,13 +107,20 @@ def upload(
             return
         user_items = fetch_user_items(user_name, organization_key)
         # TODO buraya json uploader ve image_dir uploader yazılacak.
+
+        uploaded_hash = uploader.upload_image_dir(
+            import_path, descs, user_items, dry_run=dry_run,
+            organization_key=organization_key if organization_key else None,
+            project_key=project_key if project_key else None)
+
+        print("Exif uploading. . . ")
         uploader.upload_desc(
             image_desc=descs,
             user_items=user_items,
             organization_key=organization_key if organization_key else None,
-            project_key=project_key if project_key else None
+            project_key=project_key if project_key else None,
+            hash=uploaded_hash
         )
 
-        uploader.upload_image_dir(import_path, descs, user_items, dry_run=dry_run)
     else:
         raise RuntimeError(f"Expect {import_path} to be either file or directory")
