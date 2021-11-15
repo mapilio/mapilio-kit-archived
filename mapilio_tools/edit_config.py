@@ -48,7 +48,7 @@ def edit_config(
 
     if not user_name:
         user_name = input(
-            "Enter the Mapilio username you would like to (re)authenticate: "
+            "Enter the Mapilio mail you would like to (re)authenticate: "
         )
 
     # config file must exist at this step
@@ -57,14 +57,14 @@ def edit_config(
     # safety check if section exists, otherwise add it
     if user_name in config_object.sections():
         if not force_overwrite:
-            print("Warning, username exists with the following items : ")
+            print("Warning, mail exists with the following items : ")
             print(config.load_user(config_object, user_name))
             sure = input(
                 "Are you sure you would like to re-authenticate (current parameters will be overwritten) [y,Y,yes,Yes]?"
             )
             if sure not in ["y", "Y", "yes", "Yes"]:
                 print(
-                    f"Aborting re-authentication. If you would like to re-authenticate username {user_name}, "
+                    f"Aborting re-authentication. If you would like to re-authenticate mail {user_name}, "
                     f"rerun this command and confirm re-authentication."
                 )
                 return
