@@ -70,6 +70,7 @@ def upload_desc(
         user_items: types.User,
         organization_key: T.Optional[str] = None,
         project_key: T.Optional[str] = None,
+        hash :str = None
 
 ):
     """
@@ -84,9 +85,11 @@ def upload_desc(
     payload = json.dumps({
         "options": {
             "parameters": {
+                "hash": hash,
                 "organization_key": organization_key if organization_key else "",
                 "project_key": project_key if project_key else "",
                 "json_data": image_desc
+
             }
         }
     })
@@ -109,21 +112,30 @@ def upload_image_dir(
     image_descs: T.List[types.ImageDescriptionJSON],
     user_items: types.User,
     dry_run=False,
+    organization_key: str = None,
+    project_key: str = None
 ):
-    jsonschema.validate(instance=user_items, schema=types.UserItemSchema)
 
+    jsonschema.validate(instance=user_items, schema=types.UserItemSchema)
     _validate_descs(image_dir, image_descs)
 
+    hash = {}
     sequences = _group_sequences_by_uuid(image_descs)
     for sequence_idx, images in enumerate(sequences.values()):
-        cluster_id = _zip_and_upload_single_sequence(
+        uploaded_hash = _zip_and_upload_single_sequence(
             image_dir,
             images,
             user_items,
             sequence_idx,
             len(sequences),
+            organization_key,
+            project_key,
             dry_run=dry_run,
         )
+        sequences_uuid = list(sequences.keys())[sequence_idx]
+        hash[sequences_uuid] = uploaded_hash
+
+    return hash
 
 
 def zip_image_dir(
@@ -250,6 +262,8 @@ def _upload_zipfile_fp(
     fp: T.IO[bytes],
     entity_size: int,
     chunk_size: int = None,
+    organization_key: str = None,
+    project_key: str = None,
     session_key: str = None,
     tqdm_desc: str = "Uploading",
     notifier: Optional[Notifier] = None,
@@ -266,7 +280,6 @@ def _upload_zipfile_fp(
         session_key = str(uuid.uuid4())
 
     user_access_token = user_items["user_upload_token"]
-
     # uploading
     if dry_run:
         upload_service: upload_api_v1.UploadService = upload_api_v1.FakeUploadService(
@@ -312,8 +325,11 @@ def _upload_zipfile_fp(
                     notifier.uploaded_bytes = offset
                     upload_service.callbacks.append(notifier.notify_progress)
                     # TODO chunk_size dynamic
-                    upload_service.upload(
-                        fp, chunk_size=MAX_UPLOAD_SIZE, offset=offset
+                    uploaded_hash = upload_service.upload(
+                        user_items,
+                        fp,
+                        organization_key, project_key,
+                        chunk_size=MAX_UPLOAD_SIZE, offset=offset
                     )
                 pbar.update(upload_service.entity_size)
             except Exception as ex:
@@ -333,8 +349,7 @@ def _upload_zipfile_fp(
             else:
                 break
 
-    # organization_id = user_items.get("OrganizationKey")
-    # project_id = user_items.get("OrganizationProjectKey")
+    return uploaded_hash
 
     # TODO: retry here
     # try:
@@ -349,6 +364,8 @@ def _zip_and_upload_single_sequence(
     user_items: types.User,
     sequence_idx: int,
     total_sequences: int,
+    organization_key: str = None,
+    project_key: str = None,
     dry_run=False,
 ) -> int:
     def _build_desc(desc: str) -> str:
@@ -389,6 +406,8 @@ def _zip_and_upload_single_sequence(
             fp,
             entity_size,
             chunk_size,
+            organization_key,
+            project_key,
             session_key=f"mapilio_tools_{sequence_md5}.zip",
             tqdm_desc=_build_desc("Uploading"),
             notifier=notifier,
