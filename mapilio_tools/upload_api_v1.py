@@ -1,9 +1,12 @@
+import json
+
 import requests
 import os
 import io
 import typing as T
 
 from .api_v1 import MAPILIO_GRAPH_API_ENDPOINT, MAPILIO_UPLOAD_ENDPOINT_ZIP
+from . import types
 
 MAPILIO_UPLOAD_ENDPOINT = os.getenv(
     "MAPILIO_UPLOAD_ENDPOINT", "https://end.mapilio.com"
@@ -40,7 +43,10 @@ class UploadService:
 
     def upload(
         self,
+        user_items: types.User,
         data: T.IO[bytes],
+        organization_key: str = None,
+        project_key: str = None,
         offset: T.Optional[int] = None,
         chunk_size: int = DEFAULT_CHUNK_SIZE,
     ):
@@ -51,29 +57,35 @@ class UploadService:
             offset = self.fetch_offset()
 
         data.seek(offset, io.SEEK_CUR)
-
+        email = user_items['SettingsUsername'],
+        uploaded_hash_arr = []
         # while True:
         chunk = data.read(chunk_size)
         # it is possible to upload an empty chunk here
         # in order to return the handle
         headers = {
-            # "Authorization": f"OAuth {self.user_access_token}",
-            # "Offset": f"{offset}",
-            # "X-Entity-Length": str(self.entity_size),
-            # "X-Entity-Name": self.session_key if self.session_key else None,
             "X-Entity-Type": "application/zip",
         }
-
-        files=[
+        payload = {
+            "email": email,
+            "project_organization_key": organization_key if organization_key else None,
+            "project_key": project_key if project_key else None
+        }
+        files = [
             ('file', (self.session_key, chunk, 'application/zip'))
         ]
         # TODO check request success
-        requests.post(
+        response = requests.post(
             f"{MAPILIO_UPLOAD_ENDPOINT_ZIP}",
             headers=headers,
-            data={},
+            data=payload,
             files=files
         )
+        response_dict = json.loads(response.text)
+        hash = response_dict["files"][0]["hash"]
+        return hash
+        # print(response.text)
+
         # resp.raise_for_status()
         # offset += len(chunk)
         # for callback in self.callbacks:

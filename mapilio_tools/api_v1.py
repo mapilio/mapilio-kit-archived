@@ -6,7 +6,7 @@ from typing import Union
 MAPILIO_GRAPH_API_ENDPOINT = os.getenv(
     "MAPILIO_GRAPH_API_ENDPOINT", "https://end.mapilio.com/api"
 )
-MAPILIO_GRAPH_API_ENDPOINT_DESCRIPTION = MAPILIO_GRAPH_API_ENDPOINT + '/function/mapilio/imagery_exif/upload'
+MAPILIO_GRAPH_API_ENDPOINT_DESCRIPTION = MAPILIO_GRAPH_API_ENDPOINT + '/function/mapilio/imagery/upload'
 MAPILIO_UPLOAD_ENDPOINT_ZIP = "https://image.mapilio.com/api/upload/zip"
 
 def get_upload_token(email: str, password: str) -> dict:
