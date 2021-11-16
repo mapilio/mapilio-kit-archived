@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 import typing as T
 import json
 import logging
@@ -106,14 +107,20 @@ def upload(
             LOG.warning(f"No images found in {desc_path}. Exiting...")
             return
         user_items = fetch_user_items(user_name, organization_key)
-        # TODO buraya json uploader ve image_dir uploader yazılacak.
 
+        LOG.warning(f"If shooting was taken at a point outside the polygon,"
+                    f" these points and images will be published publicly...")
+        time.sleep(5)
+        LOG.info(f"Images has started for uploading")
         uploaded_hash = uploader.upload_image_dir(
             import_path, descs, user_items, dry_run=dry_run,
             organization_key=organization_key if organization_key else None,
             project_key=project_key if project_key else None)
 
-        print("Exif uploading. . . ")
+        LOG.info(f"Images has uploaded")
+
+        LOG.info(f"Exif has started for uploading")
+
         uploader.upload_desc(
             image_desc=descs,
             user_items=user_items,
@@ -121,6 +128,7 @@ def upload(
             project_key=project_key if project_key else None,
             hash=uploaded_hash
         )
+        LOG.info(f"Exif has uploaded")
 
     else:
         raise RuntimeError(f"Expect {import_path} to be either file or directory")
