@@ -91,6 +91,7 @@ def insert_MAPJson(
                 LOG.warning(f"Failed to overwrite EXIF", exc_info=True)
 
         relpath = os.path.relpath(image, import_path)
+        # basename = os.path.basename(relpath)
         if status == "success":
             descs.append(
                 T.cast(types.FinalImageDescription, {**desc, "filename": relpath})
