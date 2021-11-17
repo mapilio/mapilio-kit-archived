@@ -21,7 +21,7 @@ from .api_v1 import MAPILIO_GRAPH_API_ENDPOINT_DESCRIPTION
 
 MIN_CHUNK_SIZE = 1024 * 1024  # 1MB
 MAX_CHUNK_SIZE = 1024 * 1024 * 32  # 32MB
-MAX_UPLOAD_SIZE = 1024 * 1024 * 500 # 500MB
+MAX_UPLOAD_SIZE = 1024 * 1024 * 500  # 500MB
 LOG = logging.getLogger(__name__)
 
 
@@ -41,7 +41,7 @@ def _find_root_dir(file_list: Iterable[str]) -> Optional[str]:
 
 
 def _group_sequences_by_uuid(
-    image_descs: T.List[types.ImageDescriptionJSON],
+        image_descs: T.List[types.ImageDescriptionJSON],
 ) -> T.Dict[str, T.Dict[str, types.FinalImageDescription]]:
     sequences: T.Dict[str, T.Dict[str, types.FinalImageDescription]] = {}
     missing_sequence_uuid = str(uuid.uuid4())
@@ -50,7 +50,7 @@ def _group_sequences_by_uuid(
         sequence = sequences.setdefault(sequence_uuid, {})
         desc_without_filename = {**desc}
         del desc_without_filename["filename"]
-        sequence[desc["filename"]] = T.cast(
+        sequence[os.path.join(desc["path"], desc["filename"])] = T.cast(
             types.FinalImageDescription, desc_without_filename
         )
     return sequences
@@ -60,17 +60,18 @@ def _validate_descs(image_dir: str, image_descs: T.List[types.ImageDescriptionJS
     for desc in image_descs:
         jsonschema.validate(instance=desc, schema=types.ImageDescriptionJSONSchema)
     for desc in image_descs:
-        abspath = os.path.join(image_dir, desc["filename"])
+        dirpath = os.path.join(desc["path"], desc["filename"])
+        abspath = os.path.join(image_dir, dirpath)
         if not os.path.isfile(abspath):
             raise RuntimeError(f"Image path {abspath} not found")
 
 
 def upload_desc(
+        hash:str,
         image_desc: T.List[types.ImageDescriptionJSON],
         user_items: types.User,
         organization_key: T.Optional[str] = None,
         project_key: T.Optional[str] = None,
-        hash :str = None
 
 ):
     """
@@ -81,6 +82,7 @@ def upload_desc(
     :param project_key: which organization key use project key to upload description json
     :return: None
     """
+    print("asdasd")
 
     payload = json.dumps({
         "options": {
@@ -107,15 +109,15 @@ def upload_desc(
     except requests.exceptions.HTTPError as e:
         print(e.response.text)
 
-def upload_image_dir(
-    image_dir: str,
-    image_descs: T.List[types.ImageDescriptionJSON],
-    user_items: types.User,
-    dry_run=False,
-    organization_key: str = None,
-    project_key: str = None
-):
 
+def upload_image_dir(
+        image_dir: str,
+        image_descs: T.List[types.ImageDescriptionJSON],
+        user_items: types.User,
+        dry_run=False,
+        organization_key: str = None,
+        project_key: str = None
+):
     jsonschema.validate(instance=user_items, schema=types.UserItemSchema)
     _validate_descs(image_dir, image_descs)
 
@@ -139,7 +141,7 @@ def upload_image_dir(
 
 
 def zip_image_dir(
-    image_dir: str, image_descs: T.List[types.ImageDescriptionJSON], zip_dir: str
+        image_dir: str, image_descs: T.List[types.ImageDescriptionJSON], zip_dir: str
 ):
     _validate_descs(image_dir, image_descs)
     sequences = _group_sequences_by_uuid(image_descs)
@@ -171,10 +173,10 @@ class Notifier:
 
 
 def _zip_sequence(
-    image_dir: str,
-    sequences: T.Dict[str, types.FinalImageDescription],
-    fp: T.IO[bytes],
-    tqdm_desc: str = "Compressing",
+        image_dir: str,
+        sequences: T.Dict[str, types.FinalImageDescription],
+        fp: T.IO[bytes],
+        tqdm_desc: str = "Compressing",
 ) -> str:
     file_list = list(sequences.keys())
     first_image = list(sequences.values())[0]
@@ -258,16 +260,16 @@ def is_retriable_exception(ex: Exception):
 
 
 def _upload_zipfile_fp(
-    user_items: types.User,
-    fp: T.IO[bytes],
-    entity_size: int,
-    chunk_size: int = None,
-    organization_key: str = None,
-    project_key: str = None,
-    session_key: str = None,
-    tqdm_desc: str = "Uploading",
-    notifier: Optional[Notifier] = None,
-    dry_run: bool = False,
+        user_items: types.User,
+        fp: T.IO[bytes],
+        entity_size: int,
+        chunk_size: int = None,
+        organization_key: str = None,
+        project_key: str = None,
+        session_key: str = None,
+        tqdm_desc: str = "Uploading",
+        notifier: Optional[Notifier] = None,
+        dry_run: bool = False,
 ):
     """
     :param fp: the file handle to a zipped sequence file. Will always upload from the beginning
@@ -359,14 +361,14 @@ def _upload_zipfile_fp(
 
 
 def _zip_and_upload_single_sequence(
-    image_dir: str,
-    sequences: T.Dict[str, types.FinalImageDescription],
-    user_items: types.User,
-    sequence_idx: int,
-    total_sequences: int,
-    organization_key: str = None,
-    project_key: str = None,
-    dry_run=False,
+        image_dir: str,
+        sequences: T.Dict[str, types.FinalImageDescription],
+        user_items: types.User,
+        sequence_idx: int,
+        total_sequences: int,
+        organization_key: str = None,
+        project_key: str = None,
+        dry_run=False,
 ) -> int:
     def _build_desc(desc: str) -> str:
         return f"{desc} {sequence_idx + 1}/{total_sequences}"
