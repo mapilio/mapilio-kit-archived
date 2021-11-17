@@ -49,6 +49,7 @@ class MetaProperties(TypedDict, total=False):
     GPSAccuracyMeters: float
     CameraUUID: str
     Filename: str
+    Path: str
     Orientation: int
 
 
@@ -57,10 +58,12 @@ class FinalImageDescription(_SequenceOnly, User, Image):
 
 
 class ImageDescriptionJSON(FinalImageDescription):
+    path: str
     filename: str
 
 
 class FinalImageDescriptionError(TypedDict):
+    path: str
     filename: str
     error: T.Dict
 
@@ -106,6 +109,7 @@ FinalImageDescriptionSchema = {
         "DeviceModel": {"type": "string"},
         "DeviceMake": {"type": "string"},
         "CameraUUID": {"type": "string"},
+        "Path": {"type": "string"},
         "Filename": {"type": "string"},
         "Orientation": {"type": "integer"},
     },
@@ -146,9 +150,14 @@ ImageDescriptionJSONSchema = merge_schema(
                 "type": "string",
                 "description": "The image file's path relative to the image directory",
             },
+            "path": {
+                "type": "string",
+                "description": "The image base directory"
+            },
         },
         "required": [
             "filename",
+            "path",
         ],
     },
 )
