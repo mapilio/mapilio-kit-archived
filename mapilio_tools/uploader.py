@@ -7,6 +7,7 @@ import os
 import tempfile
 import hashlib
 import logging
+from datetime import datetime
 
 import time
 import zipfile
@@ -67,47 +68,63 @@ def _validate_descs(image_dir: str, image_descs: T.List[types.ImageDescriptionJS
 
 
 def upload_desc(
-        hash:str,
+        hash: str,
         image_desc: T.List[types.ImageDescriptionJSON],
         user_items: types.User,
         organization_key: T.Optional[str] = None,
         project_key: T.Optional[str] = None,
+        backup_path: str = os.path.join(os.path.expanduser('~'), '.config', 'mapilio', 'configs')
 
 ):
     """
-
+    :param hash: image secret path
     :param image_desc: description file path
     :param user_items: get user_upload_token for header bearer
     :param organization_key: will be upload organization key
     :param project_key: which organization key use project key to upload description json
+    :param backup_path:
     :return: None
     """
-    print("asdasd")
 
-    payload = json.dumps({
-        "options": {
-            "parameters": {
-                "hash": hash,
-                "organization_key": organization_key if organization_key else "",
-                "project_key": project_key if project_key else "",
-                "json_data": image_desc
+    from itertools import groupby
+    def key_func(k):
+        return k['SequenceUUID']
 
+    if not os.path.exists(os.path.join(backup_path, user_items['SettingsUsername'])):
+        os.makedirs(os.path.join(backup_path, user_items['SettingsUsername']))
+    export_backup_path = os.path.join(backup_path, user_items['SettingsUsername'])
+
+    for _, val in groupby(image_desc, key_func):
+        description_chunk = list(val)
+        payload = json.dumps({
+            "options": {
+                "parameters": {
+                    "hash": hash,
+                    "organization_key": organization_key if organization_key else "",
+                    "project_key": project_key if project_key else "",
+                    "json_data": description_chunk
+
+                }
             }
-        }
-    })
+        })
 
-    headers = {
-        'Content-Type': 'application/json',
-        'Authorization': f"Bearer {user_items['user_upload_token']}"}
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f"Bearer {user_items['user_upload_token']}"}
 
-    try:
-        resp = requests.request("POST", url=MAPILIO_GRAPH_API_ENDPOINT_DESCRIPTION, headers=headers, data=payload)
-        resp.raise_for_status()
-        if not resp.status_code // 100 == 2:
-            return f"Error: Unexpected response {resp}"
-        print("Imagery Exif Successfully Has Been Uploaded")
-    except requests.exceptions.HTTPError as e:
-        print(e.response.text)
+        current_time = "{:%Y_%m_%d_%H_%M_%S}".format(datetime.now())
+        try:
+            resp = requests.request("POST", url=MAPILIO_GRAPH_API_ENDPOINT_DESCRIPTION, headers=headers, data=payload)
+            with open(os.path.join(export_backup_path,
+                                   f'{current_time}_backup_request_{organization_key}_{project_key}.json'), 'w') as f:
+                json.dump(payload, f)
+            resp.raise_for_status()
+            if not resp.status_code // 100 == 2:
+                LOG.warning(resp.text)
+                return f"Error: Unexpected response {resp}"
+            print("Imagery Exif Successfully Has Been Uploaded")
+        except requests.exceptions.HTTPError as e:
+            print(e.response.text)
 
 
 def upload_image_dir(
