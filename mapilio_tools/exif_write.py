@@ -33,6 +33,10 @@ class ExifEdit:
         DateTimeOriginal = date_time.strftime(time_format)[:-3]
         self._ef["Exif"][piexif.ExifIFD.DateTimeOriginal] = DateTimeOriginal
 
+    def add_device_information(self, device_model: str, device_make: str):
+        self._ef["Exif"][piexif.ExifIFD.LensMake] = device_make
+        self._ef["Exif"][piexif.ExifIFD.LensModel] = device_model
+
     def add_lat_lon(self, lat: float, lon: float, precision: float = 1e7):
         """Add lat, lon to gps (lat, lon in float)."""
         self._ef["GPS"][piexif.GPSIFD.GPSLatitudeRef] = "N" if lat > 0 else "S"
