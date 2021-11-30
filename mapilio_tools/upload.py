@@ -103,6 +103,8 @@ def upload(
             desc_path = os.path.join(import_path, "mapilio_image_description.json")
 
         descs = read_image_descriptions(desc_path)
+        descs = [d for d in descs if "error" not in d]
+
         if not descs:
             LOG.warning(f"No images found in {desc_path}. Exiting...")
             return
@@ -117,8 +119,6 @@ def upload(
             organization_key=organization_key if organization_key else None,
             project_key=project_key if project_key else None)
 
-        LOG.info(f"Images has uploaded")
-
         LOG.info(f"Exif has started for uploading")
 
         uploader.upload_desc(
@@ -128,7 +128,5 @@ def upload(
             project_key=project_key if project_key else None,
             hash=uploaded_hash
         )
-        LOG.info(f"Exif has uploaded")
-
     else:
         raise RuntimeError(f"Expect {import_path} to be either file or directory")
