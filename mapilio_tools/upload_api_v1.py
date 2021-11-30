@@ -7,6 +7,9 @@ import typing as T
 
 from .api_v1 import MAPILIO_GRAPH_API_ENDPOINT, MAPILIO_UPLOAD_ENDPOINT_ZIP
 from . import types
+import logging
+
+LOG = logging.getLogger(__name__)
 
 MAPILIO_UPLOAD_ENDPOINT = os.getenv(
     "MAPILIO_UPLOAD_ENDPOINT", "https://end.mapilio.com"
@@ -58,11 +61,12 @@ class UploadService:
 
         data.seek(offset, io.SEEK_CUR)
         email = user_items['SettingsUsername'],
-        uploaded_hash_arr = []
+
         # while True:
         chunk = data.read(chunk_size)
         # it is possible to upload an empty chunk here
         # in order to return the handle
+
         headers = {
             "X-Entity-Type": "application/zip",
         }
@@ -74,17 +78,24 @@ class UploadService:
         files = [
             ('file', (self.session_key, chunk, 'application/zip'))
         ]
-        # TODO check request success
-        response = requests.post(
-            f"{MAPILIO_UPLOAD_ENDPOINT_ZIP}",
-            headers=headers,
-            data=payload,
-            files=files
-        )
-        response_dict = json.loads(response.text)
-        hash = response_dict["files"][0]["hash"]
-        return hash
-        # print(response.text)
+        try:
+            response = requests.post(
+                f"{MAPILIO_UPLOAD_ENDPOINT_ZIP}",
+                headers=headers,
+                data=payload,
+                files=files
+            )
+            response.raise_for_status()
+            if not response.status_code // 100 == 2:
+                LOG.warning(response.text)
+                return f"Error: Unexpected response {response.text}"
+            if (response.status_code != 204 and
+                    response.headers["content-type"].strip().startswith("application/json")):
+                response_dict = json.loads(response.text)
+                return response_dict["files"][0]["hash"]
+        except requests.exceptions.HTTPError as e:
+            print(e.response.text)
+
 
         # resp.raise_for_status()
         # offset += len(chunk)
