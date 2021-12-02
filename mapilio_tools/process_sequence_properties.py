@@ -7,7 +7,7 @@ from . import image_log, types
 from .geo import compute_bearing, gps_distance, diff_bearing, pairwise
 from .error import MapilioDuplicationError
 
-MAX_SEQUENCE_LENGTH = 500
+MAX_SEQUENCE_LENGTH = 250
 
 
 class _GPXPoint:
