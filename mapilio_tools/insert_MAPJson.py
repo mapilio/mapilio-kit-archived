@@ -104,13 +104,6 @@ def insert_MAPJson(
                     {"error": desc, "filename": basename, "path": dirname},
                 )
             )
-
-    if desc_path == "-":
-        print(json.dumps(descs, indent=4))
-    else:
-        with open(desc_path, "w") as fp:
-            json.dump(descs, fp, indent=4)
-
     processed_images = [desc for desc in descs if "error" not in desc]
     not_processed_images = T.cast(
         T.List[types.FinalImageDescriptionError],
@@ -123,14 +116,26 @@ def insert_MAPJson(
     ]
 
     summary = {
-        "total_images": len(descs),
-        "processed_images": len(processed_images),
-        "failed_images": len(not_processed_images) - len(duplicated_images),
-        "duplicated_images": len(duplicated_images),
+        'Information': {
+            "total_images": len(descs),
+            "processed_images": len(processed_images),
+            "failed_images": len(not_processed_images) - len(duplicated_images),
+            "duplicated_images": len(duplicated_images),
+            "id": uuid.uuid4().hex,
+        }
     }
+    descs.append(
+        T.cast(types.FinalImageDescription, {**summary})
+    )
+
+    if desc_path == "-":
+        print(json.dumps(descs, indent=4))
+    else:
+        with open(desc_path, "w") as fp:
+            json.dump(descs, fp, indent=4)
 
     LOG.info(json.dumps(summary, indent=4))
-    if 0 < summary["failed_images"]:
+    if 0 < summary['Information']["failed_images"]:
         if skip_process_errors:
             LOG.warning("Skipping %s failed images", summary["failed_images"])
         else:
