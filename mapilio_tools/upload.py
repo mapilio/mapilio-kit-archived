@@ -29,7 +29,7 @@ def read_image_descriptions(desc_path: str):
                 descs = json.load(fp)
             except json.JSONDecodeError:
                 raise RuntimeError(f" Invalid JSON file {desc_path}")
-    descs = [desc for desc in descs if ("error" not in desc) and ("Heading" in desc)]
+    descs = [desc for desc in descs if ("error" not in desc) and (("Heading" in desc) or ("Information" in desc))]
     return descs
 
 
