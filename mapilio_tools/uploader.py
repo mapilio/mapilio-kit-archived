@@ -94,6 +94,8 @@ def upload_desc(
         os.makedirs(os.path.join(backup_path, user_items['SettingsUsername']))
     export_backup_path = os.path.join(backup_path, user_items['SettingsUsername'])
 
+    summary = list(image_desc).pop()
+    image_desc = list(image_desc)[:-1]
     for _, val in groupby(image_desc, key_func):
         description_chunk = list(val)
         payload = json.dumps({
@@ -102,7 +104,8 @@ def upload_desc(
                     "hash": hash,
                     "organization_key": organization_key if organization_key else "",
                     "project_key": project_key if project_key else "",
-                    "json_data": description_chunk
+                    "json_data": description_chunk,
+                    "summary": summary
 
                 }
             }
