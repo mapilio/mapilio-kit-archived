@@ -20,9 +20,9 @@ from . import upload_api_v1, types, ipc, exif_write
 from .login import wrap_http_exception
 from .api_v1 import MAPILIO_GRAPH_API_ENDPOINT_DESCRIPTION
 
-MIN_CHUNK_SIZE = 1024 * 1024  # 1MB
-MAX_CHUNK_SIZE = 1024 * 1024 * 32  # 32MB
-MAX_UPLOAD_SIZE = 1024 * 1024 * 750  # 500MB
+MIN_CHUNK_SIZE = 1024 * 1024 * 32  # 32MB
+MAX_CHUNK_SIZE = 1024 * 1024 * 64  # 64MB
+MAX_UPLOAD_SIZE = 1024 * 1024 * 750  # 750MB
 LOG = logging.getLogger(__name__)
 
 
@@ -323,7 +323,6 @@ def _upload_zipfile_fp(
         nonlocal retries
         retries = 0
 
-    offset = 0
     while True:
         with tqdm(
                 total=upload_service.entity_size,
@@ -335,8 +334,7 @@ def _upload_zipfile_fp(
             fp.seek(0, io.SEEK_SET)
             update_pbar = lambda chunk, _: pbar.update(len(chunk))
             try:
-                # offset = upload_service.fetch_offset()
-
+                offset = upload_service.fetch_offset()
                 # set the initial progress
                 pbar.update(offset)
                 upload_service.callbacks = [
@@ -346,14 +344,10 @@ def _upload_zipfile_fp(
                 if notifier:
                     notifier.uploaded_bytes = offset
                     upload_service.callbacks.append(notifier.notify_progress)
-                    # TODO chunk_size dynamic
-                    uploaded_hash = upload_service.upload(
-                        user_items,
-                        fp,
-                        organization_key, project_key,
-                        chunk_size=MAX_UPLOAD_SIZE, offset=offset
-                    )
-                pbar.update(upload_service.entity_size)
+                uploaded_hash = upload_service.upload(user_items,
+                                                      fp, organization_key, project_key,
+                                                      chunk_size=chunk_size, offset=offset
+                                                      )
             except Exception as ex:
                 if retries < 200 and is_retriable_exception(ex):
                     retries += 1
@@ -372,12 +366,6 @@ def _upload_zipfile_fp(
                 break
 
     return uploaded_hash
-
-    # TODO: retry here
-    # try:
-    #     return upload_service.finish(file_handle, organization_id=organization_id, project_id=project_id)
-    # except requests.HTTPError as ex:
-    #     raise wrap_http_exception(ex) from ex
 
 
 def _zip_and_upload_single_sequence(
