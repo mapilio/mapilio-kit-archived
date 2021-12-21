@@ -28,13 +28,13 @@ See [more installation instructions](#installation) below.
 
 ### User Authentication
 
-To upload images to Mapillary, an account is required and can be created [here](https://www.mapilio.com/signup). When
+To upload images to Mapilio, an account is required and can be created [here](https://www.mapilio.com/signup). When
 using the tools for the first time, user authentication is required. You will be prompted to enter your account
 credentials.
 
 ### Metadata
 
-To upload images to Mapillary, image `GPS` and `capture time` are minimally required.
+To upload images to Mapilio, image `GPS` and `capture time` are minimally required.
 
 ## Installation
 
