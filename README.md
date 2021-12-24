@@ -67,6 +67,7 @@ On Debian/Ubuntu:
 
 ```shell
 sudo apt install ffmpeg
+sudo apt install exiftool
 ```
 
 ## Usage
