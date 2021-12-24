@@ -12,7 +12,7 @@ import logging
 LOG = logging.getLogger(__name__)
 
 MAPILIO_UPLOAD_ENDPOINT = os.getenv(
-    "MAPILIO_UPLOAD_ENDPOINT", "https://end.mapilio.com"
+    "MAPILIO_UPLOAD_ENDPOINT", "https://image.mapilio.com/upload/"
 )
 DEFAULT_CHUNK_SIZE = 1024 * 1024 * 64
 
@@ -37,12 +37,12 @@ class UploadService:
             "Authorization": f"OAuth {self.user_access_token}",
         }
         resp = requests.get(
-            f"{MAPILIO_UPLOAD_ENDPOINT}/{self.session_key}", headers=headers
+            f"{MAPILIO_UPLOAD_ENDPOINT}?fileName={self.session_key}", headers=headers
         )
         resp.raise_for_status()
         data = resp.json()
-        # return data["offset"]
-        return data
+
+        return data["totalChunkUploaded"]
 
     def upload(
         self,
@@ -62,39 +62,38 @@ class UploadService:
         data.seek(offset, io.SEEK_CUR)
         email = user_items['SettingsUsername'],
 
-        # while True:
-        chunk = data.read(chunk_size)
-        # it is possible to upload an empty chunk here
-        # in order to return the handle
-
-        headers = {
-            "X-Entity-Type": "application/zip",
-        }
-        payload = {
-            "email": email,
-            "project_organization_key": organization_key if organization_key else None,
-            "project_key": project_key if project_key else None
-        }
-        files = [
-            ('file', (self.session_key, chunk, 'application/zip'))
-        ]
-        try:
-            response = requests.post(
-                f"{MAPILIO_UPLOAD_ENDPOINT_ZIP}",
-                headers=headers,
-                data=payload,
-                files=files
-            )
-            response.raise_for_status()
-            if not response.status_code // 100 == 2:
-                LOG.warning(response.text)
-                return f"Error: Unexpected response {response.text}"
-            if (response.status_code != 204 and
-                    response.headers["content-type"].strip().startswith("application/json")):
-                response_dict = json.loads(response.text)
-                return response_dict["files"][0]["hash"]
-        except requests.exceptions.HTTPError as e:
-            print(e.response.text)
+        while True:
+            chunk = data.read(chunk_size)
+            files = {'chunk': (self.session_key, chunk, "multipart/form-data")}
+            payload = {
+                "email": email,
+                "project_organization_key": organization_key if organization_key else None,
+                "project_key": project_key if project_key else None
+            }
+            headers = {
+                'Connection': "keep-alive",
+                "content-range": f"bytes={offset}-{self.entity_size}/{self.entity_size}",
+                "X-File-Id": self.session_key,
+                "Content-Length": str(self.entity_size - offset),
+            }
+            try:
+                resp = requests.post(
+                    f"{MAPILIO_UPLOAD_ENDPOINT}",
+                    headers=headers,
+                    data=payload,
+                    files=files
+                )
+                resp.raise_for_status()
+                offset += len(chunk)
+                for callback in self.callbacks:
+                    callback(chunk, resp)
+                if not chunk:
+                    if (resp.status_code != 204 and
+                            resp.headers["content-type"].strip().startswith("application/json")):
+                        response_dict = json.loads(resp.text)
+                        return response_dict["files"][0]["hash"]
+            except requests.exceptions.HTTPError as e:
+                print(e.response.text)
 
 
         # resp.raise_for_status()
