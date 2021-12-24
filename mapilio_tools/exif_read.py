@@ -20,7 +20,6 @@ def format_time(time_string: str) -> Tuple[datetime.datetime, bool]:
     """
     Format time string with invalid time elements in hours/minutes/seconds
     Format for the timestring needs to be "%Y_%m_%d_%H_%M_%S"
-
     e.g. 2014_03_31_24_10_11 => 2014_04_01_00_10_11
     """
     subseconds = False
@@ -271,6 +270,20 @@ class ExifRead:
             fields, default="none", field_type=str
         )
         return model
+
+    def extract_resolution(self) -> Tuple[int, int]:
+        """
+        Extract image resolution
+        """
+        fields_w = ["Image ImageWidth", "EXIF ExifImageWidth"]
+        fields_h = ["Image ImageLength", "EXIF ExifImageLength"]
+        width, _ = self._extract_alternative_fields(
+            fields_w, default="none", field_type=int
+        )
+        height, _ = self._extract_alternative_fields(
+            fields_h, default="none", field_type=int
+        )
+        return width, height
 
     def extract_orientation(self) -> int:
         """
