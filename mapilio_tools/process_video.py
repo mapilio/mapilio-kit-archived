@@ -123,11 +123,13 @@ def extract_frames(
         subprocess.call(command)
     except FileNotFoundError:
         raise RuntimeError(
-            "ffmpeg not found. Please make sure it is installed in your PATH. See https://github.com/mapilio/mapilio_tools#video-support for instructions"
+            "ffmpeg not found. Please make sure it is installed in your PATH. "
+            "See https://github.com/mapilio/mapilio_tools#video-support for instructions"
         )
 
     process = subprocess.Popen(["exiftool", video_file], stdout=subprocess.PIPE)
-    device_model, device_make = None, None
+    device_model, device_make, image_width, image_height = None, None, None, None
+
     while True:
         line = process.stdout.readline()
         filtered_line = line.rstrip().decode('utf-8')
@@ -139,28 +141,37 @@ def extract_frames(
         if 'Color Mode' in filtered_line:
             device_model = filtered_line.split(':')[1].lstrip(' ')
 
+        if 'Source Image Width' in filtered_line:
+            image_width = int(filtered_line.split(':')[1].lstrip(' '))
+
+        if 'Source Image Height' in filtered_line:
+            image_height = int(filtered_line.split(':')[1].lstrip(' '))
 
     video_start_time = datetime.datetime.utcnow()
 
-    insert_video_frame_timestamp_device_infomation(
+    insert_video_frame_timestamp_device_information(
         video_filename,
         import_path,
         video_start_time,
         video_sample_interval,
         video_duration_ratio,
         device_model,
-        device_make
+        device_make,
+        image_width,
+        image_height
     )
 
 
-def insert_video_frame_timestamp_device_infomation(
+def insert_video_frame_timestamp_device_information(
     video_filename: str,
     video_sampling_path: str,
     start_time: datetime.datetime,
     sample_interval: float = 2.0,
     duration_ratio: float = 1.0,
     device_model=None,
-    device_make=None
+    device_make=None,
+    image_width=None,
+    image_height=None
 ) -> None:
     frame_list = image_log.get_total_file_list(video_sampling_path)
 
@@ -176,4 +187,5 @@ def insert_video_frame_timestamp_device_infomation(
         exif_edit = ExifEdit(image)
         exif_edit.add_date_time_original(timestamp)
         exif_edit.add_device_information(device_make, device_model)
+        exif_edit.add_resolution(image_width, image_height)
         exif_edit.write()

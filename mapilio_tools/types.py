@@ -51,6 +51,8 @@ class MetaProperties(TypedDict, total=False):
     Filename: str
     Path: str
     Orientation: int
+    Width: str
+    Height: str
 
 
 class FinalImageDescription(_SequenceOnly, User, Image):

@@ -272,6 +272,20 @@ class ExifRead:
         )
         return model
 
+    def extract_resolution(self) -> Tuple[int, int]:
+        """
+        Extract image resolution
+        """
+        fields_w = ["Image ImageWidth", "EXIF ExifImageWidth"]
+        fields_h = ["Image ImageLength", "EXIF ExifImageLength"]
+        width, _ = self._extract_alternative_fields(
+            fields_w, default="none", field_type=int
+        )
+        height, _ = self._extract_alternative_fields(
+            fields_h, default="none", field_type=int
+        )
+        return width, height
+
     def extract_orientation(self) -> int:
         """
         Extract image orientation
