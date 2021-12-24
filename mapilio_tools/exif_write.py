@@ -37,6 +37,10 @@ class ExifEdit:
         self._ef["Exif"][piexif.ExifIFD.LensMake] = device_make
         self._ef["Exif"][piexif.ExifIFD.LensModel] = device_model
 
+    def add_resolution(self, image_width: str, image_height: str):
+        self._ef["0th"][piexif.ImageIFD.ImageWidth] = image_width
+        self._ef["0th"][piexif.ImageIFD.ImageLength] = image_height
+
     def add_lat_lon(self, lat: float, lon: float, precision: float = 1e7):
         """Add lat, lon to gps (lat, lon in float)."""
         self._ef["GPS"][piexif.GPSIFD.GPSLatitudeRef] = "N" if lat > 0 else "S"

@@ -115,6 +115,7 @@ def get_import_meta_properties_exif(image: str) -> MetaProperties:
     import_meta_data_properties["Orientation"] = exif.extract_orientation()
     import_meta_data_properties["DeviceMake"] = exif.extract_make()
     import_meta_data_properties["DeviceModel"] = exif.extract_model()
+    import_meta_data_properties["Width"], import_meta_data_properties["Height"] = exif.extract_resolution()
     # import_meta_data_properties["MetaTags"] = eval(exif.extract_image_history())
 
     return import_meta_data_properties
