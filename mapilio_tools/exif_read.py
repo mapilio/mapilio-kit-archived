@@ -283,7 +283,8 @@ class ExifRead:
         height, _ = self._extract_alternative_fields(
             fields_h, default="none", field_type=int
         )
-        return width, height
+        image_size = f"{width}x{height}"
+        return image_size
 
     def extract_orientation(self) -> int:
         """

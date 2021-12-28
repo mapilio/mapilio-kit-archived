@@ -7,7 +7,7 @@ from . import image_log
 from . import processing, VERSION
 from .exif_read import ExifRead
 from .types import MetaProperties
-
+from .utilities import get_exiftool_specific_feature
 
 META_DATA_TYPES = {
     "strings": str,
@@ -113,9 +113,12 @@ def get_import_meta_properties_exif(image: str) -> MetaProperties:
     # FIXME: might throw error here
     exif = ExifRead(image)
     import_meta_data_properties["Orientation"] = exif.extract_orientation()
-    import_meta_data_properties["DeviceMake"] = exif.extract_make()
-    import_meta_data_properties["DeviceModel"] = exif.extract_model()
-    import_meta_data_properties["Width"], import_meta_data_properties["Height"] = exif.extract_resolution()
+    ebi = get_exiftool_specific_feature(image) # ebi = exif_basic_information
+    import_meta_data_properties["DeviceMake"] = ebi['device_make'] if ebi['device_make'] else exif.extract_make()
+    import_meta_data_properties["DeviceModel"] = ebi['device_model'] if ebi['device_model'] else exif.extract_model()
+    import_meta_data_properties["ImageSize"] = ebi['image_size'] if ebi['image_size'] else exif.extract_resolution()
+    import_meta_data_properties["FoV"] = ebi['field_of_view'] if ebi['field_of_view'] else 360
+
     # import_meta_data_properties["MetaTags"] = eval(exif.extract_image_history())
 
     return import_meta_data_properties
