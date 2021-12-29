@@ -8,6 +8,7 @@ import logging
 from . import image_log
 from . import processing
 from .exif_write import ExifEdit
+from .utilities import get_exiftool_specific_feature
 
 ZERO_PADDING = 6
 LOG = logging.getLogger(__name__)
@@ -123,23 +124,11 @@ def extract_frames(
         subprocess.call(command)
     except FileNotFoundError:
         raise RuntimeError(
-            "ffmpeg not found. Please make sure it is installed in your PATH. See https://github.com/mapilio/mapilio_tools#video-support for instructions"
+            "ffmpeg not found. Please make sure it is installed in your PATH. "
+            "See https://github.com/mapilio/mapilio_tools#video-support for instructions"
         )
 
-    process = subprocess.Popen(["exiftool", video_file], stdout=subprocess.PIPE)
-    device_model, device_make = None, None
-    while True:
-        line = process.stdout.readline()
-        filtered_line = line.rstrip().decode('utf-8')
-        if not line:
-            break
-        if 'Camera Model Name' in filtered_line:
-            device_make = filtered_line.split(':')[1].lstrip(' ')
-
-        if 'Color Mode' in filtered_line:
-            device_model = filtered_line.split(':')[1].lstrip(' ')
-
-
+    ebi = get_exiftool_specific_feature(video_file)  # ebi = exif basic information
     video_start_time = datetime.datetime.utcnow()
 
     insert_video_frame_timestamp_device_infomation(
@@ -148,8 +137,8 @@ def extract_frames(
         video_start_time,
         video_sample_interval,
         video_duration_ratio,
-        device_model,
-        device_make
+        ebi['device_model'],
+        ebi['device_make']
     )
 
 

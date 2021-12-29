@@ -20,8 +20,8 @@ from . import upload_api_v1, types, ipc, exif_write
 from .login import wrap_http_exception
 from .api_v1 import MAPILIO_GRAPH_API_ENDPOINT_DESCRIPTION
 
-MIN_CHUNK_SIZE = 1024 * 1024 * 32  # 32MB
-MAX_CHUNK_SIZE = 1024 * 1024 * 64  # 64MB
+MIN_CHUNK_SIZE = 1024 * 1024 * 2  # 32MB
+MAX_CHUNK_SIZE = 1024 * 1024 * 16  # 64MB
 MAX_UPLOAD_SIZE = 1024 * 1024 * 750  # 750MB
 LOG = logging.getLogger(__name__)
 
@@ -219,7 +219,7 @@ def _zip_sequence(
             relpath = os.path.relpath(file, root_dir)
             abspath = os.path.join(image_dir, file)
             edit = exif_write.ExifEdit(abspath)
-            edit.add_image_description(sequences[file])
+            # edit.add_image_description(sequences[file]) # comment because changing md5sum values each run
             image_bytes = edit.dump_image_bytes()
             sequence_md5.update(image_bytes)
             ziph.writestr(relpath, image_bytes)
@@ -337,7 +337,7 @@ def _upload_zipfile_fp(
             fp.seek(0, io.SEEK_SET)
             update_pbar = lambda chunk, _: pbar.update(len(chunk))
             try:
-                offset = upload_service.fetch_offset()
+                offset = upload_service.fetch_offset(email=user_items['SettingsUsername'])
                 # set the initial progress
                 pbar.update(offset)
                 upload_service.callbacks = [
@@ -397,7 +397,7 @@ def _zip_and_upload_single_sequence(
             image_dir, sequences, fp, tqdm_desc=_build_desc("Compressing")
         )
 
-        fp.seek(0, io.SEEK_END)
+        fp.seek(0, io.SEEK_END) # noqa
         entity_size = fp.tell()
 
         # chunk size
