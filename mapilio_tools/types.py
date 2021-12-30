@@ -51,8 +51,8 @@ class MetaProperties(TypedDict, total=False):
     Filename: str
     Path: str
     Orientation: int
-    Width: str
-    Height: str
+    ImageSize: str
+    FoV: int
 
 
 class FinalImageDescription(_SequenceOnly, User, Image):
@@ -111,8 +111,8 @@ FinalImageDescriptionSchema = {
         "DeviceModel": {"type": "string"},
         "DeviceMake": {"type": "string"},
         "CameraUUID": {"type": "string"},
-        "Height" : {"type": "number"},
-        "Width" : {"type": "number"},
+        "ImageSize": {"type": "string"},
+        "FoV": {"type": "number"},
         "Path": {"type": "string"},
         "Filename": {"type": "string"},
         "Orientation": {"type": "integer"},

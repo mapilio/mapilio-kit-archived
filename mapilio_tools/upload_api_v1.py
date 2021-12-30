@@ -32,12 +32,13 @@ class UploadService:
         self.entity_size = entity_size
         self.callbacks = []
 
-    def fetch_offset(self) -> int:
+    def fetch_offset(self, email) -> int:
         headers = {
-            "Authorization": f"OAuth {self.user_access_token}",
+            "Authorization": f"OAuth {self.user_access_token}"
         }
         resp = requests.get(
-            f"{MAPILIO_UPLOAD_ENDPOINT}?fileName={self.session_key}", headers=headers
+            f"{MAPILIO_UPLOAD_ENDPOINT}?fileName={self.session_key}&email={email}",
+            headers=headers
         )
         resp.raise_for_status()
         data = resp.json()
@@ -56,31 +57,29 @@ class UploadService:
         if chunk_size <= 0:
             raise ValueError("Expect positive chunk size")
 
+        email = user_items['SettingsUsername']
         if offset is None:
-            offset = self.fetch_offset()
+            offset = self.fetch_offset(email=email)
 
-        data.seek(offset, io.SEEK_CUR)
-        email = user_items['SettingsUsername'],
+        data.seek(offset, io.SEEK_CUR) # noqa
+
 
         while True:
             chunk = data.read(chunk_size)
             files = {'chunk': (self.session_key, chunk, "multipart/form-data")}
-            payload = {
-                "email": email,
-                "project_organization_key": organization_key if organization_key else None,
-                "project_key": project_key if project_key else None
-            }
             headers = {
                 'Connection': "keep-alive",
                 "content-range": f"bytes={offset}-{self.entity_size}/{self.entity_size}",
                 "X-File-Id": self.session_key,
                 "Content-Length": str(self.entity_size - offset),
+                "email": email,
+                "project_organization_key": organization_key if organization_key else None,
+                "project_key": project_key if project_key else None
             }
             try:
                 resp = requests.post(
                     f"{MAPILIO_UPLOAD_ENDPOINT}",
                     headers=headers,
-                    data=payload,
                     files=files
                 )
                 resp.raise_for_status()
@@ -91,32 +90,10 @@ class UploadService:
                     if (resp.status_code != 204 and
                             resp.headers["content-type"].strip().startswith("application/json")):
                         response_dict = json.loads(resp.text)
-                        return response_dict["files"][0]["hash"]
+                        return response_dict["hash"]
             except requests.exceptions.HTTPError as e:
                 print(e.response.text)
 
-
-        # resp.raise_for_status()
-        # offset += len(chunk)
-        # for callback in self.callbacks:
-        #     callback(chunk, resp)
-        # we can assert that offset == self.fetch_offset(session_key)
-        # otherwise, server will throw
-
-        # if not chunk:
-        #     break
-
-        # assert (
-        #     offset == self.entity_size
-        # ), f"offset ends at {offset} but the entity size is {self.entity_size}"
-        #
-        # payload = resp.json()
-        # try:
-        #     return payload["h"]
-        # except KeyError:
-        #     raise RuntimeError(
-        #         f"Upload server error: File handle not found in the upload response {resp.text}"
-        #     )
 
     def finish(
         self, file_handle: str,
