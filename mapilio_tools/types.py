@@ -111,6 +111,8 @@ FinalImageDescriptionSchema = {
         "DeviceModel": {"type": "string"},
         "DeviceMake": {"type": "string"},
         "CameraUUID": {"type": "string"},
+        "Height" : {"type": "number"},
+        "Width" : {"type": "number"},
         "Path": {"type": "string"},
         "Filename": {"type": "string"},
         "Orientation": {"type": "integer"},

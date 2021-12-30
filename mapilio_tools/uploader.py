@@ -1,7 +1,7 @@
 import io
 import json
 import uuid
-from typing import Optional, Iterable
+from typing import Optional, Iterable, Tuple, Any
 import typing as T
 import os
 import tempfile
@@ -73,8 +73,8 @@ def upload_desc(
         user_items: types.User,
         organization_key: T.Optional[str] = None,
         project_key: T.Optional[str] = None,
-        backup_path: str = os.path.join(os.path.expanduser('~'), '.config', 'mapilio', 'configs')
-
+        size: str = None,
+        backup_path: str = os.path.join(os.path.expanduser('~'), '.config', 'mapilio', 'configs'),
 ):
     """
     :param hash: image secret path
@@ -82,6 +82,7 @@ def upload_desc(
     :param user_items: get user_upload_token for header bearer
     :param organization_key: will be upload organization key
     :param project_key: which organization key use project key to upload description json
+    :param size: information sequence data such as count and entity size
     :param backup_path:
     :return: None
     """
@@ -95,6 +96,7 @@ def upload_desc(
     export_backup_path = os.path.join(backup_path, user_items['SettingsUsername'])
 
     summary = list(image_desc).pop()
+    summary['Information']['size'] = size
     image_desc = list(image_desc)[:-1]
     for _, val in groupby(image_desc, key_func):
         description_chunk = list(val)
@@ -106,7 +108,6 @@ def upload_desc(
                     "project_key": project_key if project_key else "",
                     "json_data": description_chunk,
                     "summary": summary
-
                 }
             }
         })
@@ -142,9 +143,10 @@ def upload_image_dir(
     _validate_descs(image_dir, image_descs)
 
     hash = {}
+    size = {}
     sequences = _group_sequences_by_uuid(image_descs)
     for sequence_idx, images in enumerate(sequences.values()):
-        uploaded_hash = _zip_and_upload_single_sequence(
+        uploaded_hash, entity_size = _zip_and_upload_single_sequence(
             image_dir,
             images,
             user_items,
@@ -156,8 +158,9 @@ def upload_image_dir(
         )
         sequences_uuid = list(sequences.keys())[sequence_idx]
         hash[sequences_uuid] = uploaded_hash
+        size[sequences_uuid] = entity_size
 
-    return hash
+    return hash, size
 
 
 def zip_image_dir(
@@ -377,7 +380,7 @@ def _zip_and_upload_single_sequence(
         organization_key: str = None,
         project_key: str = None,
         dry_run=False,
-) -> int:
+) -> Tuple[Any, dict]:
     def _build_desc(desc: str) -> str:
         return f"{desc} {sequence_idx + 1}/{total_sequences}"
 
@@ -410,6 +413,10 @@ def _zip_and_upload_single_sequence(
                 "total_sequences": total_sequences,
             }
         )
+        sequence_info = {
+            "count": len(sequences),
+            "size": entity_size / 1024 ** 2
+        }
 
         return _upload_zipfile_fp(
             user_items,
@@ -422,4 +429,4 @@ def _zip_and_upload_single_sequence(
             tqdm_desc=_build_desc("Uploading"),
             notifier=notifier,
             dry_run=dry_run,
-        )
+        ), sequence_info

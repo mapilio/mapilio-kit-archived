@@ -114,7 +114,7 @@ def upload(
         time.sleep(5)
         LOG.info(f"Images has started for uploading")
         image_desc = [desc for desc in descs if "Heading" in desc]
-        uploaded_hash = uploader.upload_image_dir(
+        uploaded_hash, entity_size = uploader.upload_image_dir(
             import_path, image_desc, user_items, dry_run=dry_run,
             organization_key=organization_key if organization_key else None,
             project_key=project_key if project_key else None)
@@ -125,7 +125,8 @@ def upload(
             user_items=user_items,
             organization_key=organization_key if organization_key else None,
             project_key=project_key if project_key else None,
-            hash=uploaded_hash
+            hash=uploaded_hash,
+            size=entity_size
         )
     else:
         raise RuntimeError(f"Expect {import_path} to be either file or directory")
