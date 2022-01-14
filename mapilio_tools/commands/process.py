@@ -200,7 +200,7 @@ class Command:
             "--duplicate_distance",
             help="max distance for two images to be considered duplicates in meters",
             type=float,
-            default=0.1,
+            default=2,
             required=False,
         )
         group_sequence.add_argument(

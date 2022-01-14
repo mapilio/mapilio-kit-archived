@@ -315,6 +315,14 @@ class ExifRead:
         )
         return sub_sec
 
+    def extract_field_of_view(self):
+
+        fields = ["EXIF CameraElevationAngle", "Image CameraElevationAngle"]
+        field_of_view = self._extract_alternative_fields(
+            fields, default="none", field_type=float
+        )
+        return field_of_view
+
 
 if __name__ == "__main__":
     import pprint
