@@ -37,6 +37,9 @@ class ExifEdit:
         self._ef["Exif"][piexif.ExifIFD.LensMake] = device_make
         self._ef["Exif"][piexif.ExifIFD.LensModel] = device_model
 
+    def add_field_of_view(self, field_of_view):
+        self._ef["Exif"][piexif.ExifIFD.CameraElevationAngle] = field_of_view.as_integer_ratio()
+
     def add_resolution(self, image_width: str, image_height: str):
         self._ef["0th"][piexif.ImageIFD.ImageWidth] = image_width
         self._ef["0th"][piexif.ImageIFD.ImageLength] = image_height

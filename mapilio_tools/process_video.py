@@ -127,7 +127,6 @@ def extract_frames(
             "ffmpeg not found. Please make sure it is installed in your PATH. "
             "See https://github.com/mapilio/mapilio_tools#video-support for instructions"
         )
-
     ebi = get_exiftool_specific_feature(video_file)  # ebi = exif basic information
     video_start_time = datetime.datetime.utcnow()
 
@@ -138,7 +137,8 @@ def extract_frames(
         video_sample_interval,
         video_duration_ratio,
         ebi['device_model'],
-        ebi['device_make']
+        ebi['device_make'],
+        ebi['field_of_view']
     )
 
 
@@ -149,7 +149,8 @@ def insert_video_frame_timestamp_device_infomation(
     sample_interval: float = 2.0,
     duration_ratio: float = 1.0,
     device_model=None,
-    device_make=None
+    device_make=None,
+    field_of_view=None
 ) -> None:
     frame_list = image_log.get_total_file_list(video_sampling_path)
 
@@ -165,4 +166,5 @@ def insert_video_frame_timestamp_device_infomation(
         exif_edit = ExifEdit(image)
         exif_edit.add_date_time_original(timestamp)
         exif_edit.add_device_information(device_make, device_model)
+        exif_edit.add_field_of_view(field_of_view)
         exif_edit.write()
