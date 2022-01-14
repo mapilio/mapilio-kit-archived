@@ -110,14 +110,14 @@ def finalize_import_properties_process(
 
 def get_import_meta_properties_exif(image: str) -> MetaProperties:
     import_meta_data_properties: MetaProperties = {}
-    # FIXME: might throw error here
     exif = ExifRead(image)
     import_meta_data_properties["Orientation"] = exif.extract_orientation()
     ebi = get_exiftool_specific_feature(image) # ebi = exif_basic_information
+
     import_meta_data_properties["DeviceMake"] = ebi['device_make'] if ebi['device_make'] else exif.extract_make()
     import_meta_data_properties["DeviceModel"] = ebi['device_model'] if ebi['device_model'] else exif.extract_model()
     import_meta_data_properties["ImageSize"] = ebi['image_size'] if ebi['image_size'] else exif.extract_resolution()
-    import_meta_data_properties["FoV"] = ebi['field_of_view'] if ebi['field_of_view'] else 360
+    import_meta_data_properties["FoV"] = ebi['field_of_view'] if ebi['field_of_view'] else exif.extract_field_of_view()
 
     # import_meta_data_properties["MetaTags"] = eval(exif.extract_image_history())
 
