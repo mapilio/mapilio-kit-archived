@@ -9,9 +9,9 @@ __RULES__ = [{('HERO7', 'Wide', '4:3'): 122.6}, {('HERO7', 'Wide ', '16:9'): 188
              {('HERO8', 'Wide', '4:3'): 122.6}, {('HERO8', 'Linear', '16:9'): 85.8},
              {('HERO8', 'Linear', '4:3'): 86.0}, {('HERO8', 'Narrow', '16:9'): 68.0},
              {('HERO8', 'Narrow', '4:3'): 68.0}, {('HERO9', 'Wide', '16:9'): 118.0},
-             {('HERO9', 'Linear', '16:9'): 92.0}, {('HERO9', 'Unknown (X)', '16:9'): 121.0},
-             {('HERO9', 'Wide', '4:3'): 122.0}, {('HERO9', 'Linear', '4:3'): 92.0},
-             {('HERO9', 'Narrow', '16:9'): 73.0}, {('HERO9', 'Narrow', '4:3'): 73.0},
+             {('HERO9 Black', 'Linear', '16:9'): 92.0}, {('HERO9 Black', 'Super View', '16:9'): 121.0},
+             {('HERO9 Black', 'Wide', '4:3'): 122.0}, {('HERO9 Black', 'Linear', '4:3'): 92.0},
+             {('HERO9 Black', 'Narrow', '16:9'): 73.0}, {('HERO9 Black', 'Narrow', '4:3'): 73.0},
              {('GoPro Max', 'Wide', '16:9'): 118.0}, {('GoPro Max', 'Linear', '16:9'): 92.0},
              {('GoPro Max', 'Unknown (X)', '16:9'): 121.0}, {('GoPro Max', 'Narrow', '16:9'): 73.0}]
 
