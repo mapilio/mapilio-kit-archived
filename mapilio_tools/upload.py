@@ -8,6 +8,9 @@ import logging
 
 from . import uploader, types, login
 
+from gps_anomaly.detector import Anomaly
+
+
 LOG = logging.getLogger(__name__)
 
 
@@ -103,7 +106,11 @@ def upload(
             desc_path = os.path.join(import_path, "mapilio_image_description.json")
 
         descs = read_image_descriptions(desc_path)
-
+        anomaly = Anomaly()
+        descs, failed_imgs, anomaly_points = anomaly.anomaly_detector(descs)
+        if len(failed_imgs) > 0:
+            LOG.warning(f"Some images has failed."
+                        f" These images is => {failed_imgs}")
         if not descs:
             LOG.warning(f"No images found in {desc_path}. Exiting...")
             return
