@@ -7,7 +7,8 @@ MAPILIO_GRAPH_API_ENDPOINT = os.getenv(
     "MAPILIO_GRAPH_API_ENDPOINT", "https://end.mapilio.com/api"
 )
 MAPILIO_GRAPH_API_ENDPOINT_DESCRIPTION = MAPILIO_GRAPH_API_ENDPOINT + '/function/mapilio/imagery/upload'
-MAPILIO_UPLOAD_ENDPOINT_ZIP = "https://image.mapilio.com/upload/"
+MAPILIO_UPLOAD_ENDPOINT_ZIP = "https://cdn.mapilio.com/upload/"
+
 
 def get_upload_token(email: str, password: str) -> dict:
     resp = requests.post(

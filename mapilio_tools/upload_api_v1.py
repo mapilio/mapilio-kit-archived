@@ -5,15 +5,12 @@ import os
 import io
 import typing as T
 
-from .api_v1 import MAPILIO_GRAPH_API_ENDPOINT, MAPILIO_UPLOAD_ENDPOINT_ZIP
+from .api_v1 import  MAPILIO_UPLOAD_ENDPOINT_ZIP
 from . import types
 import logging
 
 LOG = logging.getLogger(__name__)
 
-MAPILIO_UPLOAD_ENDPOINT = os.getenv(
-    "MAPILIO_UPLOAD_ENDPOINT", "https://image.mapilio.com/upload/"
-)
 DEFAULT_CHUNK_SIZE = 1024 * 1024 * 64
 
 
@@ -37,7 +34,7 @@ class UploadService:
             "Authorization": f"OAuth {self.user_access_token}"
         }
         resp = requests.get(
-            f"{MAPILIO_UPLOAD_ENDPOINT}?fileName={self.session_key}&email={email}",
+            f"{MAPILIO_UPLOAD_ENDPOINT_ZIP}?fileName={self.session_key}&email={email}",
             headers=headers
         )
         resp.raise_for_status()
@@ -78,7 +75,7 @@ class UploadService:
             }
             try:
                 resp = requests.post(
-                    f"{MAPILIO_UPLOAD_ENDPOINT}",
+                    f"{MAPILIO_UPLOAD_ENDPOINT_ZIP}",
                     headers=headers,
                     files=files
                 )
@@ -111,7 +108,7 @@ class UploadService:
             data["project_id"] = project_id
 
         resp = requests.post(
-            f"{MAPILIO_GRAPH_API_ENDPOINT}/finish_upload", headers=headers, json=data
+            f"{MAPILIO_UPLOAD_ENDPOINT_ZIP}/finish_upload", headers=headers, json=data
         )
 
         resp.raise_for_status()
