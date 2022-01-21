@@ -79,7 +79,7 @@ def main():
         process_and_upload,
         sample_video,
         video_process,
-        # video_process_and_upload,
+        video_process_and_upload,
         authenticate,
     ]
     parser = argparse.ArgumentParser(
