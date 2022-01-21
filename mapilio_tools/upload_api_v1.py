@@ -70,8 +70,8 @@ class UploadService:
                 "X-File-Id": self.session_key,
                 "Content-Length": str(self.entity_size - offset),
                 "email": email,
-                "project_organization_key": organization_key if organization_key else None,
-                "project_key": project_key if project_key else None
+                "project-organization-key": organization_key if organization_key else None,
+                "project-key": project_key if project_key else None
             }
             try:
                 resp = requests.post(
