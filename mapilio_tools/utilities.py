@@ -114,6 +114,4 @@ def photo_uuid_generate(user_email: str, descs: list) -> list:
         hash_object = hashlib.md5(code.encode())
         desc['PhotoUUID'] = hash_object.hexdigest()
 
-    print(descs[0])
-    exit(1)
     return descs
