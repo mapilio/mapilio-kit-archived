@@ -9,7 +9,7 @@ import logging
 from . import uploader, types, login
 
 from gps_anomaly.detector import Anomaly
-
+from .utilities import photo_uuid_generate
 
 LOG = logging.getLogger(__name__)
 
@@ -106,6 +106,7 @@ def upload(
             desc_path = os.path.join(import_path, "mapilio_image_description.json")
 
         descs = read_image_descriptions(desc_path)
+        descs = photo_uuid_generate(user_email=user_name, descs=descs)
         anomaly = Anomaly()
         descs, failed_imgs, anomaly_points = anomaly.anomaly_detector(descs)
         if len(failed_imgs) > 0:
