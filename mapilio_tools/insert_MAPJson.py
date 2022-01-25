@@ -41,8 +41,6 @@ def get_final_mapilio_image_description(
         if status == "success":
             description.update(T.cast(dict, meta_desc))
 
-    description["PhotoUUID"] = str(uuid.uuid4())
-
     return status, T.cast(types.FinalImageDescription, description)
 
 
