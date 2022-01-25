@@ -155,6 +155,11 @@ mapilio_tools upload "path/to/images/" \
     --project_key "mapilio_project_id"
 ```
 
+#### 360 panorama image upload command
+```shell
+mapilio_tools image_and_csv_upload "path/to/images" --csv_path "path/to/csv/test.csv"
+```
+
 ### Mapilio tools to Video Process and Upload
 
 Video process involves two commands:
