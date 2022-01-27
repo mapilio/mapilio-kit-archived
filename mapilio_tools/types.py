@@ -113,6 +113,7 @@ FinalImageDescriptionSchema = {
         "CameraUUID": {"type": "string"},
         "ImageSize": {"type": "string"},
         "FoV": {"type": "number"},
+        "anomaly": {"type": "number"},
         "Path": {"type": "string"},
         "Filename": {"type": "string"},
         "Orientation": {"type": "integer"},
