@@ -95,3 +95,23 @@ def get_exiftool_specific_feature(video_or_image_path: str) -> Dict[str, Union[N
                                                  dict_object['field_of_view'],
                                                  aspect_ratio)
         return dict_object
+
+
+def photo_uuid_generate(user_email: str, descs: list) -> list:
+    """
+
+    Args:
+        user_email:
+        descs: descriptions
+
+    Returns:
+        add new column as name "Id" create hash
+    """
+    import hashlib
+
+    for desc in descs[:-1]:
+        code = f'{user_email}--{desc["CaptureTime"]}'
+        hash_object = hashlib.md5(code.encode())
+        desc['PhotoUUID'] = hash_object.hexdigest()
+
+    return descs
