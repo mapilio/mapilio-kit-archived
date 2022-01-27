@@ -53,6 +53,7 @@ class MetaProperties(TypedDict, total=False):
     Orientation: int
     ImageSize: str
     FoV: int
+    anomaly: int
 
 
 class FinalImageDescription(_SequenceOnly, User, Image):
@@ -113,6 +114,7 @@ FinalImageDescriptionSchema = {
         "CameraUUID": {"type": "string"},
         "ImageSize": {"type": "string"},
         "FoV": {"type": "number"},
+        "anomaly": {"type": "number"},
         "Path": {"type": "string"},
         "Filename": {"type": "string"},
         "Orientation": {"type": "integer"},
