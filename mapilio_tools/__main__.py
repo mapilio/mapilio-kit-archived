@@ -11,6 +11,7 @@ from .commands import upload
 from .commands import video_process
 from .commands import video_process_and_upload
 from .commands import zip
+from .commands import image_and_csv_upload
 
 # do not use __name__ here is because if you run tools as a module, __name__ will be "__main__"
 LOG = logging.getLogger("mapilio_tools")
@@ -43,7 +44,7 @@ def general_arguments(parser, command):
             default=False,
             required=False,
         )
-    elif command in ["upload"]:
+    elif command in ["upload", "image_and_csv_upload"]:
         parser.add_argument(
             "import_path",
             help="Path to your images",
@@ -81,6 +82,7 @@ def main():
         video_process,
         video_process_and_upload,
         authenticate,
+        image_and_csv_upload
     ]
     parser = argparse.ArgumentParser(
         "mapilio_tools",
