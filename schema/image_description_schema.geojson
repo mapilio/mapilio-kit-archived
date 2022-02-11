@@ -1,0 +1,341 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.618078,
+                    40.7396723
+                ]
+            },
+            "properties": {
+                "CaptureTime": "2021_11_18_13_41_50_000",
+                "Altitude": 76.103,
+                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
+                "Heading": 94.88357383371476,
+                "Orientation": 3,
+                "DeviceMake": "GoPro Max",
+                "DeviceModel": "GOPRO",
+                "ImageSize": "2704x2028",
+                "FoV": 100.4,
+                "PhotoUUID": "4548480e-13ce-4c5a-afac-414f3c80bcf2",
+                "filename": "GPAE1969.JPG",
+                "path": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.6183823,
+                    40.739652599972224
+                ]
+            },
+            "properties": {
+                "CaptureTime": "2021_11_18_13_41_51_000",
+                "Altitude": 76.005,
+                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
+                "Heading": 95.12027622982396,
+                "Orientation": 3,
+                "DeviceMake": "GoPro Max",
+                "DeviceModel": "GOPRO",
+                "ImageSize": "2704x2028",
+                "FoV": 100.4,
+                "PhotoUUID": "076b2d46-52cd-4cf1-9a93-53222a933e53",
+                "filename": "GPAE1970.JPG",
+                "path": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.618681299972224,
+                    40.73963229997222
+                ]
+            },
+            "properties": {
+                "CaptureTime": "2021_11_18_13_41_52_000",
+                "Altitude": 75.853,
+                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
+                "Heading": 95.13846839490083,
+                "Orientation": 3,
+                "DeviceMake": "GoPro Max",
+                "DeviceModel": "GOPRO",
+                "ImageSize": "2704x2028",
+                "FoV": 100.4,
+                "PhotoUUID": "b0a3c970-ffd5-424e-ad9e-9cfb2f070039",
+                "filename": "GPAE1971.JPG",
+                "path": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.61897629997222,
+                    40.7396122
+                ]
+            },
+            "properties": {
+                "CaptureTime": "2021_11_18_13_41_53_000",
+                "Altitude": 75.552,
+                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
+                "Heading": 95.39275858862169,
+                "Orientation": 3,
+                "DeviceMake": "GoPro Max",
+                "DeviceModel": "GOPRO",
+                "ImageSize": "2704x2028",
+                "FoV": 100.4,
+                "PhotoUUID": "f16458bc-fb64-4461-984a-c85cb72a0879",
+                "filename": "GPAE1972.JPG",
+                "path": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.619267099972223,
+                    40.7395914
+                ]
+            },
+            "properties": {
+                "CaptureTime": "2021_11_18_13_41_54_000",
+                "Altitude": 75.568,
+                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
+                "Heading": 95.43317129603696,
+                "Orientation": 3,
+                "DeviceMake": "GoPro Max",
+                "DeviceModel": "GOPRO",
+                "ImageSize": "2704x2028",
+                "FoV": 100.4,
+                "PhotoUUID": "f7a4e8a3-7275-49c4-af56-76f28a7c0087",
+                "filename": "GPAE1973.JPG",
+                "path": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.619569599972223,
+                    40.7395696
+                ]
+            },
+            "properties": {
+                "CaptureTime": "2021_11_18_13_41_55_000",
+                "Altitude": 75.646,
+                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
+                "Heading": 95.67280963005288,
+                "Orientation": 3,
+                "DeviceMake": "GoPro Max",
+                "DeviceModel": "GOPRO",
+                "ImageSize": "2704x2028",
+                "FoV": 100.4,
+                "PhotoUUID": "0f2c68a5-3f95-4280-b06f-4f0c223385be",
+                "filename": "GPAE1974.JPG",
+                "path": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.6198526,
+                    40.7395483
+                ]
+            },
+            "properties": {
+                "CaptureTime": "2021_11_18_13_41_56_000",
+                "Altitude": 75.763,
+                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
+                "Heading": 94.65553281493999,
+                "Orientation": 3,
+                "DeviceMake": "GoPro Max",
+                "DeviceModel": "GOPRO",
+                "ImageSize": "2704x2028",
+                "FoV": 100.4,
+                "PhotoUUID": "62921958-ad58-464a-bf62-e8e53a8d4f10",
+                "filename": "GPAE1975.JPG",
+                "path": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.6201346,
+                    40.73953089997222
+                ]
+            },
+            "properties": {
+                "CaptureTime": "2021_11_18_13_41_57_000",
+                "Altitude": 74.813,
+                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
+                "Heading": 95.13444685940789,
+                "Orientation": 3,
+                "DeviceMake": "GoPro Max",
+                "DeviceModel": "GOPRO",
+                "ImageSize": "2704x2028",
+                "FoV": 100.4,
+                "PhotoUUID": "23e734e0-6763-4948-8429-5bc0870c6845",
+                "filename": "GPAE1976.JPG",
+                "path": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.620407799972224,
+                    40.7395123
+                ]
+            },
+            "properties": {
+                "CaptureTime": "2021_11_18_13_41_58_000",
+                "Altitude": 74.657,
+                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
+                "Heading": 94.9744754854101,
+                "Orientation": 3,
+                "DeviceMake": "GoPro Max",
+                "DeviceModel": "GOPRO",
+                "ImageSize": "2704x2028",
+                "FoV": 100.4,
+                "PhotoUUID": "9579ce4a-011c-4b11-a3d1-e18b58458ba0",
+                "filename": "GPAE1977.JPG",
+                "path": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.6206868,
+                    40.739493899972224
+                ]
+            },
+            "properties": {
+                "CaptureTime": "2021_11_18_13_41_59_000",
+                "Altitude": 74.443,
+                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
+                "Heading": 94.98301455319023,
+                "Orientation": 3,
+                "DeviceMake": "GoPro Max",
+                "DeviceModel": "GOPRO",
+                "ImageSize": "2704x2028",
+                "FoV": 100.4,
+                "PhotoUUID": "abbfc2d6-bb6f-4d16-ac6e-c79792de9edc",
+                "filename": "GPAE1978.JPG",
+                "path": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.620941099972224,
+                    40.7394771
+                ]
+            },
+            "properties": {
+                "CaptureTime": "2021_11_18_13_42_00_000",
+                "Altitude": 74.301,
+                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
+                "Heading": 94.89751324389363,
+                "Orientation": 3,
+                "DeviceMake": "GoPro Max",
+                "DeviceModel": "GOPRO",
+                "ImageSize": "2704x2028",
+                "FoV": 100.4,
+                "PhotoUUID": "a7edf4b4-d92a-41cd-9107-8cc08291f3e5",
+                "filename": "GPAE1979.JPG",
+                "path": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.621186,
+                    40.7394612
+                ]
+            },
+            "properties": {
+                "CaptureTime": "2021_11_18_13_42_01_000",
+                "Altitude": 74.204,
+                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
+                "Heading": 94.9837757399277,
+                "Orientation": 3,
+                "DeviceMake": "GoPro Max",
+                "DeviceModel": "GOPRO",
+                "ImageSize": "2704x2028",
+                "FoV": 100.4,
+                "PhotoUUID": "b27ead22-0e30-44b0-9638-e0dd1ca36b26",
+                "filename": "GPAE1980.JPG",
+                "path": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.6214221,
+                    40.7394456
+                ]
+            },
+            "properties": {
+                "CaptureTime": "2021_11_18_13_42_02_000",
+                "Altitude": 74.048,
+                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
+                "Heading": 95.50309683259752,
+                "Orientation": 3,
+                "DeviceMake": "GoPro Max",
+                "DeviceModel": "GOPRO",
+                "ImageSize": "2704x2028",
+                "FoV": 100.4,
+                "PhotoUUID": "3d5d3016-6140-49cb-bcd5-5eb2733ed04f",
+                "filename": "GPAE1981.JPG",
+                "path": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.6216495,
+                    40.739429
+                ]
+            },
+            "properties": {
+                "CaptureTime": "2021_11_18_13_42_03_000",
+                "Altitude": 73.952,
+                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
+                "Heading": 96.19239789381521,
+                "Orientation": 3,
+                "DeviceMake": "GoPro Max",
+                "DeviceModel": "GOPRO",
+                "ImageSize": "2704x2028",
+                "FoV": 100.4,
+                "PhotoUUID": "ef70d8da-964e-43a5-b1ff-e489faa6578a",
+                "filename": "GPAE1982.JPG",
+                "path": ""
+            }
+        }
+    ]
+}
