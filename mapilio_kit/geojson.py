@@ -125,5 +125,5 @@ if __name__ == "__main__":
         feature_collection = desc_to_feature_collection(descs)
         print(json.dumps(feature_collection, indent=4))
 
-    with open("Test_Scripts/mapilio_image_description_2.json", "w") as outfile:
+    with open("schema/image_description_schema.geojson", "w") as outfile:
         outfile.write(json.dumps(feature_collection, indent=4))
