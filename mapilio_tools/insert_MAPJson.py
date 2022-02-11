@@ -138,7 +138,7 @@ def insert_MAPJson(
             LOG.warning("Skipping %s failed images", summary['Information']["failed_images"])
         else:
             raise RuntimeError(
-                f"Failed to process {summary['failed_images']} images. "
+                f"Failed to process {summary['Information']['failed_images']} images. "
                 f"Check {desc_path} for details. Specify --skip_process_errors to skip these errors"
             )
     LOG.info(f"Check {desc_path} for details")
