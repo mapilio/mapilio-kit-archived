@@ -2,11 +2,12 @@ import os
 import requests
 from typing import Union
 
-
 MAPILIO_GRAPH_API_ENDPOINT = os.getenv(
     "MAPILIO_GRAPH_API_ENDPOINT", "https://end.mapilio.com/api"
 )
-MAPILIO_GRAPH_API_ENDPOINT_DESCRIPTION = MAPILIO_GRAPH_API_ENDPOINT + '/function/mapilio/imagery/upload'
+MAPILIO_GRAPH_API_URL_FUNCTION = '/function/mapilio/imagery/'
+MAPILIO_GRAPH_API_ENDPOINT_UPLOAD = MAPILIO_GRAPH_API_ENDPOINT + MAPILIO_GRAPH_API_URL_FUNCTION + 'upload'
+MAPILIO_GRAPH_API_ENDPOINT_DOWNLOAD = MAPILIO_GRAPH_API_ENDPOINT + MAPILIO_GRAPH_API_URL_FUNCTION + 'uploadDetails'
 MAPILIO_UPLOAD_ENDPOINT_ZIP = "https://cdn.mapilio.com/upload/"
 
 
