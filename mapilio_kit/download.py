@@ -16,9 +16,7 @@ def download(
     :return:
     """
     print(organization_key)
-    print("\n")
     print(project_key)
-    print("\n")
     print(download_path)
-    print("\n")
     print(QUALITY)
+    print(MAPILIO_GRAPH_API_ENDPOINT_DOWNLOAD)

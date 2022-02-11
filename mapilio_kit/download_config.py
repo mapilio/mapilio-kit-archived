@@ -7,7 +7,7 @@ LOG.warning(f"Select Image Quality ")
 
 
 def main():
-    options = ["480", "720", "1080"]
+    options = ["1080", "480", "240"]
     terminal_menu = TerminalMenu(options)
     menu_entry_index = terminal_menu.show()
 
