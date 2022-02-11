@@ -11,21 +11,21 @@ def read_requirements():
 
 
 about = {}
-with open(os.path.join(here, 'mapilio_tools', '__init__.py'), 'r') as f:
+with open(os.path.join(here, 'mapilio_kit', '__init__.py'), 'r') as f:
     exec(f.read(), about)
 
 
-setup(name='mapilio_tools',
+setup(name='mapilio_kit',
       version=about['VERSION'],
       description='MAPILIO Image/Video Import Pipeline',
       url='https://github.com/mapilio/mapilio_tools',
       author='Visiosoft',
       license='BSD',
       python_requires='>=3.6',
-      packages=['mapilio_tools', 'mapilio_tools.commands'],
+      packages=['mapilio_kit', 'mapilio_kit.commands'],
       entry_points='''
       [console_scripts]
-      mapilio_tools=mapilio_tools.__main__:main
+      mapilio_kit=mapilio_kit.__main__:main
       ''',
       install_requires=read_requirements(),
 )
