@@ -48,7 +48,7 @@ cd ~
 python3 -m venv mapilio_venv
 source mapilio_venv/bin/activate
 git clone https://github.com/mapilio/mapilio-kit.git
-cd mapilio-uploader
+cd mapilio-kit
 python setup.py install --force
 mapilio_kit --version
 ```
