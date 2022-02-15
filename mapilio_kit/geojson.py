@@ -2,7 +2,7 @@ import typing as T
 
 import jsonschema
 
-from mapilio_tools import types
+from mapilio_kit import types
 
 
 def feature_collection_schema(features: dict) -> dict:
@@ -125,5 +125,5 @@ if __name__ == "__main__":
         feature_collection = desc_to_feature_collection(descs)
         print(json.dumps(feature_collection, indent=4))
 
-    with open("../test_scripts/mapilio_image_desc_geojson.json", "w") as outfile:
+    with open("schema/image_description_schema.geojson", "w") as outfile:
         outfile.write(json.dumps(feature_collection, indent=4))

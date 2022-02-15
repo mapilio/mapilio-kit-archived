@@ -12,9 +12,10 @@ from .commands import video_process
 from .commands import video_process_and_upload
 from .commands import zip
 from .commands import image_and_csv_upload
+from .commands import download
 
 # do not use __name__ here is because if you run tools as a module, __name__ will be "__main__"
-LOG = logging.getLogger("mapilio_tools")
+LOG = logging.getLogger("mapilio_kit")
 
 def logger_configuration(logger: logging.Logger, level, stream=None) -> None:
     formatter = logging.Formatter("%(asctime)s - %(levelname)-6s - %(message)s")
@@ -49,6 +50,11 @@ def general_arguments(parser, command):
             "import_path",
             help="Path to your images",
         )
+    elif command in ["download"]:
+        parser.add_argument(
+            "download_path",
+            help="Path to your images",
+        )
     elif command in ["zip"]:
         parser.add_argument(
             "import_path",
@@ -72,7 +78,6 @@ def general_arguments(parser, command):
         )
 
 def main():
-
     mapilio_tools_commands = [
         process,
         zip,
@@ -82,10 +87,11 @@ def main():
         video_process,
         video_process_and_upload,
         authenticate,
-        image_and_csv_upload
+        image_and_csv_upload,
+        download
     ]
     parser = argparse.ArgumentParser(
-        "mapilio_tools",
+        "mapilio_kit",
     )
     parser.add_argument(
         "--version",
