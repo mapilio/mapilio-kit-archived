@@ -18,7 +18,7 @@ import jsonschema
 
 from . import upload_api_v1, types, ipc, exif_write
 from .login import wrap_http_exception
-from .api_v1 import MAPILIO_GRAPH_API_ENDPOINT_DESCRIPTION
+from .api_v1 import MAPILIO_GRAPH_API_ENDPOINT_UPLOAD
 
 MIN_CHUNK_SIZE = 1024 * 1024 * 2  # 32MB
 MAX_CHUNK_SIZE = 1024 * 1024 * 16  # 64MB
@@ -118,7 +118,7 @@ def upload_desc(
 
         current_time = "{:%Y_%m_%d_%H_%M_%S}".format(datetime.now())
         try:
-            resp = requests.request("POST", url=MAPILIO_GRAPH_API_ENDPOINT_DESCRIPTION, headers=headers, data=payload)
+            resp = requests.request("POST", url=MAPILIO_GRAPH_API_ENDPOINT_UPLOAD, headers=headers, data=payload)
             with open(os.path.join(export_backup_path,
                                    f'{current_time}_backup_request_{organization_key}_{project_key}.json'), 'w') as f:
                 json.dump(payload, f)
