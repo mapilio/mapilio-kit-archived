@@ -21,7 +21,7 @@ Mapilio Tools is a library for processing and uploading images to [Visiosoft](ht
 ## Quickstart
 
 Download the latest `mapilio_kit` binaries for your platform
-here: https://github.com/mapilio/mapilio_kit/releases/tag/v0.0.1
+here: https://github.com/mapilio/mapilio_kit/releases/tag/v1.3.6
 
 See [more installation instructions](#installation) below.
 
@@ -39,14 +39,16 @@ To upload images to Mapilio, image `GPS` and `capture time` are minimally requir
 
 ## Installation
 
-### Installing via Pip
+### Installing via Pip on Ubuntu + 18.04 
 
 Python (3.6 and above) and git are required:
 
 ```shell
-python3 -m pip install --upgrade git+https://github.com/mapilio/mapilio_kit
+git clone https://github.com/mapilio/mapilio-kit.git
+cd mapilio-kit
+chmod +x install.sh
+source ./install.sh
 ```
-
 If you see "Permission Denied" error, try to run the command above with `sudo`
 
 ## Video Support
@@ -254,5 +256,5 @@ mapilio_kit download  "/path/to/download/directory" --organization_key=$o_key --
 As the output, the `procss` command generates `mapilio_image_description.json` under the image directory by default.
 The file contains an array of objects, each of which records the metadata of one image in the image directory. The
 metadata is validated
-by [the image description schema](https://github.com/mapilio/mapilio-uploader/schema/image_description_schema.json)
+by [the image description schema](https://github.com/mapilio/mapilio-uploader/tree/master/schema)
 . Here is a minimal example:
