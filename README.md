@@ -49,6 +49,11 @@ cd mapilio-kit
 chmod +x install.sh
 source ./install.sh
 ```
+or
+```bash
+python3 -m pip install --upgrade git+https://github.com/mapilio/mapilio-kit
+```
+
 If you see "Permission Denied" error, try to run the command above with `sudo`
 
 ## Video Support
