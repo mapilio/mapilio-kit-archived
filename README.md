@@ -21,7 +21,7 @@ Mapilio Tools is a library for processing and uploading images to [Visiosoft](ht
 ## Quickstart
 
 Download the latest `mapilio_kit` binaries for your platform
-here: https://github.com/mapilio/mapilio_kit/releases/tag/v0.0.1
+here: https://github.com/mapilio/mapilio_kit/releases/tag/v1.3.6
 
 See [more installation instructions](#installation) below.
 
@@ -47,7 +47,7 @@ Python (3.6 and above) and git are required:
 cd ~
 python3 -m venv mapilio_venv
 source mapilio_venv/bin/activate
-git clone https://github.com/mapilio/mapilio-uploader.git
+git clone https://github.com/mapilio/mapilio-kit.git
 cd mapilio-uploader
 python setup.py install --force
 mapilio_kit --version
