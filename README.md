@@ -44,13 +44,10 @@ To upload images to Mapilio, image `GPS` and `capture time` are minimally requir
 Python (3.6 and above) and git are required:
 
 ```shell
-cd ~
-python3 -m venv mapilio_venv
-source mapilio_venv/bin/activate
 git clone https://github.com/mapilio/mapilio-kit.git
 cd mapilio-kit
-python setup.py install --force
-mapilio_kit --version
+chmod +x install.sh
+source ./install.sh
 ```
 If you see "Permission Denied" error, try to run the command above with `sudo`
 
