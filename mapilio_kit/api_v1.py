@@ -11,6 +11,10 @@ MAPILIO_GRAPH_API_ENDPOINT_DOWNLOAD = MAPILIO_GRAPH_API_ENDPOINT + MAPILIO_GRAPH
 MAPILIO_UPLOAD_ENDPOINT_ZIP = "https://cdn.mapilio.com/upload/"
 
 
+URL_Sequences = "https://end.mapilio.com/api/function/mapilio/imagery/getUploadsWithProject"
+URL_Images = "https://end.mapilio.com/api/function/mapilio/imagery/getUploadsImagesWithProject"
+URL_CDN = "https://cdn.mapilio.com/im/"
+
 def get_upload_token(email: str, password: str) -> dict:
     resp = requests.post(
         f"{MAPILIO_GRAPH_API_ENDPOINT}/login",
