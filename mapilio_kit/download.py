@@ -6,11 +6,13 @@ import requests
 import logging
 import os.path
 import urllib.request
-
+import typing as T
 
 from .api_v1 import URL_Sequences, URL_CDN, URL_Images
 
 LOG = logging.getLogger(__name__)
+
+MAX_LIMIT = 999999
 
 
 def download(
@@ -33,18 +35,21 @@ def download(
     get_quality = select_quality()
     user_items = fetch_user_items(user_name, organization_key)
 
-    sequences = get_seqeuence_detail_request(
+    sequences = get_seqeuence_and_image_detail_request(
         organization_key=organization_key,
         project_key=project_key,
-        bearer=user_items['user_upload_token']
+        bearer=user_items['user_upload_token'],
+        type="sequence"
     )
     save_base_path = os.path.join(download_path, "Mapilio", organization_key, project_key)
     for seqeunce in sequences:
-        images_details = get_image_detail_request(
+        images_details = get_seqeuence_and_image_detail_request(
             organization_key=organization_key,
             project_key=project_key,
             bearer=user_items['user_upload_token'],
-            sequence_uuid=seqeunce['sequence_uuid'])
+            sequence_uuid=seqeunce['sequence_uuid'],
+            type="image_detail"
+        )
         end_save_path = os.path.join(save_base_path, seqeunce['sequence_uuid'])
         for image_detail in tqdm(images_details):
             save_image(
@@ -56,10 +61,12 @@ def download(
     LOG.info("All Sequences Has Downloaded!")
 
 
-def get_seqeuence_detail_request(
+def get_seqeuence_and_image_detail_request(
         organization_key: str,
         project_key: str,
-        bearer: str
+        bearer: str,
+        sequence_uuid: T.Optional[str] = None,
+        type="sequence"
 ):
     """
     This method get SequenceUUID according to organization key and project key
@@ -67,63 +74,28 @@ def get_seqeuence_detail_request(
         organization_key:
         project_key:
         bearer: user auth bearer key
+        sequence_uuid: each packet unique id optional
+        type: sequence or image key value
 
-    Returns:
-
-    """
-    payload = json.dumps({
-        "options": {
-            "parameters": {
-                "organization_key": organization_key,
-                "project_key": project_key
-            },
-            "limit": 9999999
-        }
-    })
-    headers = {
-        'Authorization': f'Bearer {bearer}',
-        'Content-Type': 'application/json'
-    }
-    response = requests.request("GET", URL_Sequences, headers=headers, data=payload)
-    response = json.loads(response.text)
-
-    return response['data']
-
-
-def get_image_detail_request(
-        organization_key: str,
-        project_key: str,
-        bearer: str,
-        sequence_uuid: str
-):
-    """
-
-    Args:
-        organization_key:
-        project_key:
-        bearer:
-        sequence_uuid:
-
-    Returns:
+    Returns: json data
 
     """
-
     payload = json.dumps({
         "options": {
             "parameters": {
                 "organization_key": organization_key,
                 "project_key": project_key,
-                "sequence_uuid": sequence_uuid
+                "sequence_uuid": "None" if type == "sequence" else sequence_uuid
             },
-            "limit": 9999999
+            "limit": MAX_LIMIT
         }
     })
     headers = {
         'Authorization': f'Bearer {bearer}',
         'Content-Type': 'application/json'
     }
-
-    response = requests.request("GET", URL_Images, headers=headers, data=payload)
+    URL = URL_Sequences if type == "sequence" else URL_Images
+    response = requests.request("GET", URL, headers=headers, data=payload)
     response = json.loads(response.text)
 
     return response['data']
@@ -150,9 +122,10 @@ def save_image(
     image_path = os.path.join(end_save_path, filename)
 
     if os.path.exists(image_path):
-        LOG.info(f"The image already existed!")
+        pass
+        # LOG.info(f"The image already existed!")
     else:
         if not os.path.exists(end_save_path):
-            LOG.info(f"The Folder does not exist! -->> New Folder is creating")
+            # LOG.info(f"The Folder does not exist! -->> New Folder is creating")
             os.makedirs(end_save_path)
         urllib.request.urlretrieve(image_full_url, image_path)
