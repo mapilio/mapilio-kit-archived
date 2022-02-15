@@ -1,6 +1,18 @@
 ## Mapilio Kit
 
-Mapilio Tools is a library for processing and uploading images to [Visiosoft](https://www.visiosoft.com.tr/).
+Mapilio Tools is a library for processing and uploading images to [Mapilio](https://www.mapilio.com/).
+
+```mermaid
+  graph TD;
+      Installation--install.sh--> Authenticate;
+      Authenticate--mapilio_kit authenticate--> Operation{Operation};
+      Operation--upload-->Uploader;
+      Operation--download-->Downloader;
+      Uploader--video_process_and_upload-->GoPro_Video;
+      Uploader--process_and_upload-->GoPro_Timelaps;
+      Uploader--image_and_csv_upload-->Panoromic_Images;
+      Downloader--download-->SaveUploadedImages
+```
 
 <!--ts-->
 
@@ -17,6 +29,8 @@ Mapilio Tools is a library for processing and uploading images to [Visiosoft](ht
 * [Advanced Usage](#advanced-usage)
    - [Image Description](#image-description)
 <!--te-->	
+
+
 
 ## Quickstart
 
