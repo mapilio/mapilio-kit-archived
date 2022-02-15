@@ -25,7 +25,7 @@ setup(name='mapilio_kit',
       packages=['mapilio_kit', 'mapilio_kit.commands'],
       entry_points='''
       [console_scripts]
-      mapilio-kit=mapilio_kit.__main__:main
+      mapilio_kit=mapilio_kit.__main__:main
       ''',
       install_requires=read_requirements(),
 )
