@@ -254,36 +254,5 @@ mapilio_kit download  "/path/to/download/directory" --organization_key=$o_key --
 As the output, the `procss` command generates `mapilio_image_description.json` under the image directory by default.
 The file contains an array of objects, each of which records the metadata of one image in the image directory. The
 metadata is validated
-by [the image description schema](https://github.com/mapilio/mapilio_kit/tree/master/schema/image_description_schema.json)
+by [the image description schema](https://github.com/mapilio/mapilio-uploader/schema/image_description_schema.json)
 . Here is a minimal example:
-
-```json
-[
-    {
-        "Latitude": 41.0913264,
-        "Longitude": 28.8023691,
-        "CaptureTime": "2021_10_04_13_26_53_744",
-        "Altitude": 94.04,
-        "Heading": 139.24381082778075,
-        "SequenceUUID": "9c622173-4561-48f8-a1ed-7ad05e45a8ac",
-        "Orientation": 1,
-        "DeviceMake": "none",
-        "DeviceModel": "none",
-        "PhotoUUID": "2a0e0105-d733-4d34-bb16-a80b24840a34",
-        "filename": "GH010007.MP4/GH010007_000001.jpg"
-    },
-    {
-        "Latitude": 41.0913255,
-        "Longitude": 28.80237012918561,
-        "CaptureTime": "2021_10_04_13_26_55_744",
-        "Altitude": 94.01383712277801,
-        "Heading": 162.62044819867742,
-        "SequenceUUID": "9c622173-4561-48f8-a1ed-7ad05e45a8ac",
-        "Orientation": 1,
-        "DeviceMake": "none",
-        "DeviceModel": "none",
-        "PhotoUUID": "5b9ac530-ba05-448f-b96b-09dd900b3ae8",
-        "filename": "GH010007.MP4/GH010007_000002.jpg"
-    }
-]
-```
