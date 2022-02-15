@@ -36,3 +36,6 @@ simple-term-menu = "^1.4.1"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+mapilio_kit = "mapilio_kit.__main__:main"
