@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mapilio-kit"
-version = "1.3.5"
+version = "1.3.6"
 description = "MAPILIO upload Image/Video Import Pipeline and download your organization/projects"
 authors = ["mcv_ <murat@visiosoft.com.tr>"]
 readme = "README.md"
