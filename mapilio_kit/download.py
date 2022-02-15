@@ -22,7 +22,6 @@ def download(
         user_name: str,
 ):
     """
-
     Args:
         organization_key: your organization key, you can get your dashboard
         project_key: your organization key, you can get your dashboard
@@ -108,7 +107,6 @@ def save_image(
         quality: str
 ):
     """
-
     Args:
         uploaded_hash:
         filename:

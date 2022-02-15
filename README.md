@@ -234,12 +234,17 @@ mapilio_kit upload "path/to/sample_imagesMP4/" --desc_path "description.json"
 
 If you download your uploaded project to your organization use this command.
 
+
 ```bash
 export o_key="281e13Dsdfsd2asd234fddafSXaHGSADFf34"
 export p_key="88a1Csa"
-mapilio_kit download  "/path/to/download/directory" --organization_key=$o_key --project_key=$p_key
+mapilio_kit download  "/path/to/download/directory" --organization_key=$o_key --project_key=$p_key --user_name "mapilio@example.com"
 ```
-
+- After run script select image quality
+   - 240
+   - 480
+   - 1080
+- Check the `/path/to/download/directory/MAPILIO/o_key/p_key/[sequence_uuid]`
 
 
 ## Advanced Usage
