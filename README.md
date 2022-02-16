@@ -1,6 +1,6 @@
 ## Mapilio Kit
 
-Mapilio Tools is a library for processing and uploading images to [mapilio](https://www.visiosoft.com.tr/).
+Mapilio Tools is a library for processing and uploading images to [Mapilio](https://www.mapilio.com/).
 
 <!--ts-->
 
