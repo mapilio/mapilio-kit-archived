@@ -22,10 +22,6 @@ def edit_config(
 
     if jwt:
         if user_name is None or user_key is None:
-            # FIXME: v4 support here
-            # user = api_v3.get_user(jwt)
-            # user_name = user["username"]
-            # user_key = user["key"]
             pass
 
         user_items = {
@@ -78,7 +74,7 @@ def edit_config(
 
         if not upload_token:
             raise RuntimeError(
-                f"Authentication failed for username {user_name}, please try again."
+                f"Authentication failed for mail {user_name}, please try again."
             )
 
         user_items = {
