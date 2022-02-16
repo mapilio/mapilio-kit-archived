@@ -30,8 +30,6 @@ Mapilio Tools is a library for processing and uploading images to [Mapilio](http
    - [Image Description](#image-description)
 <!--te-->	
 
-
-
 ## Quickstart
 
 Download the latest `mapilio_kit` binaries for your platform

@@ -17,9 +17,9 @@ with open(os.path.join(here, 'mapilio_kit', '__init__.py'), 'r') as f:
 
 setup(name='mapilio_kit',
       version=about['VERSION'],
-      description='MAPILIO Image/Video Import Pipeline',
-      url='https://github.com/mapilio/mapilio_tools',
-      author='Visiosoft',
+      description='MAPILIO Image/Video Upload and Download Pipeline',
+      url='https://github.com/mapilio/mapilio-kit',
+      author='Mapilio',
       license='BSD',
       python_requires='>=3.6',
       packages=['mapilio_kit', 'mapilio_kit.commands'],
