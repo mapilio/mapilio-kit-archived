@@ -2,12 +2,8 @@ import configparser
 import os
 import typing as T
 
-from . import api_v1, types
+from . import  types
 
-
-# _CLIENT_ID = api_v1.MAPLIO_CLIENT_TOKEN
-# # Windows is not happy with | so we convert MLY|ID|TOKEN to MLY_ID_TOKEN
-# _CLIENT_ID = _CLIENT_ID.replace("|", "_", 2)
 
 MAPILIO_CONFIG_PATH = os.getenv(
     "MAPILIO_CONFIG_PATH",

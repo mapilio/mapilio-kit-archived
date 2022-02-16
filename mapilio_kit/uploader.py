@@ -98,7 +98,7 @@ def upload_desc(
     summary = list(image_desc).pop()
     summary['Information']['size'] = size
     image_desc = list(image_desc)[:-1]
-    for _, val in groupby(image_desc, key_func):
+    for _, val in tqdm(groupby(image_desc, key_func), tqdm_desc="Exif Uploading"):
         description_chunk = list(val)
         payload = json.dumps({
             "options": {
@@ -126,7 +126,7 @@ def upload_desc(
             if not resp.status_code // 100 == 2:
                 LOG.warning(resp.text)
                 return f"Error: Unexpected response {resp}"
-            print("Imagery Exif Successfully Has Been Uploaded")
+            # print("Imagery Exif Successfully Has Been Uploaded")
         except requests.exceptions.HTTPError as e:
             print(e.response.text)
 
