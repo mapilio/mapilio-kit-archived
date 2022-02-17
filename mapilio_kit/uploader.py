@@ -68,14 +68,16 @@ def _validate_descs(image_dir: str, image_descs: T.List[types.ImageDescriptionJS
 
 
 def upload_desc(
+        hash: str,
         image_desc: T.List[types.ImageDescriptionJSON],
         user_items: types.User,
         organization_key: T.Optional[str] = None,
         project_key: T.Optional[str] = None,
-        size: dict = None,
+        size: str = None,
         backup_path: str = os.path.join(os.path.expanduser('~'), '.config', 'mapilio', 'configs'),
 ):
     """
+    :param hash: image secret path
     :param image_desc: description file path
     :param user_items: get user_upload_token for header bearer
     :param organization_key: will be upload organization key
@@ -94,15 +96,14 @@ def upload_desc(
     export_backup_path = os.path.join(backup_path, user_items['SettingsUsername'])
 
     summary = list(image_desc).pop()
-    summary['Information']['Sequences'] = size  # noqa
+    summary['Information']['size'] = size
     image_desc = list(image_desc)[:-1]
-    image_desc = sorted(image_desc, key=key_func)
     for _, val in tqdm(groupby(image_desc, key_func), desc="Exif Uploading"):
         description_chunk = list(val)
         payload = json.dumps({
             "options": {
                 "parameters": {
-                    "hash": "hash",
+                    "hash": hash,
                     "organization_key": organization_key if organization_key else "",
                     "project_key": project_key if project_key else "",
                     "json_data": description_chunk,
@@ -141,10 +142,11 @@ def upload_image_dir(
     jsonschema.validate(instance=user_items, schema=types.UserItemSchema)
     _validate_descs(image_dir, image_descs)
 
-    seq_info = {}
+    hash = {}
+    size = {}
     sequences = _group_sequences_by_uuid(image_descs)
     for sequence_idx, images in enumerate(sequences.values()):
-        sequence_information = _zip_and_upload_single_sequence(
+        uploaded_hash, entity_size = _zip_and_upload_single_sequence(
             image_dir,
             images,
             user_items,
@@ -155,9 +157,10 @@ def upload_image_dir(
             dry_run=dry_run,
         )
         sequences_uuid = list(sequences.keys())[sequence_idx]
-        seq_info[sequences_uuid] = sequence_information
+        hash[sequences_uuid] = uploaded_hash
+        size[sequences_uuid] = entity_size
 
-    return seq_info
+    return hash, size
 
 
 def zip_image_dir(
@@ -377,7 +380,7 @@ def _zip_and_upload_single_sequence(
         organization_key: str = None,
         project_key: str = None,
         dry_run=False,
-) -> dict:
+) -> Tuple[Any, dict]:
     def _build_desc(desc: str) -> str:
         return f"{desc} {sequence_idx + 1}/{total_sequences}"
 
@@ -394,7 +397,7 @@ def _zip_and_upload_single_sequence(
             image_dir, sequences, fp, tqdm_desc=_build_desc("Compressing")
         )
 
-        fp.seek(0, io.SEEK_END)  # noqa
+        fp.seek(0, io.SEEK_END) # noqa
         entity_size = fp.tell()
 
         # chunk size
@@ -410,7 +413,12 @@ def _zip_and_upload_single_sequence(
                 "total_sequences": total_sequences,
             }
         )
-        uploaded_hash = _upload_zipfile_fp(
+        sequence_info = {
+            "count": len(sequences),
+            "size": entity_size / 1024 ** 2
+        }
+
+        return _upload_zipfile_fp(
             user_items,
             fp,
             entity_size,
@@ -421,11 +429,4 @@ def _zip_and_upload_single_sequence(
             tqdm_desc=_build_desc("Uploading"),
             notifier=notifier,
             dry_run=dry_run,
-        )
-        sequence_info = {
-            "count": len(sequences),
-            "size": 48523556 / 1024 ** 2,
-            "hash": uploaded_hash
-        }
-
-        return sequence_info
+        ), sequence_info
