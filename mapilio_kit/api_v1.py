@@ -17,8 +17,8 @@ MAPILIO_UPLOAD_ENDPOINT_ZIP = MAPILIO_CDN_ENDPOINT + "upload/"
 
 # GET METHODS noqa
 URL_CDN = MAPILIO_CDN_ENDPOINT + "im/"
-URL_Sequences = MAPILIO_GRAPH_API_URL_FUNCTION + "getUploadsWithProject/"
-URL_Images = MAPILIO_GRAPH_API_URL_FUNCTION + "getUploadsImagesWithProject/"
+URL_Sequences = MAPILIO_GRAPH_API_ENDPOINT + MAPILIO_GRAPH_API_URL_FUNCTION + "getUploadsWithProject/"
+URL_Images = MAPILIO_GRAPH_API_ENDPOINT + MAPILIO_GRAPH_API_URL_FUNCTION + "getUploadsImagesWithProject/"
 
 
 def get_upload_token(email: str, password: str) -> dict:
