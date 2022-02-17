@@ -182,8 +182,7 @@ mapilio_kit upload "path/to/images/" \
 
 #### 360 panorama image upload command
 
-CSV format must be
-above [panoramic image description schema](https://github.com/mapilio/mapilio-uploader/tree/master/schema/panoromic_image_description_shecma.csv)
+Check the CSV format [panoramic image description schema](https://github.com/mapilio/mapilio-uploader/tree/master/schema/panoromic_image_description_shecma.csv)
 
 ```shell
 mapilio_kit image_and_csv_upload "path/to/images" --csv_path "path/to/test.csv" --user_name "example@mapilio.com"
