@@ -96,8 +96,9 @@ def upload_desc(
     export_backup_path = os.path.join(backup_path, user_items['SettingsUsername'])
 
     summary = list(image_desc).pop()
-    summary['Information']['size'] = size
+    summary['Information']['size'] = size # noqa
     image_desc = list(image_desc)[:-1]
+    image_desc = sorted(image_desc, key=key_func)
     for _, val in tqdm(groupby(image_desc, key_func), desc="Exif Uploading"):
         description_chunk = list(val)
         payload = json.dumps({
