@@ -98,7 +98,7 @@ def upload_desc(
     summary = list(image_desc).pop()
     summary['Information']['size'] = size
     image_desc = list(image_desc)[:-1]
-    for _, val in tqdm(groupby(image_desc, key_func), tqdm_desc="Exif Uploading"):
+    for _, val in tqdm(groupby(image_desc, key_func), desc="Exif Uploading"):
         description_chunk = list(val)
         payload = json.dumps({
             "options": {
