@@ -1,341 +1,303 @@
 {
-    "type": "FeatureCollection",
-    "features": [
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    30.618078,
-                    40.7396723
-                ]
-            },
-            "properties": {
-                "CaptureTime": "2021_11_18_13_41_50_000",
-                "Altitude": 76.103,
-                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
-                "Heading": 94.88357383371476,
-                "Orientation": 3,
-                "DeviceMake": "GoPro Max",
-                "DeviceModel": "GOPRO",
-                "ImageSize": "2704x2028",
-                "FoV": 100.4,
-                "PhotoUUID": "4548480e-13ce-4c5a-afac-414f3c80bcf2",
-                "filename": "GPAE1969.JPG",
-                "path": ""
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    30.6183823,
-                    40.739652599972224
-                ]
-            },
-            "properties": {
-                "CaptureTime": "2021_11_18_13_41_51_000",
-                "Altitude": 76.005,
-                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
-                "Heading": 95.12027622982396,
-                "Orientation": 3,
-                "DeviceMake": "GoPro Max",
-                "DeviceModel": "GOPRO",
-                "ImageSize": "2704x2028",
-                "FoV": 100.4,
-                "PhotoUUID": "076b2d46-52cd-4cf1-9a93-53222a933e53",
-                "filename": "GPAE1970.JPG",
-                "path": ""
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    30.618681299972224,
-                    40.73963229997222
-                ]
-            },
-            "properties": {
-                "CaptureTime": "2021_11_18_13_41_52_000",
-                "Altitude": 75.853,
-                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
-                "Heading": 95.13846839490083,
-                "Orientation": 3,
-                "DeviceMake": "GoPro Max",
-                "DeviceModel": "GOPRO",
-                "ImageSize": "2704x2028",
-                "FoV": 100.4,
-                "PhotoUUID": "b0a3c970-ffd5-424e-ad9e-9cfb2f070039",
-                "filename": "GPAE1971.JPG",
-                "path": ""
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    30.61897629997222,
-                    40.7396122
-                ]
-            },
-            "properties": {
-                "CaptureTime": "2021_11_18_13_41_53_000",
-                "Altitude": 75.552,
-                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
-                "Heading": 95.39275858862169,
-                "Orientation": 3,
-                "DeviceMake": "GoPro Max",
-                "DeviceModel": "GOPRO",
-                "ImageSize": "2704x2028",
-                "FoV": 100.4,
-                "PhotoUUID": "f16458bc-fb64-4461-984a-c85cb72a0879",
-                "filename": "GPAE1972.JPG",
-                "path": ""
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    30.619267099972223,
-                    40.7395914
-                ]
-            },
-            "properties": {
-                "CaptureTime": "2021_11_18_13_41_54_000",
-                "Altitude": 75.568,
-                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
-                "Heading": 95.43317129603696,
-                "Orientation": 3,
-                "DeviceMake": "GoPro Max",
-                "DeviceModel": "GOPRO",
-                "ImageSize": "2704x2028",
-                "FoV": 100.4,
-                "PhotoUUID": "f7a4e8a3-7275-49c4-af56-76f28a7c0087",
-                "filename": "GPAE1973.JPG",
-                "path": ""
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    30.619569599972223,
-                    40.7395696
-                ]
-            },
-            "properties": {
-                "CaptureTime": "2021_11_18_13_41_55_000",
-                "Altitude": 75.646,
-                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
-                "Heading": 95.67280963005288,
-                "Orientation": 3,
-                "DeviceMake": "GoPro Max",
-                "DeviceModel": "GOPRO",
-                "ImageSize": "2704x2028",
-                "FoV": 100.4,
-                "PhotoUUID": "0f2c68a5-3f95-4280-b06f-4f0c223385be",
-                "filename": "GPAE1974.JPG",
-                "path": ""
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    30.6198526,
-                    40.7395483
-                ]
-            },
-            "properties": {
-                "CaptureTime": "2021_11_18_13_41_56_000",
-                "Altitude": 75.763,
-                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
-                "Heading": 94.65553281493999,
-                "Orientation": 3,
-                "DeviceMake": "GoPro Max",
-                "DeviceModel": "GOPRO",
-                "ImageSize": "2704x2028",
-                "FoV": 100.4,
-                "PhotoUUID": "62921958-ad58-464a-bf62-e8e53a8d4f10",
-                "filename": "GPAE1975.JPG",
-                "path": ""
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    30.6201346,
-                    40.73953089997222
-                ]
-            },
-            "properties": {
-                "CaptureTime": "2021_11_18_13_41_57_000",
-                "Altitude": 74.813,
-                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
-                "Heading": 95.13444685940789,
-                "Orientation": 3,
-                "DeviceMake": "GoPro Max",
-                "DeviceModel": "GOPRO",
-                "ImageSize": "2704x2028",
-                "FoV": 100.4,
-                "PhotoUUID": "23e734e0-6763-4948-8429-5bc0870c6845",
-                "filename": "GPAE1976.JPG",
-                "path": ""
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    30.620407799972224,
-                    40.7395123
-                ]
-            },
-            "properties": {
-                "CaptureTime": "2021_11_18_13_41_58_000",
-                "Altitude": 74.657,
-                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
-                "Heading": 94.9744754854101,
-                "Orientation": 3,
-                "DeviceMake": "GoPro Max",
-                "DeviceModel": "GOPRO",
-                "ImageSize": "2704x2028",
-                "FoV": 100.4,
-                "PhotoUUID": "9579ce4a-011c-4b11-a3d1-e18b58458ba0",
-                "filename": "GPAE1977.JPG",
-                "path": ""
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    30.6206868,
-                    40.739493899972224
-                ]
-            },
-            "properties": {
-                "CaptureTime": "2021_11_18_13_41_59_000",
-                "Altitude": 74.443,
-                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
-                "Heading": 94.98301455319023,
-                "Orientation": 3,
-                "DeviceMake": "GoPro Max",
-                "DeviceModel": "GOPRO",
-                "ImageSize": "2704x2028",
-                "FoV": 100.4,
-                "PhotoUUID": "abbfc2d6-bb6f-4d16-ac6e-c79792de9edc",
-                "filename": "GPAE1978.JPG",
-                "path": ""
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    30.620941099972224,
-                    40.7394771
-                ]
-            },
-            "properties": {
-                "CaptureTime": "2021_11_18_13_42_00_000",
-                "Altitude": 74.301,
-                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
-                "Heading": 94.89751324389363,
-                "Orientation": 3,
-                "DeviceMake": "GoPro Max",
-                "DeviceModel": "GOPRO",
-                "ImageSize": "2704x2028",
-                "FoV": 100.4,
-                "PhotoUUID": "a7edf4b4-d92a-41cd-9107-8cc08291f3e5",
-                "filename": "GPAE1979.JPG",
-                "path": ""
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    30.621186,
-                    40.7394612
-                ]
-            },
-            "properties": {
-                "CaptureTime": "2021_11_18_13_42_01_000",
-                "Altitude": 74.204,
-                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
-                "Heading": 94.9837757399277,
-                "Orientation": 3,
-                "DeviceMake": "GoPro Max",
-                "DeviceModel": "GOPRO",
-                "ImageSize": "2704x2028",
-                "FoV": 100.4,
-                "PhotoUUID": "b27ead22-0e30-44b0-9638-e0dd1ca36b26",
-                "filename": "GPAE1980.JPG",
-                "path": ""
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    30.6214221,
-                    40.7394456
-                ]
-            },
-            "properties": {
-                "CaptureTime": "2021_11_18_13_42_02_000",
-                "Altitude": 74.048,
-                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
-                "Heading": 95.50309683259752,
-                "Orientation": 3,
-                "DeviceMake": "GoPro Max",
-                "DeviceModel": "GOPRO",
-                "ImageSize": "2704x2028",
-                "FoV": 100.4,
-                "PhotoUUID": "3d5d3016-6140-49cb-bcd5-5eb2733ed04f",
-                "filename": "GPAE1981.JPG",
-                "path": ""
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    30.6216495,
-                    40.739429
-                ]
-            },
-            "properties": {
-                "CaptureTime": "2021_11_18_13_42_03_000",
-                "Altitude": 73.952,
-                "SequenceUUID": "791c86bf-19b9-4b54-a19c-aa60f2290be0",
-                "Heading": 96.19239789381521,
-                "Orientation": 3,
-                "DeviceMake": "GoPro Max",
-                "DeviceModel": "GOPRO",
-                "ImageSize": "2704x2028",
-                "FoV": 100.4,
-                "PhotoUUID": "ef70d8da-964e-43a5-b1ff-e489faa6578a",
-                "filename": "GPAE1982.JPG",
-                "path": ""
-            }
-        }
-    ]
+	"type": "FeatureCollection",
+	"features": [{
+			"type": "Feature",
+			"properties": {
+				"Latitude": 41.0913264,
+				"Longitude": 28.8023691,
+				"CaptureTime": "4.10.2021",
+				"Altitude": 94.04,
+				"Heading": 139.56724,
+				"SequenceUUID": "9c622173-4561-48f8-a1ed-7ad05e45a8ac",
+				"Orientation": 1,
+				"DeviceMake": "Sony",
+				"DeviceModel": "Ladybug",
+				"PhotoUUID": "2a0e0105-d733-4d34-bb16-a80b24840a34",
+				"filename": "GPAD1108.JPG",
+				"path": ""
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					28.802393898367878,
+					41.09129970120146
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"Latitude": 41.091328,
+				"Longitude": 28.8023692,
+				"CaptureTime": "4.10.2021",
+				"Altitude": 94.04,
+				"Heading": 145.24381,
+				"SequenceUUID": "9c622173-4561-48f8-a1ed-7ad05e45a8ac",
+				"Orientation": 1,
+				"DeviceMake": "Sony",
+				"DeviceModel": "Ladybug",
+				"PhotoUUID": "2a0e0105-d733-4d34-bb16-a80b24840a35",
+				"filename": "GPAD1109.JPG",
+				"path": ""
+
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					28.802391216158863,
+					41.09132092676159
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"Latitude": 41.091329,
+				"Longitude": 28.8023693,
+				"CaptureTime": "4.10.2021",
+				"Altitude": 94.04,
+				"Heading": 148.65232,
+				"SequenceUUID": "9c622173-4561-48f8-a1ed-7ad05e45a8ac",
+				"Orientation": 1,
+				"DeviceMake": "Sony",
+				"DeviceModel": "Ladybug",
+				"PhotoUUID": "2a0e0105-d733-4d34-bb16-a80b24840a36",
+				"filename": "GPAD1110.JPG",
+				"path": ""
+
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					28.802388533949852,
+					41.09133457176091
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"Latitude": 41.09133,
+				"Longitude": 28.8023694,
+				"CaptureTime": "4.10.2021",
+				"Altitude": 94.04,
+				"Heading": 155.2525322,
+				"SequenceUUID": "9c622173-4561-48f8-a1ed-7ad05e45a8ac",
+				"Orientation": 1,
+				"DeviceMake": "Sony",
+				"DeviceModel": "Ladybug",
+				"PhotoUUID": "2a0e0105-d733-4d34-bb16-a80b24840a37",
+				"filename": "GPAD1111.JPG",
+				"path": ""
+
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					28.80238819867372,
+					41.09134745870209
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"Latitude": 41.091331,
+				"Longitude": 28.8023695,
+				"CaptureTime": "4.10.2021",
+				"Altitude": 94.04,
+				"Heading": 152.352413,
+				"SequenceUUID": "9c622173-4561-48f8-a1ed-7ad05e45a8ac",
+				"Orientation": 1,
+				"DeviceMake": "Sony",
+				"DeviceModel": "Ladybug",
+				"PhotoUUID": "2a0e0105-d733-4d34-bb16-a80b24840a38",
+				"filename": "GPAD1112.JPG",
+				"path": ""
+
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					28.802385181188583,
+					41.09135933490057
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"Latitude": 41.0913232,
+				"Longitude": 28.8023696,
+				"CaptureTime": "4.10.2021",
+				"Altitude": 94.04,
+				"Heading": 158.8278242,
+				"SequenceUUID": "9c622173-4561-48f8-a1ed-7ad05e45a8ac",
+				"Orientation": 1,
+				"DeviceMake": "Sony",
+				"DeviceModel": "Ladybug",
+				"PhotoUUID": "2a0e0105-d733-4d34-bb16-a80b24840a39",
+				"filename": "GPAD1113.JPG",
+				"path": ""
+
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					28.802397921681404,
+					41.091282013229446
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"Latitude": 41.0913234,
+				"Longitude": 28.8023697,
+				"CaptureTime": "4.10.2021",
+				"Altitude": 94.04,
+				"Heading": 172.86456,
+				"SequenceUUID": "9c622173-4561-48f8-a1ed-7ad05e45a8ac",
+				"Orientation": 1,
+				"DeviceMake": "Sony",
+				"DeviceModel": "Ladybug",
+				"PhotoUUID": "2a0e0105-d733-4d34-bb16-a80b24840a40",
+				"filename": "GPAD1114.JPG",
+				"path": ""
+
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					28.80239926278591,
+					41.091264072567256
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"Latitude": 42.091324,
+				"Longitude": 29.8023697,
+				"CaptureTime": "4.10.2021",
+				"Altitude": 95.04,
+				"Heading": 173.86456,
+				"SequenceUUID": "10c622173-4561-48f8-a1ed-7ad05e45a8ac",
+				"Orientation": 1,
+				"DeviceMake": "Sony",
+				"DeviceModel": "Ladybug",
+				"PhotoUUID": "2a0e0105-d733-4d34-bb16-a80b24840a41",
+				"filename": "GPAD1115.JPG",
+				"path": ""
+
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					28.802383840084072,
+					41.09138005507151
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"Latitude": 43.0913241,
+				"Longitude": 30.8023697,
+				"CaptureTime": "4.10.2021",
+				"Altitude": 96.04,
+				"Heading": 174.86456,
+				"SequenceUUID": "11c622173-4561-48f8-a1ed-7ad05e45a8ac",
+				"Orientation": 1,
+				"DeviceMake": "Sony",
+				"DeviceModel": "Ladybug",
+				"PhotoUUID": "2a0e0105-d733-4d34-bb16-a80b24840a42",
+				"filename": "GPAD1116.JPG",
+				"path": ""
+
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					28.802384175360203,
+					41.09136994767187
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"Latitude": 44.0913242,
+				"Longitude": 31.8023697,
+				"CaptureTime": "4.10.2021",
+				"Altitude": 97.04,
+				"Heading": 175.86456,
+				"SequenceUUID": "12c622173-4561-48f8-a1ed-7ad05e45a8ac",
+				"Orientation": 1,
+				"DeviceMake": "Sony",
+				"DeviceModel": "Ladybug",
+				"PhotoUUID": "2a0e0105-d733-4d34-bb16-a80b24840a43",
+				"filename": "GPAD1117.JPG",
+				"path": ""
+
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					28.802382498979565,
+					41.091394205428365
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"Latitude": 45.0913243,
+				"Longitude": 32.8023697,
+				"CaptureTime": "4.10.2021",
+				"Altitude": 98.04,
+				"Heading": 176.86456,
+				"SequenceUUID": "13c622173-4561-48f8-a1ed-7ad05e45a8ac",
+				"Orientation": 1,
+				"DeviceMake": "Sony",
+				"DeviceModel": "Ladybug",
+				"PhotoUUID": "2a0e0105-d733-4d34-bb16-a80b24840a44",
+				"filename": "GPAD1118.JPG",
+				"path": ""
+
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					28.80237948149443,
+					41.091409871891344
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"Latitude": 46.0913244,
+				"Longitude": 33.8023697,
+				"CaptureTime": "4.10.2021",
+				"Altitude": 99.04,
+				"Heading": 177.86456,
+				"SequenceUUID": "14c622173-4561-48f8-a1ed-7ad05e45a8ac",
+				"Orientation": 1,
+				"DeviceMake": "Sony",
+				"DeviceModel": "Ladybug",
+				"PhotoUUID": "2a0e0105-d733-4d34-bb16-a80b24840a45",
+				"filename": "GPAD1119.JPG",
+				"path": ""
+
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					28.80237881094217,
+					41.0914171997518
+				]
+			}
+		}
+	]
 }
