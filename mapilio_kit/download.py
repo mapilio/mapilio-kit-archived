@@ -20,7 +20,7 @@ def download(
         project_key: str,
         download_path: str,
         user_name: str,
-):
+) -> None:
     """
     Args:
         organization_key: your organization key, you can get your dashboard
@@ -38,7 +38,7 @@ def download(
         organization_key=organization_key,
         project_key=project_key,
         bearer=user_items['user_upload_token'],
-        type="sequence"
+        req="sequence"
     )
     save_base_path = os.path.join(download_path, "Mapilio", organization_key, project_key)
     for seqeunce in sequences:
@@ -47,10 +47,10 @@ def download(
             project_key=project_key,
             bearer=user_items['user_upload_token'],
             sequence_uuid=seqeunce['sequence_uuid'],
-            type="image_detail"
+            req="image_detail"
         )
         end_save_path = os.path.join(save_base_path, seqeunce['sequence_uuid'])
-        for image_detail in tqdm(images_details):
+        for image_detail in tqdm(images_details, desc="Downloading"):
             save_image(
                 uploaded_hash=image_detail['uploaded_hash'],
                 filename=image_detail['filename'],
@@ -65,8 +65,8 @@ def get_seqeuence_and_image_detail_request(
         project_key: str,
         bearer: str,
         sequence_uuid: T.Optional[str] = None,
-        type="sequence"
-):
+        req: str = "sequence"
+) -> json:
     """
     This method get SequenceUUID according to organization key and project key
     Args:
@@ -74,7 +74,7 @@ def get_seqeuence_and_image_detail_request(
         project_key:
         bearer: user auth bearer key
         sequence_uuid: each packet unique id optional
-        type: sequence or image key value
+        req: sequence or image key value
 
     Returns: json data
 
@@ -84,7 +84,7 @@ def get_seqeuence_and_image_detail_request(
             "parameters": {
                 "organization_key": organization_key,
                 "project_key": project_key,
-                "sequence_uuid": "None" if type == "sequence" else sequence_uuid
+                "sequence_uuid": "None" if req == "sequence" else sequence_uuid
             },
             "limit": MAX_LIMIT
         }
@@ -93,7 +93,7 @@ def get_seqeuence_and_image_detail_request(
         'Authorization': f'Bearer {bearer}',
         'Content-Type': 'application/json'
     }
-    URL = URL_Sequences if type == "sequence" else URL_Images
+    URL = URL_Sequences if req == "sequence" else URL_Images
     response = requests.request("GET", URL, headers=headers, data=payload)
     response = json.loads(response.text)
 
@@ -105,7 +105,7 @@ def save_image(
         filename: str,
         end_save_path: str,
         quality: str
-):
+) -> None:
     """
     Args:
         uploaded_hash:

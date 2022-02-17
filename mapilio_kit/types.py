@@ -31,7 +31,8 @@ class Image(ImageRequired, total=False):
     Altitude: float
     PhotoUUID: str
     Heading: float
-    # Heading: CompassHeading
+    Roll: float
+    Pitch: float
 
 
 class _SequenceOnly(TypedDict, total=True):
@@ -114,6 +115,8 @@ FinalImageDescriptionSchema = {
         "ImageSize": {"type": "string"},
         "FoV": {"type": "number"},
         "anomaly": {"type": "number"},
+        "Roll": {"type": "number"},
+        "Pitch": {"type": "number"},
         "Path": {"type": "string"},
         "Filename": {"type": "string"},
         "Orientation": {"type": "integer"},
