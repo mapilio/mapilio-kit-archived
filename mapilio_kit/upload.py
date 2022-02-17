@@ -133,7 +133,7 @@ def upload(
             user_items=user_items,
             organization_key=organization_key if organization_key else None,
             project_key=project_key if project_key else None,
-            size=sequence_information
+            seq_info=sequence_information
         )
     else:
         raise RuntimeError(f"Expect {import_path} to be either file or directory")
