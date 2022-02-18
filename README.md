@@ -1,6 +1,6 @@
 ## Mapilio Kit
 
-Mapilio Tools is a library for processing and uploading images to [Mapilio](https://www.mapilio.com/).
+Mapilio Kit is a library for processing and uploading images to [Mapilio](https://www.mapilio.com/).
 
 ```mermaid
   graph TD;
@@ -43,7 +43,7 @@ See [more installation instructions](#installation) below.
 ### User Authentication
 
 To upload images to Mapilio, an account is required and can be created [here](https://www.mapilio.com/signup). When
-using the tools for the first time, user authentication is required. You will be prompted to enter your account
+using the kits for the first time, user authentication is required. You will be prompted to enter your account
 credentials.
 
 ### Metadata
