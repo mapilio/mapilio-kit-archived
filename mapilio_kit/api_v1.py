@@ -23,7 +23,7 @@ URL_Images = MAPILIO_GRAPH_API_ENDPOINT + MAPILIO_GRAPH_API_URL_FUNCTION + "getU
 
 def get_upload_token(email: str, password: str) -> dict:
     resp = requests.post(
-        f"{MAPILIO_GRAPH_API_ENDPOINT}/login",
+        f"{MAPILIO_GRAPH_API_ENDPOINT}login",
         json={"email": email, "password": password},
     )
     resp.raise_for_status()
@@ -35,7 +35,7 @@ def fetch_organization(
         user_access_token: str, organization_id: Union[int, str]
 ) -> requests.Response:
     resp = requests.get(
-        f"{MAPILIO_GRAPH_API_ENDPOINT}/{organization_id}",
+        f"{MAPILIO_GRAPH_API_ENDPOINT}{organization_id}",
         params={
             "fields": ",".join(["slug", "description", "name"]),
         },
