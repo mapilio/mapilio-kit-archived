@@ -18,7 +18,7 @@ class Command:
             "--skip_process_errors",
             help="Skip process errors.",
             action="store_true",
-            default=False,
+            default=True,
             required=False,
         )
         group = parser.add_argument_group("process EXIF options")
