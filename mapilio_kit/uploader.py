@@ -120,7 +120,7 @@ def upload_desc(
         if not resp.status_code // 100 == 2:
             LOG.warning(resp.text)
             return f"Error: Unexpected response {resp}"
-        # print("Imagery Exif Successfully Has Been Uploaded")
+        LOG.info(f"Exif has installed.")
     except requests.exceptions.HTTPError as e:
         print(e.response.text)
 
@@ -150,7 +150,6 @@ def upload_image_dir_and_description(
             project_key,
             dry_run=dry_run,
         )
-        LOG.info(f"Images has installed.")
         LOG.info(f"Exif has started for uploading.")
         upload_desc(
             image_desc=descs,
@@ -159,7 +158,6 @@ def upload_image_dir_and_description(
             project_key=project_key if project_key else None,
             seq_info=sequence_information
         )
-        LOG.info(f"Exif has installed.")
 
 
 def zip_image_dir(
