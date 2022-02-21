@@ -94,7 +94,11 @@ def upload_desc(
     sequence_uuid = next(iter(seq_info)) # get first key from dict
     description_chunk = [desc for desc in image_desc if
                          desc.get("SequenceUUID") == sequence_uuid]
-    summary['Information']['Sequence'] = seq_info  # noqa
+    summary['Information']['failed_images'] = summary['Information']['total_images'] - seq_info['count'] # noqa
+    summary['Information']['total_images'] = seq_info['count'] # noqa
+    summary['Information']['processed_images'] = seq_info['count'] # noqa
+    summary['Information']['hash'] = seq_info['hash'] # noqa
+    summary['Information']['size'] = seq_info['size'] # noqa
     payload = json.dumps({
         "options": {
             "parameters": {
@@ -423,7 +427,7 @@ def _zip_and_upload_single_sequence(
             notifier=notifier,
             dry_run=dry_run,
         )
-        sequence_info[str(sequence_uuid)] = {
+        sequence_info = {
             "count": len(sequences),
             "size": entity_size / 1024 ** 2,
             "hash": uploaded_hash
