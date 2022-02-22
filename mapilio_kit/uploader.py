@@ -97,6 +97,7 @@ def upload_desc(
     summary['Information']['failed_images'] = summary['Information']['total_images'] - seq_info[sequence_uuid]['count'] # noqa
     summary['Information']['total_images'] = seq_info[sequence_uuid]['count'] # noqa
     summary['Information']['processed_images'] = seq_info[sequence_uuid]['count'] # noqa
+    summary['Information']['sequence_uuid'] = sequence_uuid # noqa
     summary['Information'].update(seq_info[sequence_uuid]) # noqa
     payload = json.dumps({
         "options": {
