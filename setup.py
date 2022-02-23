@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 import os
 from setuptools import setup
+import warnings
+
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore",category=DeprecationWarning)
 
 here = os.path.abspath(os.path.dirname(__file__))
 

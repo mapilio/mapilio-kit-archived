@@ -68,86 +68,83 @@ def _validate_descs(image_dir: str, image_descs: T.List[types.ImageDescriptionJS
 
 
 def upload_desc(
-        hash: str,
         image_desc: T.List[types.ImageDescriptionJSON],
         user_items: types.User,
         organization_key: T.Optional[str] = None,
         project_key: T.Optional[str] = None,
-        size: str = None,
+        seq_info: dict = None,
         backup_path: str = os.path.join(os.path.expanduser('~'), '.config', 'mapilio', 'configs'),
 ):
     """
-    :param hash: image secret path
     :param image_desc: description file path
     :param user_items: get user_upload_token for header bearer
     :param organization_key: will be upload organization key
     :param project_key: which organization key use project key to upload description json
-    :param size: information sequence data such as count and entity size
+    :param seq_info: information sequence data such as count and entity size, hash
     :param backup_path:
     :return: None
     """
-
-    from itertools import groupby
-    def key_func(k):
-        return k['SequenceUUID']
 
     if not os.path.exists(os.path.join(backup_path, user_items['SettingsUsername'])):
         os.makedirs(os.path.join(backup_path, user_items['SettingsUsername']))
     export_backup_path = os.path.join(backup_path, user_items['SettingsUsername'])
 
     summary = list(image_desc).pop()
-    summary['Information']['size'] = size # noqa
     image_desc = list(image_desc)[:-1]
-    image_desc = sorted(image_desc, key=key_func)
-    for _, val in tqdm(groupby(image_desc, key_func), desc="Exif Uploading"):
-        description_chunk = list(val)
-        payload = json.dumps({
-            "options": {
-                "parameters": {
-                    "hash": hash,
-                    "organization_key": organization_key if organization_key else "",
-                    "project_key": project_key if project_key else "",
-                    "json_data": description_chunk,
-                    "summary": summary
-                }
+    sequence_uuid = next(iter(seq_info)) # get first key from dict
+    description_chunk = [desc for desc in image_desc if
+                         desc.get("SequenceUUID") == sequence_uuid]
+    summary['Information']['failed_images'] = summary['Information']['total_images'] - seq_info[sequence_uuid]['count'] # noqa
+    summary['Information']['total_images'] = seq_info[sequence_uuid]['count'] # noqa
+    summary['Information']['processed_images'] = seq_info[sequence_uuid]['count'] # noqa
+    summary['Information']['sequence_uuid'] = sequence_uuid # noqa
+    summary['Information'].update(seq_info[sequence_uuid]) # noqa
+    payload = json.dumps({
+        "options": {
+            "parameters": {
+                "organization_key": organization_key if organization_key else "",
+                "project_key": project_key if project_key else "",
+                "json_data": description_chunk,
+                "summary": summary
             }
-        })
+        }
+    })
 
-        headers = {
-            'Content-Type': 'application/json',
-            'Authorization': f"Bearer {user_items['user_upload_token']}"}
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': f"Bearer {user_items['user_upload_token']}"}
 
-        current_time = "{:%Y_%m_%d_%H_%M_%S}".format(datetime.now())
-        try:
-            resp = requests.request("POST", url=MAPILIO_GRAPH_API_ENDPOINT_UPLOAD, headers=headers, data=payload)
-            with open(os.path.join(export_backup_path,
-                                   f'{current_time}_backup_request_{organization_key}_{project_key}.json'), 'w') as f:
-                json.dump(payload, f)
-            resp.raise_for_status()
-            if not resp.status_code // 100 == 2:
-                LOG.warning(resp.text)
-                return f"Error: Unexpected response {resp}"
-            # print("Imagery Exif Successfully Has Been Uploaded")
-        except requests.exceptions.HTTPError as e:
-            print(e.response.text)
+    current_time = "{:%Y_%m_%d_%H_%M_%S}".format(datetime.now())
+    try:
+        resp = requests.request("POST", url=MAPILIO_GRAPH_API_ENDPOINT_UPLOAD, headers=headers, data=payload)
+        with open(os.path.join(export_backup_path,
+                               f'{current_time}_backup_request_{organization_key}_{project_key}.json'), 'w') as f:
+            json.dump(payload, f)
+        resp.raise_for_status()
+        if not resp.status_code // 100 == 2:
+            LOG.warning(resp.text)
+            return f"Error: Unexpected response {resp}"
+        LOG.info(f"Exif has installed.")
+    except requests.exceptions.HTTPError as e:
+        print(e.response.text)
 
 
-def upload_image_dir(
+def upload_image_dir_and_description(
         image_dir: str,
-        image_descs: T.List[types.ImageDescriptionJSON],
+        descs: T.List[types.ImageDescriptionJSON],
         user_items: types.User,
         dry_run=False,
         organization_key: str = None,
         project_key: str = None
 ):
     jsonschema.validate(instance=user_items, schema=types.UserItemSchema)
+    image_descs = [desc for desc in descs if "Heading" in desc]
     _validate_descs(image_dir, image_descs)
 
-    hash = {}
-    size = {}
     sequences = _group_sequences_by_uuid(image_descs)
     for sequence_idx, images in enumerate(sequences.values()):
-        uploaded_hash, entity_size = _zip_and_upload_single_sequence(
+        LOG.info(f"Images has started for uploading.")
+        sequence_information = _zip_and_upload_single_sequence(
             image_dir,
             images,
             user_items,
@@ -157,11 +154,14 @@ def upload_image_dir(
             project_key,
             dry_run=dry_run,
         )
-        sequences_uuid = list(sequences.keys())[sequence_idx]
-        hash[sequences_uuid] = uploaded_hash
-        size[sequences_uuid] = entity_size
-
-    return hash, size
+        LOG.info(f"Exif has started for uploading.")
+        upload_desc(
+            image_desc=descs,
+            user_items=user_items,
+            organization_key=organization_key if organization_key else None,
+            project_key=project_key if project_key else None,
+            seq_info=sequence_information
+        )
 
 
 def zip_image_dir(
@@ -294,7 +294,7 @@ def _upload_zipfile_fp(
         tqdm_desc: str = "Uploading",
         notifier: Optional[Notifier] = None,
         dry_run: bool = False,
-):
+) -> str:
     """
     :param fp: the file handle to a zipped sequence file. Will always upload from the beginning
     :param entity_size: the size of the whole zipped sequence file
@@ -381,7 +381,7 @@ def _zip_and_upload_single_sequence(
         organization_key: str = None,
         project_key: str = None,
         dry_run=False,
-) -> Tuple[Any, dict]:
+) -> dict:
     def _build_desc(desc: str) -> str:
         return f"{desc} {sequence_idx + 1}/{total_sequences}"
 
@@ -393,6 +393,7 @@ def _zip_and_upload_single_sequence(
     if root_dir is None:
         raise RuntimeError(f"Unable to find the root dir of sequence {sequence_uuid}")
 
+    sequence_info = {}
     with tempfile.NamedTemporaryFile() as fp:
         sequence_md5 = _zip_sequence(
             image_dir, sequences, fp, tqdm_desc=_build_desc("Compressing")
@@ -414,12 +415,7 @@ def _zip_and_upload_single_sequence(
                 "total_sequences": total_sequences,
             }
         )
-        sequence_info = {
-            "count": len(sequences),
-            "size": entity_size / 1024 ** 2
-        }
-
-        return _upload_zipfile_fp(
+        uploaded_hash = _upload_zipfile_fp(
             user_items,
             fp,
             entity_size,
@@ -430,4 +426,11 @@ def _zip_and_upload_single_sequence(
             tqdm_desc=_build_desc("Uploading"),
             notifier=notifier,
             dry_run=dry_run,
-        ), sequence_info
+        )
+        sequence_info[sequence_uuid] = {
+            "count": len(sequences),
+            "size": entity_size / 1024 ** 2,
+            "hash": uploaded_hash
+        }
+
+        return sequence_info
