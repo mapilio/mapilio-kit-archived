@@ -63,25 +63,29 @@ def get_exiftool_specific_feature(video_or_image_path: str) -> Dict[str, Union[N
     fov_str = None
     fov_deg = None
     while True:
-        line = process.stdout.readline()
-        filtered_line = line.rstrip().decode('utf-8')
-        if not line: # noqa
-            break
-        if 'Field Of View' in filtered_line:
-            fov_str = filtered_line.split(':')[1].lstrip(' ')
-            dict_object['field_of_view'] = fov_str
+        try:
+            line = process.stdout.readline()
+            filtered_line = line.rstrip().decode('utf-8')
+            if not line: # noqa
+                break
+            if 'Field Of View' in filtered_line:
+                fov_str = filtered_line.split(':')[1].lstrip(' ')
+                dict_object['field_of_view'] = fov_str
 
-        elif 'Camera Elevation Angle' in filtered_line:
-            fov_deg = float(filtered_line.split(':')[1].lstrip(' '))
+            elif 'Camera Elevation Angle' in filtered_line:
+                fov_deg = float(filtered_line.split(':')[1].lstrip(' '))
 
-        if 'Camera Model Name' in filtered_line:
-            dict_object['device_make'] = filtered_line.split(':')[1].lstrip(' ')
+            if 'Camera Model Name' in filtered_line:
+                dict_object['device_make'] = filtered_line.split(':')[1].lstrip(' ')
 
-        if 'Color Mode' in filtered_line:
-            dict_object['device_model'] = filtered_line.split(':')[1].lstrip(' ')
+            if 'Color Mode' in filtered_line:
+                dict_object['device_model'] = filtered_line.split(':')[1].lstrip(' ')
 
-        if 'Image Size' in filtered_line:
-            dict_object['image_size'] = filtered_line.split(':')[1].lstrip(' ')
+            if 'Image Size' in filtered_line:
+                dict_object['image_size'] = filtered_line.split(':')[1].lstrip(' ')
+        except TypeError:
+            raise f"Exif data does not Exist !" \
+                  f"Please remove this video file {video_or_image_path}"
 
     if dict_object['field_of_view'] and "deg" in dict_object['field_of_view']:
         dict_object['field_of_view'] = float(dict_object['field_of_view'].replace('deg', ''))

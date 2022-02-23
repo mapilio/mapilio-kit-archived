@@ -120,21 +120,11 @@ def upload(
         LOG.warning(f"If shooting was taken at a point outside the polygon,"
                     f" these points and images will be published publicly...")
         time.sleep(5)
-        LOG.info(f"Images has started for uploading")
-        image_desc = [desc for desc in descs if "Heading" in desc]
-        uploaded_hash, entity_size = uploader.upload_image_dir(
-            import_path, image_desc, user_items, dry_run=dry_run,
+        uploader.upload_image_dir_and_description(
+            import_path, descs, user_items,
+            dry_run=dry_run,
             organization_key=organization_key if organization_key else None,
             project_key=project_key if project_key else None)
 
-        LOG.info(f"Exif has started for uploading")
-        uploader.upload_desc(
-            image_desc=descs,
-            user_items=user_items,
-            organization_key=organization_key if organization_key else None,
-            project_key=project_key if project_key else None,
-            hash=uploaded_hash,
-            size=entity_size
-        )
     else:
         raise RuntimeError(f"Expect {import_path} to be either file or directory")
