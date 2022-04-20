@@ -181,11 +181,13 @@ Status = Literal["success", "failed"]
 
 
 def datetime_to_map_capture_time(time: datetime.datetime) -> str:
-    return datetime.datetime.strftime(time, "%Y_%m_%d_%H_%M_%S_%f")[:-3]
+    # return datetime.datetime.strftime(time, "%Y-%m-%d  %H:%M:%S:%f")[:-3] # deprecated
+    return datetime.datetime.strftime(time, "%Y-%m-%d %H:%M:%S")
 
 
 def map_capture_time_to_datetime(time: str) -> datetime.datetime:
-    return datetime.datetime.strptime(time, "%Y_%m_%d_%H_%M_%S_%f")
+    # return datetime.datetime.strptime(time, "%Y_%m_%d_%H_%M_%S_%f") # deprecated
+    return datetime.datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
 
 
 class GPXPoint(T.NamedTuple):
