@@ -98,13 +98,14 @@ def find_duplicates(
         )
         distance_duplicated = distance <= duplicate_distance
 
-        if prev.angle is not None and cur.angle is not None:
-            bearing_delta = diff_bearing(prev.angle, cur.angle)
-            angle_duplicated = bearing_delta <= duplicate_angle
-        else:
-            angle_duplicated = False
+        # Deprecated because of gps-anomaly do
+        # if prev.angle is not None and cur.angle is not None:
+        #     bearing_delta = diff_bearing(prev.angle, cur.angle)
+        #     angle_duplicated = bearing_delta <= duplicate_angle
+        # else:
+        #     angle_duplicated = False
 
-        if distance_duplicated and angle_duplicated:
+        if distance_duplicated:
             duplicates.append(idx + 1)
             continue
 
