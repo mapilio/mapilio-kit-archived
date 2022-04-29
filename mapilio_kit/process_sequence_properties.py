@@ -96,7 +96,9 @@ def find_duplicates(
             (prev.lat, prev.lon),
             (cur.lat, cur.lon),
         )
-        distance_duplicated = distance <= duplicate_distance
+        distance_duplicated = False
+        if 4 <= distance <= 6:
+            distance_duplicated = True
 
         # Deprecated because of gps-anomaly do
         # if prev.angle is not None and cur.angle is not None:
