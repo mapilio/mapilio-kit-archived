@@ -5,8 +5,8 @@ echo "| |\/| | / _ \ | |_) | || |    | | | | |   | ' / | |  | |  "
 echo "| |  | |/ ___ \|  __/| || |___ | | |_| |   | . \ | |  | |  "
 echo "|_|  |_/_/   \_\_|  |___|_____|___\___/    |_|\_\___| |_|  "
 
-python3 -m venv mapilio_venv_a
-source mapilio_venv_a/bin/activate
+python3 -m venv mapilio_venv
+source mapilio_venv/bin/activate
 python setup.py install --force > /dev/null
 mapilio_kit --version
 
