@@ -197,13 +197,6 @@ class Command:
             required=False,
         )
         group_sequence.add_argument(
-            "--duplicate_distance",
-            help="max distance for two images to be considered duplicates in meters",
-            type=float,
-            default=2,
-            required=False,
-        )
-        group_sequence.add_argument(
             "--duplicate_angle",
             help="max angle for two images to be considered duplicates in degrees",
             type=float,
