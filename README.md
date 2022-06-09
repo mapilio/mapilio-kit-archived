@@ -223,7 +223,7 @@ mapilio_kit upload "path/to/sample_images/" --desc_path "mapilio_image_descripti
 
 ## **GoPro Max .360 videos**
 
-### Must be installed `./install.sh` with method
+### Must be installed `./max_extractor_install.sh` with method
 
 1. First, create equirectangular convert script such as below 
 
