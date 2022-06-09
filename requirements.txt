@@ -21,3 +21,4 @@ typing-extensions==3.10.0.2
 tzwhere==3.0.3
 gps-anomaly
 simple-term-menu
+virtualenv
