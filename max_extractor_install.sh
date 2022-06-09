@@ -1,3 +1,4 @@
+set -e
 mkdir -p bin
 mkdir -p dependencies
 
