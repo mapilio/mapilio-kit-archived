@@ -6,7 +6,7 @@ from tqdm import tqdm
 from . import image_log
 from . import processing, VERSION
 from .exif_read import ExifRead
-from .types import MetaProperties
+from .types_fmt import MetaProperties
 from .utilities import get_exiftool_specific_feature
 
 META_DATA_TYPES = {

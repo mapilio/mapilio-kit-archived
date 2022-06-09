@@ -5,7 +5,7 @@ import typing as T
 
 import requests
 
-from . import api_v1, config, types
+from . import api_v1, config, types_fmt
 from .config import MAPILIO_CONFIG_PATH
 
 LOG = logging.getLogger(__name__)

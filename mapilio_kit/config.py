@@ -2,7 +2,7 @@ import configparser
 import os
 import typing as T
 
-from . import  types
+from . import  types_fmt
 
 
 MAPILIO_CONFIG_PATH = os.getenv(
