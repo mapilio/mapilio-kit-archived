@@ -1,4 +1,4 @@
-from .types import GPXPoint, GPXPointAngle
+from .types_fmt import GPXPoint, GPXPointAngle
 from .exif_read import ExifRead
 from .error import MapilioGeoTaggingError
 

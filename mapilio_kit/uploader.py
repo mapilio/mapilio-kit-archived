@@ -16,7 +16,7 @@ import requests
 from tqdm import tqdm
 import jsonschema
 
-from . import upload_api_v1, types, ipc, exif_write
+from . import upload_api_v1, types_fmt, ipc, exif_write
 from .login import wrap_http_exception
 from .api_v1 import MAPILIO_GRAPH_API_ENDPOINT_UPLOAD
 

@@ -4,7 +4,7 @@ import typing as T
 
 from .ffmpeg import extract_stream, get_ffprobe
 from .gpmf import parse_bin, interpolate_times
-from .types import GPXPoint
+from .types_fmt import GPXPoint
 
 
 def extract_bin(path: str) -> str:
