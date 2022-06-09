@@ -50,7 +50,7 @@ credentials.
 
 To upload images to Mapilio, image `GPS` and `capture time` are minimally required.
 
-## Installation
+## Ubuntu Installation
 
 ### Installing via Pip on Ubuntu + 18.04
 
@@ -70,6 +70,14 @@ python3 -m pip install --upgrade git+https://github.com/mapilio/mapilio-kit
 ```
 
 If you see "Permission Denied" error, try to run the command above with `sudo`
+
+### Docker Installation
+
+```shell
+cd Docker
+docker image build --tag mapilio_kit .
+docker run -it mapilio_kit mapilio_kit --version
+```
 
 ## Video Support
 
