@@ -3,7 +3,7 @@ import typing as T
 import gpxpy
 import pynmea2
 
-from .types import GPXPoint
+from .types_fmt import GPXPoint
 
 
 """

@@ -2,7 +2,7 @@ import os
 import typing as T
 from typing import Generator, List, Optional
 
-from . import types
+from . import types_fmt
 
 
 def is_image_file(path: str) -> bool:

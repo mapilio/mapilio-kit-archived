@@ -2,7 +2,7 @@ import typing as T
 
 import jsonschema
 
-from mapilio_kit import types
+from mapilio_kit import types_fmt
 
 
 def feature_collection_schema(features: dict) -> dict:

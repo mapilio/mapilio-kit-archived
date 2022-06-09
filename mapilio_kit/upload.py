@@ -6,7 +6,7 @@ import json
 import logging
 
 
-from . import uploader, types, login
+from . import uploader, types_fmt, login
 
 from gps_anomaly.detector import Anomaly
 from .utilities import photo_uuid_generate

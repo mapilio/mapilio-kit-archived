@@ -3,7 +3,7 @@ import datetime
 import os
 import uuid
 
-from . import image_log, types
+from . import image_log, types_fmt
 from .geo import compute_bearing, gps_distance, diff_bearing, pairwise
 from .error import MapilioDuplicationError
 
