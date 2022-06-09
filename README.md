@@ -233,7 +233,7 @@ python script config
 - -b {equirectanguler bin path}
 ```shell
 cd mapilio_kit
-python gps_from_gopro360.py -vf ~/Desktop/GS017111.360 -of ~/Desktop/OutputData -b ../bin
+python commands/gps_from_gopro360.py -vf ~/Desktop/GS017111.360 -of ~/Desktop/OutputData -b ../../bin
 ```
 
 2. Now we can process and upload frames
