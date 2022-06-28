@@ -132,8 +132,8 @@ mapilio_kit authenticate --user_name "mapilio_user_mail"
 
 For now, We have supporting that devices :
 
-| GoPro Hero 9 | GoPro Hero 8 | GoPro Hero 7 | GoPro Max 360 | Ladybug | Insta360|
-|--------------|--------------|--------------|---------------| -----|-----|
+| GoPro Hero 9 | GoPro Hero 8 | GoPro Hero 7 | GoPro Max | Ladybug | Insta360|
+|--------------|--------------|--------------|--------------| -----|-----|
 
 ## Usage
 
@@ -229,45 +229,43 @@ mapilio_kit video_process_and_upload "path/to/videos/" "path/to/sample_images/" 
 mapilio_kit upload "path/to/sample_images/" --desc_path "mapilio_image_description.json"
 ```
 
-**GoPro Max .360 videos**
+## **GoPro Max .360 videos**
 
-1. First, the .360 format video is split into 1 second frames. The program to be used for matching since there are gps
-   information in the frames here.
+### Must be installed `./max_extractor_install.sh` with method
 
+1. First, create equirectangular convert script such as below 
+
+python script config
+- -vf {video file path}
+- -of {output frames path}
+- -b {equirectanguler bin path}
 ```shell
-mapilio_kit video_process "path/to/videos/*.360" "path/to/sample_images360/" \
-    --geotag_source "gopro_videos" \
-    --interpolate_directions \
-    --video_sample_interval 1
+cd mapilio_kit
+python commands/gps_from_gopro360.py -vf ~/Desktop/GS017111.360 -of ~/Desktop/OutputData -b ../../bin
 ```
 
-2. Download 360 video exporter [download](https://www.filehorse.com/download-gopro-max-exporter/) and convert .360 to
-   .mp4 format
+2. Now we can process and upload frames
+
+
 
 ```shell
-mapilio_kit video_process "path/to/videos/*.mp4" "path/to/sample_imagesMP4/" \
-    --geotag_source "gopro_videos" \
-    --interpolate_directions \
-    --video_sample_interval 1
+mapilio_kit process_and_upload ~/Desktop/OutputData/frames --user_name="username@mapilio.com" 
+
 ```
+[OPTIONAL]
 
-3. And open description file and rename below
+This datas random unique numbers such as "_wAuFDewU51tll27dfzdMQM28_"
 
-`"path/to/sample_images360/IMAGERY_141094.jpg" -> "path/to/sample_imagesMP4/IMAGERY_141094.jpg"`
-
-4. Last step, upload images with description json.
-
-```shell
-mapilio_kit upload "path/to/sample_imagesMP4/" --desc_path "mapilio_image_description.json"
-```
+- --organization_key="mapilio.com/username/organtion" 
+- --project_key="mapilio.com/username/projects"
 
 ## Download
 
 If you download your uploaded project to your organization use this command.
 
 ```bash
-export o_key="281e13Dsdfsd2asd234fddafSXaHGSADFf34"
-export p_key="88a1Csa"
+export o_key="wAuFDewU51tll27dfzdMQM28"
+export p_key="9EwBC9TrbF"
 mapilio_kit download  "/path/to/download/directory" --organization_key=$o_key --project_key=$p_key --user_name "exmaple@mapilio.com"
 ```
 
