@@ -71,16 +71,14 @@ def get_exiftool_specific_feature(video_or_image_path: str) -> Dict[str, Union[N
             if 'Field Of View' in filtered_line:
                 fov_str = filtered_line.split(':')[1].lstrip(' ')
                 dict_object['field_of_view'] = fov_str
-
             elif 'Camera Elevation Angle' in filtered_line:
                 fov_deg = float(filtered_line.split(':')[1].lstrip(' '))
-
-            if 'Camera Model Name' in filtered_line:
-                dict_object['device_make'] = filtered_line.split(':')[1].lstrip(' ')
-
             if 'Color Mode' in filtered_line:
+                dict_object['device_make'] = filtered_line.split(':')[1].lstrip(' ')
+            elif 'Make' in filtered_line:
+                dict_object['device_make'] = filtered_line.split(':')[1].lstrip(' ')
+            if 'Camera Model Name' in filtered_line:
                 dict_object['device_model'] = filtered_line.split(':')[1].lstrip(' ')
-
             if 'Image Size' in filtered_line:
                 dict_object['image_size'] = filtered_line.split(':')[1].lstrip(' ')
         except TypeError:

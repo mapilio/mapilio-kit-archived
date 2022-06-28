@@ -5,7 +5,7 @@ import io
 import piexif
 
 from .geo import decimal_to_dms
-from .types import FinalImageDescription
+from .types_fmt import FinalImageDescription
 
 
 class ExifEdit:
