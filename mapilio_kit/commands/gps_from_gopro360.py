@@ -186,7 +186,7 @@ if __name__ == '__main__':
     make_directory(metadata_folder, remove_if_present=True)
 
     gps_track_file = os.path.join(metadata_folder, "gps_track.gpx")
-    cmd = f"exiftool -ee -p {os.path.join('../../', 'schema')}/gpx.fmt {video_file} > {gps_track_file}"
+    cmd = f"exiftool -ee -p {os.path.join('../', 'schema')}/gpx.fmt {video_file} > {gps_track_file}"
     print(f"cmd: {cmd}")
     run_command(cmd, show_progress=False)
 
