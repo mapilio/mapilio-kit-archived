@@ -6,8 +6,8 @@ import uuid
 
 from tqdm import tqdm
 
-from . import image_log, types_fmt, processing, error
-
+from . import image_log, processing, error
+from . import types_fmt as types
 LOG = logging.getLogger(__name__)
 
 
