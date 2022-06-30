@@ -6,7 +6,7 @@ import io
 import typing as T
 
 from .api_v1 import  MAPILIO_UPLOAD_ENDPOINT_ZIP
-from . import types_fmt
+from . import types_fmt as types
 import logging
 
 LOG = logging.getLogger(__name__)
