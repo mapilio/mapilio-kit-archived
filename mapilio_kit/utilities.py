@@ -13,7 +13,10 @@ __RULES__ = [{('HERO7', 'Wide', '4:3'): 122.6}, {('HERO7', 'Wide ', '16:9'): 188
              {('HERO9 Black', 'Wide', '4:3'): 122.0}, {('HERO9 Black', 'Linear', '4:3'): 92.0},
              {('HERO9 Black', 'Narrow', '16:9'): 73.0}, {('HERO9 Black', 'Narrow', '4:3'): 73.0},
              {('GoPro Max', 'Wide', '16:9'): 118.0}, {('GoPro Max', 'Linear', '16:9'): 92.0},
-             {('GoPro Max', 'Unknown (X)', '16:9'): 121.0}, {('GoPro Max', 'Narrow', '16:9'): 73.0}]
+             {('GoPro Max', 'Unknown (X)', '16:9'): 121.0}, {('GoPro Max', 'Narrow', '16:9'): 73.0},
+             {('GoPro Max', 'Unknown (X)', '4:3'): 94.0}, {('GOPRO', 'Unknown (X)', '4:3'): 94.0},
+             {('GOPRO', 'Unknown (X)', '16:9'): 121.0}
+             ]
 
 
 def find_fov2(model, mode, asp_rat):
@@ -52,7 +55,6 @@ def get_exiftool_specific_feature(video_or_image_path: str) -> Dict[str, Union[N
     Returns:
 
     """
-
     process = subprocess.Popen(["exiftool", video_or_image_path], stdout=subprocess.PIPE)
     dict_object = {
         'field_of_view': None,
