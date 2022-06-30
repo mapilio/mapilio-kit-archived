@@ -7,7 +7,7 @@ import logging
 from tqdm import tqdm
 
 from . import image_log
-from . import types_fmt
+from . import types_fmt as types
 from .error import MapilioGeoTaggingError
 from .exif_read import ExifRead
 from .exif_write import ExifEdit

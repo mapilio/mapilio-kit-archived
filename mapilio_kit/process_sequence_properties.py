@@ -4,6 +4,7 @@ import os
 import uuid
 
 from . import image_log, types_fmt
+from . import types_fmt as types
 from .geo import compute_bearing, gps_distance, diff_bearing, pairwise
 from .error import MapilioDuplicationError
 
