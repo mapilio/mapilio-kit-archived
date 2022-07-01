@@ -77,6 +77,7 @@ If you see "Permission Denied" error, try to run the command above with `sudo`
 cd Docker
 docker image build --tag mapilio_kit .
 docker run -it mapilio_kit mapilio_kit --version
+docker run -it mapilio_kit bash
 ```
 
 ## Video Support
