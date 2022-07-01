@@ -1,3 +1,4 @@
+# TODO docker-composer.yml
 FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -17,5 +18,10 @@ RUN git -C dependencies  clone https://github.com/mcvarer/max2sphere-batch
 RUN make -C dependencies/max2sphere-batch -j
 
 RUN cp dependencies/max2sphere-batch/MAX2spherebatch bin/
+
+RUN set -e && mkdir -p datasets
+
+# dataset get ARGS
+COPY dataset /mapilio_kit/datasets
 
 RUN mapilio_kit --version
