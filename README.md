@@ -260,6 +260,25 @@ This datas random unique numbers such as "_wAuFDewU51tll27dfzdMQM28_"
 - --organization_key="mapilio.com/username/organtion" 
 - --project_key="mapilio.com/username/projects"
 
+### Docker Upload
+
+**TODO docker-composer.yml**
+
+If up docker container follow instructors
+
+```bash
+docker run -it mapilio_kit bash
+mapilio_kit gopro360max_process --video-file datasets/GS017111.360 --bin-dir /mapilio_kit/bin
+mapilio_kit process_and_upload /tmp/frames --user_name="username@mapilio.com" 
+```
+
+then check in container
+
+```bash
+ls /tmp/test
+```
+
+
 ## Download
 
 If you download your uploaded project to your organization use this command.
