@@ -1,12 +1,13 @@
 FROM ubuntu:20.04
 
-ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND noninteractive
 
 WORKDIR /mapilio_kit
 
-RUN apt update -y && apt install -y python3 python3-pip git && apt install -y --no-install-recommends ffmpeg
-RUN apt install exiftool -y
-RUN apt install libjpeg-turbo8-dev
+RUN apt-get clean
+RUN apt-get update -y && apt-get install -y python3 python3-pip git && apt-get install -y --no-install-recommends ffmpeg
+RUN apt-get install exiftool -y
+RUN apt-get install libjpeg-turbo8-dev
 
 RUN python3 -m pip install --upgrade git+https://github.com/mapilio/mapilio-kit
 
