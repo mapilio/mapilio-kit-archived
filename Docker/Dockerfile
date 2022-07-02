@@ -1,4 +1,3 @@
-# TODO docker-composer.yml
 FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -9,7 +8,7 @@ RUN apt update -y && apt install -y python3 python3-pip git && apt install -y --
 RUN apt install exiftool -y
 RUN apt install libjpeg-turbo8-dev
 
-RUN python3 -m pip install --upgrade git+https://github.com/mapilio/mapilio-kit@gopromax_docker
+RUN python3 -m pip install --upgrade git+https://github.com/mapilio/mapilio-kit
 
 RUN set -e && mkdir -p bin && mkdir -p dependencies
 
@@ -21,7 +20,6 @@ RUN cp dependencies/max2sphere-batch/MAX2spherebatch bin/
 
 RUN set -e && mkdir -p datasets
 
-# dataset get ARGS
 COPY dataset /mapilio_kit/datasets
 
 RUN mapilio_kit --version
