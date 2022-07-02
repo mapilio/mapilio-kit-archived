@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+    app:
+        build: ./Docker
+        container_name: mapilio_kit
+        networks:
+            - network
+
+networks:
+    network: {}
