@@ -7,14 +7,9 @@ import json
 import requests
 import logging
 import os.path
+import urllib.request
 import typing as T
-try:
-    import cv2
-except ImportError:
-    raise ImportError('Please pip install opencv-python')
-
-import numpy as np
-
+import cv2
 from .api_v1 import URL_Sequences, URL_CDN, URL_Images
 
 LOG = logging.getLogger(__name__)
@@ -106,8 +101,7 @@ def get_seqeuence_and_image_detail_request(
 
     return response['data']
 
-
-def url_to_image(url: str) -> np.ndarray:
+def url_to_image(url: str):
     """
     # download the image, convert it to a NumPy array, and then read
     # it into OpenCV format
@@ -122,7 +116,6 @@ def url_to_image(url: str) -> np.ndarray:
             resp = requests.get(url, stream=True).raw
             image = np.asarray(bytearray(resp.read()), dtype="uint8")
             image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-
             return image
         except Exception:
             time.sleep(2)
@@ -157,4 +150,4 @@ def save_image(
             # LOG.info(f"The Folder does not exist! -->> New Folder is creating")
             os.makedirs(end_save_path)
         image = url_to_image(image_full_url)
-        cv2.imwrite(os.path.join(image_path, filename),image)
+        cv2.imwrite(image_path + filename, image)
