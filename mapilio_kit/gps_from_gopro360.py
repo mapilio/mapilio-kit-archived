@@ -112,6 +112,19 @@ def get_gps_date_time(xml_metadata_file):
     return gps_date_time
 
 
+def get_gpx_fmt_url():
+    user = "mapilio"
+    repo = "mapilio-kit"
+    src_dir = "schema"
+    branch = "master"
+    pyfile = "gpx.fmt"
+
+    url = f"https://raw.githubusercontent.com/{user}/{repo}/{branch}/{src_dir}/{pyfile}"
+
+    if not os.path.exists(pyfile):
+        subprocess.run(["wget", "--no-cache", "--backups=1", url], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+
+
 def gopro360max_stitch(video_file: str,
                        frame_rate: int,
                        output_folder: str,
@@ -171,7 +184,8 @@ def gopro360max_stitch(video_file: str,
     make_directory(metadata_folder, remove_if_present=True)
 
     gps_track_file = os.path.join(metadata_folder, "gps_track.gpx")
-    cmd = f"exiftool -ee -p {os.path.join('../', 'schema')}/gpx.fmt {video_file} > {gps_track_file}"
+    get_gpx_fmt_url()
+    cmd = f"exiftool -ee -p gpx.fmt {video_file} > {gps_track_file}"
     print(f"cmd: {cmd}")
     run_command(cmd, show_progress=False)
 

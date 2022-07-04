@@ -8,6 +8,7 @@ RUN apt-get clean
 RUN apt-get update -y && apt-get install -y python3 python3-pip git && apt-get install -y --no-install-recommends ffmpeg
 RUN apt-get install exiftool -y
 RUN apt-get install libjpeg-turbo8-dev
+RUN apt-get install wget
 
 RUN python3 -m pip install --upgrade git+https://github.com/mapilio/mapilio-kit
 
