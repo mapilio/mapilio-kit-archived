@@ -1,6 +1,5 @@
 import time
 
-import numpy as np
 from tqdm import tqdm
 from .download_config import select_quality
 from .upload import fetch_user_items
@@ -13,6 +12,8 @@ try:
     import cv2
 except ImportError:
     raise ImportError('Please pip install opencv-python')
+
+import numpy as np
 
 from .api_v1 import URL_Sequences, URL_CDN, URL_Images
 
