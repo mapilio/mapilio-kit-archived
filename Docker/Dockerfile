@@ -2,6 +2,7 @@ FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
+ARG DATASET_PATH
 WORKDIR /mapilio_kit
 
 RUN apt-get clean
@@ -22,6 +23,6 @@ RUN cp dependencies/max2sphere-batch/MAX2spherebatch bin/
 
 RUN set -e && mkdir -p datasets
 
-COPY dataset /mapilio_kit/datasets
+COPY $DATASET_PATH /mapilio_kit/datasets
 
 RUN mapilio_kit --version

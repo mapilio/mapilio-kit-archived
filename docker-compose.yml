@@ -2,8 +2,14 @@ version: '3.7'
 
 services:
     app:
-        build: ./Docker
         container_name: mapilio_kit
+        env_file:
+            -   .env
+        build:
+            context: .
+            dockerfile: Docker/Dockerfile
+            args:
+                DATASET_PATH: "${DATASET_PATH}"
         networks:
             - network
 
