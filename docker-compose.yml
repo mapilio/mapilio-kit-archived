@@ -10,6 +10,9 @@ services:
             dockerfile: Docker/Dockerfile
             args:
                 DATASET_PATH: "${DATASET_PATH}"
+                USER_NAME: "${USER_NAME}"
+                USER_EMAIL: "${USER_EMAIL}"
+                USER_PASSWORD: "${USER_PASSWORD}"
         networks:
             - network
 

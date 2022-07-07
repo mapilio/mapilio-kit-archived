@@ -79,7 +79,7 @@ def edit_config(
 
         user_items = {
             "SettingsUsername": user_name,
-            "SettingsUserKey": user_key,
+            "SettingsUserKey": str(user_key),
             "user_upload_token": upload_token,
         }
     else:
