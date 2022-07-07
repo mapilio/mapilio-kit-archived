@@ -3,6 +3,10 @@ FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND noninteractive
 
 ARG DATASET_PATH
+ARG USER_NAME
+ARG USER_EMAIL
+ARG USER_PASSWORD
+
 WORKDIR /mapilio_kit
 
 RUN apt-get clean
@@ -26,3 +30,4 @@ RUN set -e && mkdir -p datasets
 COPY $DATASET_PATH /mapilio_kit/datasets
 
 RUN mapilio_kit --version
+RUN mapilio_kit authenticate --user_name=$USER_NAME --user_email=$USER_EMAIL --user_password=$USER_PASSWORD
