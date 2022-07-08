@@ -2,11 +2,14 @@ from tqdm import tqdm
 from .download_config import select_quality
 from .upload import fetch_user_items
 import json
-import requests
 import logging
 import os.path
-import urllib.request
 import typing as T
+import requests
+import os
+from urllib.parse import urlparse
+import shutil
+
 
 from .api_v1 import URL_Sequences, URL_CDN, URL_Images
 
@@ -100,6 +103,14 @@ def get_seqeuence_and_image_detail_request(
     return response['data']
 
 
+def download_image(url: str, save_image_path: str = os.getcwd()):
+    a = urlparse(url)
+    r = requests.get(url, stream=True)
+    if r.status_code == 200:
+        with open(save_image_path, 'wb') as f:
+            r.raw.decode_content = True
+            shutil.copyfileobj(r.raw, f)
+
 def save_image(
         uploaded_hash: str,
         filename: str,
@@ -126,4 +137,5 @@ def save_image(
         if not os.path.exists(end_save_path):
             # LOG.info(f"The Folder does not exist! -->> New Folder is creating")
             os.makedirs(end_save_path)
-        urllib.request.urlretrieve(image_full_url, image_path)
+        download_image(url=image_full_url,save_image_path=image_path)
+        # urllib.request.urlretrieve(image_full_url, image_path)
