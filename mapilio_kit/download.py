@@ -1,15 +1,16 @@
-import time
-
 from tqdm import tqdm
 from .download_config import select_quality
 from .upload import fetch_user_items
 import json
-import requests
 import logging
 import os.path
-import urllib.request
 import typing as T
-import cv2
+import requests
+import os
+from urllib.parse import urlparse
+import shutil
+
+
 from .api_v1 import URL_Sequences, URL_CDN, URL_Images
 
 LOG = logging.getLogger(__name__)
@@ -101,27 +102,14 @@ def get_seqeuence_and_image_detail_request(
 
     return response['data']
 
-def url_to_image(url: str):
-    """
-    # download the image, convert it to a NumPy array, and then read
-    # it into OpenCV format
-    :param url:
-    :return:
-    """
-    import requests
-    import numpy as np
-    number_of_tries = 3
-    for _ in range(number_of_tries):
-        try:
-            resp = requests.get(url, stream=True).raw
-            image = np.asarray(bytearray(resp.read()), dtype="uint8")
-            image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-            return image
-        except Exception:
-            time.sleep(2)
-    else:
-        raise
 
+def download_image(url: str, save_image_path: str = os.getcwd()):
+    a = urlparse(url)
+    r = requests.get(url, stream=True)
+    if r.status_code == 200:
+        with open(save_image_path, 'wb') as f:
+            r.raw.decode_content = True
+            shutil.copyfileobj(r.raw, f)
 
 def save_image(
         uploaded_hash: str,
@@ -149,5 +137,5 @@ def save_image(
         if not os.path.exists(end_save_path):
             # LOG.info(f"The Folder does not exist! -->> New Folder is creating")
             os.makedirs(end_save_path)
-        image = url_to_image(image_full_url)
-        cv2.imwrite(image_path + filename, image)
+        download_image(url=image_full_url,save_image_path=image_path)
+        # urllib.request.urlretrieve(image_full_url, image_path)
