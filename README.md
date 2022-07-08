@@ -71,13 +71,39 @@ python3 -m pip install --upgrade git+https://github.com/mapilio/mapilio-kit
 
 If you see "Permission Denied" error, try to run the command above with `sudo`
 
-### Docker Installation
+### Docker Installation Process and Upload
 
+First, create folder under Docker/dataset and copy your videos or photos
+
+- Docker --> dataset --> **[ GS017111.360, GS564212.MP4, GB4553123_images ]**
+    
 ```shell
-cd Docker
-docker image build --tag mapilio_kit .
-docker run -it mapilio_kit mapilio_kit --version
+sudo docker-compose up --build
+sudo docker run -it mapilio-kit_app:latest bash
 ```
+
+#### Timelaps Images upload
+```bash
+mapilio_kit process_and_upload datasets/101GOPRO --user_name="username@mapilio.com"
+```
+
+#### Video Images upload
+```bash
+mapilio_kit video_process_and_upload "datasets/101GOPRO" "/home/101GOPRO_imgs" \
+    --geotag_source "gopro_videos" \
+    --interpolate_directions \
+    --video_sample_interval 1
+    
+mapilio_kit process_and_upload /home/101GOPRO_imgs --user_name="username@mapilio.com"
+```
+
+#### 360 Max Process and upload
+```bash
+mapilio_kit gopro360max_process --video-file datasets/GS017111.360 --output-folder /home/GS017111_video --bin-dir /mapilio_kit/bin/
+    
+mapilio_kit process_and_upload /home/GS017111_video --user_name="username@mapilio.com"
+```
+
 
 ## Video Support
 
@@ -258,6 +284,25 @@ This datas random unique numbers such as "_wAuFDewU51tll27dfzdMQM28_"
 
 - --organization_key="mapilio.com/username/organtion" 
 - --project_key="mapilio.com/username/projects"
+
+### Docker Upload
+
+**TODO docker-composer.yml**
+
+If up docker container follow instructors
+
+```bash
+docker run -it mapilio_kit bash
+mapilio_kit gopro360max_process --video-file datasets/GS017111.360 --bin-dir /mapilio_kit/bin
+mapilio_kit process_and_upload /tmp/frames --user_name="username@mapilio.com" 
+```
+
+then check in container
+
+```bash
+ls /tmp/test
+```
+
 
 ## Download
 

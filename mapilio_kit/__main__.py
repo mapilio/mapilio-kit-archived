@@ -13,6 +13,7 @@ from .commands import video_process_and_upload
 from .commands import zip
 from .commands import image_and_csv_upload
 from .commands import download
+from .commands import gopro_360max
 
 # do not use __name__ here is because if you run tools as a module, __name__ will be "__main__"
 LOG = logging.getLogger("mapilio_kit")
@@ -26,7 +27,8 @@ def logger_configuration(logger: logging.Logger, level, stream=None) -> None:
 def general_arguments(parser, command):
     if command == "authenticate":
         return
-
+    if command == "gopro360max_process":
+        return
     if command in ["sample_video", "video_process", "video_process_and_upload"]:
         parser.add_argument(
             "video_import_path",
@@ -88,7 +90,8 @@ def main():
         video_process_and_upload,
         authenticate,
         image_and_csv_upload,
-        download
+        download,
+        gopro_360max
     ]
     parser = argparse.ArgumentParser(
         "mapilio_kit",

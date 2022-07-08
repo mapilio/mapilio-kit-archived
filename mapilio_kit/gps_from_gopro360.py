@@ -112,34 +112,32 @@ def get_gps_date_time(xml_metadata_file):
     return gps_date_time
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description='generates geotagged and metadata updated equirectangular frames from gopro .360 video file')
+def get_gpx_fmt_url():
+    user = "mapilio"
+    repo = "mapilio-kit"
+    src_dir = "schema"
+    branch = "master"
+    pyfile = "gpx.fmt"
 
-    parser.add_argument('--video-file', '-vf', type=str, help='video file path', default=None)
-    parser.add_argument('--output-folder', '-of', type=str, help='output folder', default='/tmp/test')
-    parser.add_argument('--frame-rate', '-fps', type=int, help='how many frames to extract per frame', default=1)
-    parser.add_argument('--quality', '-q', type=int, help='frame extraction quality', default=2)
-    parser.add_argument('--bin-dir', '-b', type=str, help='directory that contains the MAX2spherebatch exec',
-                        default='bin/')
+    url = f"https://raw.githubusercontent.com/{user}/{repo}/{branch}/{src_dir}/{pyfile}"
 
-    args, unknown_args = parser.parse_known_args()
-    if len(unknown_args) != 0:
-        parser.print_help()
-        sys.exit(1)
+    if not os.path.exists(pyfile):
+        subprocess.run(["wget", "--no-cache", "--backups=1", url], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
 
+
+def gopro360max_stitch(video_file: str,
+                       frame_rate: int,
+                       output_folder: str,
+                       quality: str,
+                       bin_dir: str):
     script_dir = os.path.dirname(os.path.realpath(__file__))
 
-    video_file = args.video_file
-    frame_rate = args.frame_rate
-    output_folder = args.output_folder
-    quality = args.quality
     frame_delta = 1.0 / frame_rate
     print(f"frame_delta: {frame_delta}")
 
     assert_file_exists(video_file, "video file")
 
-    bin_dir = os.path.join(script_dir, args.bin_dir)
+    bin_dir = os.path.join(script_dir, bin_dir)
     assert_folder_exists(bin_dir)
 
     eac_stitcher_exe = os.path.join(bin_dir, 'MAX2spherebatch')
@@ -186,7 +184,8 @@ if __name__ == '__main__':
     make_directory(metadata_folder, remove_if_present=True)
 
     gps_track_file = os.path.join(metadata_folder, "gps_track.gpx")
-    cmd = f"exiftool -ee -p {os.path.join('../', 'schema')}/gpx.fmt {video_file} > {gps_track_file}"
+    get_gpx_fmt_url()
+    cmd = f"exiftool -ee -p gpx.fmt {video_file} > {gps_track_file}"
     print(f"cmd: {cmd}")
     run_command(cmd, show_progress=False)
 
@@ -213,7 +212,7 @@ if __name__ == '__main__':
     run_command(cmd, show_progress=False)
     # this just increments datetime original with the frame delta
     cmd = "exiftool -fileorder FileName -ext jpg '-datetimeoriginal+<0:0:${filesequence;$_*=%f}' %s" % (
-    frame_delta, frames_folder)
+        frame_delta, frames_folder)
     print(f"cmd: {cmd}")
     run_command(cmd, show_progress=False)
 
