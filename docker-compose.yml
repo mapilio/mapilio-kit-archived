@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+    app:
+        container_name: mapilio_kit
+        env_file:
+            -   .env
+        build:
+            context: .
+            dockerfile: Docker/Dockerfile
+            args:
+                DATASET_PATH: "${DATASET_PATH}"
+                USER_NAME: "${USER_NAME}"
+                USER_EMAIL: "${USER_EMAIL}"
+                USER_PASSWORD: "${USER_PASSWORD}"
+        networks:
+            - network
+
+networks:
+    network: {}
