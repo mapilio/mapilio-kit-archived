@@ -73,12 +73,17 @@ If you see "Permission Denied" error, try to run the command above with `sudo`
 
 ### Docker Installation Process and Upload
 
-First, create folder under Docker/dataset and copy your videos or photos
+First, update your ".env" file your login and upload information.
 
-- Docker --> dataset --> **[ GS017111.360, GS564212.MP4, GB4553123_images ]**
-    
+```text
+DATASET_PATH="/home/dir"
+USER_NAME="test@mapilio.com"
+USER_EMAIL="test@mapilio.com"
+USER_PASSWORD="********"
+```
+ 
 ```shell
-sudo docker-compose up --build
+sudo docker-compose up -d
 sudo docker run -it mapilio-kit_app:latest bash
 ```
 
