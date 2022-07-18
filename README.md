@@ -34,7 +34,7 @@ Mapilio Kit is a library for processing and uploading images to [Mapilio](https:
 ## Quickstart
 
 Download the latest `mapilio_kit` binaries for your platform
-here: https://github.com/mapilio/mapilio_kit/releases/tag/v1.3.6
+here: https://github.com/mapilio/mapilio-kit/releases/tag/v1.4.1
 
 See [more installation instructions](#installation) below.
 
