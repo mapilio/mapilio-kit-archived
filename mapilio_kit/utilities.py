@@ -46,8 +46,7 @@ __RULES__ = [{('HERO7', 'Wide', '4:3', None): 122.6}, {('HERO7', 'Wide ', '16:9'
              {('GoPro Max', 'Unknown (X)', '4:3', None, None): 148.8},
              {('GoPro Max', 'Wide', '4:3', None, None): 122.6}, {('GoPro Max', 'Linear', '4:3', None, None): 86.0},
              {('GoPro Max', 'Narrow', '4:3', None, None): 68.0}, {('GOPRO', 'Unknown (X)', '4:3', None, None): 94.0},
-             {('GOPRO', 'Unknown (X)', '16:9', None, None): 121.0},
-             {('GOPRO', 'Super View', '169:95', None, None): 121.0}]
+             {('GOPRO', 'Unknown (X)', '16:9', None, None): 121.0}]
 
 
 def find_fov2(model, mode, asp_rat):
