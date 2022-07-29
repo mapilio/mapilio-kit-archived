@@ -3,7 +3,7 @@ from typing import Dict, Union
 
 from collections import ChainMap
 
-__RULES__ = [{('HERO7', 'Wide', '4:3', None): 122.6}, {('HERO7', 'Wide ', '16:9', None): 118.2},
+__RULES__ = [{('HERO7', 'Wide', '4:3', None,None): 122.6}, {('HERO7', 'Wide', '16:9', None,None): 118.2},
              {('HERO7', 'Wide', '4:3', None, 'zoom'): 64.6}, {('HERO7', 'Wide', '16:9', None, 'zoom'): 62.2},
              {('HERO7', 'Linear', '4:3', None, None): 86.0}, {('HERO7', 'Linear', '4:3', 'on', None): 86.7},
              {('HERO7', 'Linear', '4:3', None, 'zoom'): 50.0}, {('HERO7', 'Linear', '4:3', 'on', None): 51.0},
