@@ -34,7 +34,7 @@ Mapilio Kit is a library for processing and uploading images to [Mapilio](https:
 ## Quickstart
 
 Download the latest `mapilio_kit` binaries for your platform
-here: https://github.com/mapilio/mapilio_kit/releases/tag/v1.3.6
+here: https://github.com/mapilio/mapilio-kit/releases/tag/v1.4.1
 
 See [more installation instructions](#installation) below.
 
@@ -73,12 +73,17 @@ If you see "Permission Denied" error, try to run the command above with `sudo`
 
 ### Docker Installation Process and Upload
 
-First, create folder under Docker/dataset and copy your videos or photos
+First, update your ".env" file your login and upload information.
 
-- Docker --> dataset --> **[ GS017111.360, GS564212.MP4, GB4553123_images ]**
-    
+```text
+DATASET_PATH="/home/dir"
+USER_NAME="test@mapilio.com"
+USER_EMAIL="test@mapilio.com"
+USER_PASSWORD="********"
+```
+ 
 ```shell
-sudo docker-compose up --build
+sudo docker-compose up -d
 sudo docker run -it mapilio-kit_app:latest bash
 ```
 
@@ -126,6 +131,14 @@ On **Debian/Ubuntu**:
 ```shell
 sudo apt install ffmpeg
 sudo apt install exiftool
+```
+
+On **Windows**:
+Open the powershell.exe 
+```shell
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+choco install ffmpeg
+choco install exiftool
 ```
 
 ## Usage

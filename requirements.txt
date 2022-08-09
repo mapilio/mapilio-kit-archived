@@ -22,3 +22,4 @@ tzwhere==3.0.3
 gps-anomaly
 simple-term-menu
 virtualenv
+windows-curses; platform_system  == "Windows"
