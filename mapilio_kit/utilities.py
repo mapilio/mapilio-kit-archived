@@ -3,21 +3,34 @@ from typing import Dict, Union
 
 from collections import ChainMap
 
-__RULES__ = [{('HERO7', 'Wide', '4:3'): 122.6}, {('HERO7', 'Wide ', '16:9'): 188.2},
-             {('HERO7', 'Linear', '4:3'): 86.7}, {('HERO7', 'Linear', '16:9'): 85.8},
-             {('HERO8', 'Unknown (X)', '16:9'): 122.6}, {('HERO8', 'Wide', '16:9'): 118.2},
-             {('HERO8', 'Wide', '4:3'): 122.6}, {('HERO8', 'Linear', '16:9'): 85.8},
-             {('HERO8', 'Linear', '4:3'): 86.0}, {('HERO8', 'Narrow', '16:9'): 68.0},
-             {('HERO8', 'Narrow', '4:3'): 68.0}, {('HERO9 Black', 'Wide', '16:9'): 118.0},
-             {('HERO9 Black', 'Linear', '16:9'): 92.0}, {('HERO9 Black', 'Super View', '16:9'): 121.0},
-             {('HERO9 Black', 'Wide', '4:3'): 122.0}, {('HERO9 Black', 'Linear', '4:3'): 92.0},
-             {('HERO9 Black', 'Narrow', '16:9'): 73.0}, {('HERO9 Black', 'Narrow', '4:3'): 73.0},
-             {('GoPro Max', 'Wide', '16:9'): 118.0}, {('GoPro Max', 'Linear', '16:9'): 92.0},
-             {('GoPro Max', 'Unknown (X)', '16:9'): 121.0}, {('GoPro Max', 'Narrow', '16:9'): 73.0},
-             {('GoPro Max', 'Unknown (X)', '4:3'): 94.0}, {('GOPRO', 'Unknown (X)', '4:3'): 94.0},
-             {('GOPRO', 'Unknown (X)', '16:9'): 121.0}
-             ]
-
+__RULES__ = [{('HERO7', 'Wide', '4:3'): 122.6}, {('HERO7', 'Wide', '16:9'): 118.2},
+             {('HERO7', 'Linear', '4:3'): 86.7}, {('HERO7', 'Linear', '16:9'): 87.6},
+             {('HERO8', 'Wide', '4:3'): 122.6}, {('HERO8', 'Wide', '16:9',): 118.2},
+             {('HERO8', 'Linear', '4:3'): 86.7},
+             {('HERO8', 'Narrow', '4:3'): 68.0}, {('HERO8', 'Unknown (X)', '16:9'): 122.6},
+             {('HERO8', 'Linear', '16:9'): 85.8}, {('HERO8', 'Linear', '16:9'): 87.6},
+             {('HERO8', 'Narrow', '16:9'): 68.0},
+             {('HERO9 Black', 'Wide', '4:3'): 122.0},
+             {('HERO9 Black', 'Linear', '4:3'): 92.0},
+             {('HERO9 Black', 'Narrow', '4:3'): 73.0},
+             {('HERO9 Black', 'Unknown (X)', '16:9'): 121.0},
+             {('HERO9 Black', 'Wide', '16:9'): 118.0},
+             {('HERO9 Black', 'Linear', '16:9'): 92.0},
+             {('HERO9 Black', 'Narrow', '16.9'): 73.0},
+             {('GoPro Max', 'Unknown (X)', '4:3'): 148.8},
+             {('GoPro Max', 'Wide', '4:3'): 122.6}, {('GoPro Max', 'Linear', '4:3'): 86.0},
+             {('GoPro Max', 'Narrow', '4:3'): 68.0},
+             {('GoPro Max', 'Unknown (X)', '16:9'): 148.8},
+             {('GoPro Max', 'Wide', '16:9'): 122.6}, {('GoPro Max', 'Linear', '16:9'): 86.0},
+             {('GoPro Max', 'Narrow', '16:9'): 68.0}, {('GOPRO', 'Unknown (X)', '4:3'): 94.0},
+             {('GOPRO', 'Unknown (X)', '16:9'): 121.0}]
+"""
+Source:
+https://gopro.com/help/articles/question_answer/hero7-field-of-view-fov-information?sf96748270=1
+https://community.gopro.com/s/article/HERO8-Black-Digital-Lenses-formerly-known-as-FOV?language=en_US
+https://community.gopro.com/s/article/HERO9-Black-Digital-Lenses-FOV-Information?language=en_US
+https://community.gopro.com/s/article/MAX-Digital-Lenses-formerly-known-as-FOV?language=en_US
+"""
 
 def find_fov2(model, mode, asp_rat):
     result = ChainMap(*__RULES__)
