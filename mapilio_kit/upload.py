@@ -111,6 +111,7 @@ def upload(
         anomaly = Anomaly()
         descs, failed_imgs, anomaly_points = anomaly.anomaly_detector(descs)
         if len(failed_imgs) > 0:
+
             LOG.warning(f"Some images has failed."
                         f" These images is => {failed_imgs}")
         if not descs:

@@ -35,7 +35,7 @@ __RULES__ = [{('HERO7', 'Wide', '4:3'): 122.6}, {('HERO7', 'Wide', '16:9'): 118.
              {('GOPRO', 'Linear', '16:9'): 86.0}, {('GOPRO', 'Max SuperView', '4:3'): 128.0},
              {('GOPRO', 'Max SuperView', '4:3'): 140.0},
              {('GOPRO', 'Wide', '4:3'): 113.0}, {('GOPRO', 'Wide', '4:3'): 122.0}, {('GOPRO', 'Linear', '4:3'): 88.0},
-             {('GOPRO', 'Linear', '4:3'): 92.0},
+             {('GOPRO', 'Linear', '4:3'): 92.0},{('GOPRO', 'Wide', '169:95'): 122.0}
              ]
 """
 Source:
