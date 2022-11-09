@@ -260,7 +260,40 @@ class ExifRead:
             fields, default="none", field_type=str
         )
         return make
+    def extract_speed(self) -> float:
+        fields = ["Speeds"]
+        speeds = self._extract_alternative_fields(
+            fields, default=0, field_type=float
+        )
+        if not len(speeds) == 1:
+            speeds = 0
+        return speeds
 
+    def extract_pitch(self) -> float:
+        fields = ["pitch"]
+        pitch = self._extract_alternative_fields(
+            fields, default=0, field_type=float
+        )
+        if not len(pitch) == 1:
+            pitch = 0
+        return pitch
+
+    def extract_yaw(self) -> float:
+        fields = ["yaw"]
+        yaw = self._extract_alternative_fields(
+            fields, default=0, field_type=float
+        )
+        if not len(yaw) == 1:
+            yaw = 0
+        return yaw
+    def extract_roll(self) -> float:
+        fields = ["roll"]
+        roll = self._extract_alternative_fields(
+            fields, default=0, field_type=float
+        )
+        if not len(roll) == 1:
+            roll = 0
+        return roll
     def extract_model(self) -> str:
         """
         Extract camera model
@@ -339,5 +372,9 @@ if __name__ == "__main__":
                 "lon_lat": exif.extract_lon_lat(),
                 "altitude": exif.extract_altitude(),
                 "image_history": exif.extract_image_history(),
+                "roll": exif.extract_roll(),
+                "pitch": exif.extract_pitch(),
+                "yaw": exif.extract_yaw(),
+                "carSpeed": exif.extract_speed(),
             }
         )

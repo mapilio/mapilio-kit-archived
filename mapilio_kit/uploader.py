@@ -48,7 +48,7 @@ def _group_sequences_by_uuid(
     sequences: T.Dict[str, T.Dict[str, types.FinalImageDescription]] = {}
     missing_sequence_uuid = str(uuid.uuid4())
     for desc in image_descs:
-        sequence_uuid = desc.get("SequenceUUID", missing_sequence_uuid)
+        sequence_uuid = desc.get("sequenceUuid", missing_sequence_uuid)
         sequence = sequences.setdefault(sequence_uuid, {})
         desc_without_filename = {**desc}
         del desc_without_filename["filename"]
@@ -94,7 +94,7 @@ def upload_desc(
     image_desc = list(image_desc)[:-1]
     sequence_uuid = next(iter(seq_info)) # get first key from dict
     description_chunk = [desc for desc in image_desc if
-                         desc.get("SequenceUUID") == sequence_uuid]
+                         desc.get("sequenceUuid") == sequence_uuid]
     summary['Information']['failed_images'] = summary['Information']['total_images'] - seq_info[sequence_uuid]['count'] # noqa
     summary['Information']['total_images'] = seq_info[sequence_uuid]['count'] # noqa
     summary['Information']['processed_images'] = seq_info[sequence_uuid]['count'] # noqa
@@ -139,7 +139,7 @@ def upload_image_dir_and_description(
         project_key: str = None
 ):
     jsonschema.validate(instance=user_items, schema=types.UserItemSchema)
-    image_descs = [desc for desc in descs if "Heading" in desc]
+    image_descs = [desc for desc in descs if "heading" in desc]
     _validate_descs(image_dir, image_descs)
 
     sequences = _group_sequences_by_uuid(image_descs)
@@ -208,12 +208,12 @@ def _zip_sequence(
 
     root_dir = _find_root_dir(file_list)
     if root_dir is None:
-        sequence_uuid = first_image.get("SequenceUUID")
+        sequence_uuid = first_image.get("sequenceUuid")
         raise RuntimeError(f"Unable to find the root dir of sequence {sequence_uuid}")
 
     sequence_md5 = hashlib.md5()
 
-    file_list.sort(key=lambda path: sequences[path]["CaptureTime"])
+    file_list.sort(key=lambda path: sequences[path]["captureTime"])
 
     # compressing
     with zipfile.ZipFile(fp, "w", zipfile.ZIP_DEFLATED) as ziph:
@@ -388,7 +388,7 @@ def _zip_and_upload_single_sequence(
 
     file_list = list(sequences.keys())
     first_image = list(sequences.values())[0]
-    sequence_uuid = first_image.get("SequenceUUID")
+    sequence_uuid = first_image.get("sequenceUuid")
 
     root_dir = _find_root_dir(file_list)
     if root_dir is None:
