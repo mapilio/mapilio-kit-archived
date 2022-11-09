@@ -21,19 +21,19 @@ class _GPXPoint:
 
     @property
     def lat(self) -> float:
-        return self.desc["Latitude"]
+        return self.desc["latitude"]
 
     @property
     def lon(self) -> float:
-        return self.desc["Longitude"]
+        return self.desc["longitude"]
 
     @property
     def time(self) -> datetime.datetime:
-        return types.map_capture_time_to_datetime(self.desc["CaptureTime"])
+        return types.map_capture_time_to_datetime(self.desc["captureTime"])
 
     @property
     def angle(self) -> T.Optional[float]:
-        return self.desc.get("Heading")
+        return self.desc.get("heading")
 
 
 Sequence = T.List[_GPXPoint]
@@ -182,7 +182,7 @@ def process_sequence(
                     types.Image,
                     {
                         **cur.desc,
-                        "Heading": new_bearing
+                        "heading": new_bearing
                     },
                 )
                 interpolated_dedup_sequence.append(_GPXPoint(new_desc, cur.filename))
@@ -203,7 +203,7 @@ def process_sequence(
                     types.Image,
                     {
                         **dedup_sequence[-1].desc,
-                        "Heading": interpolated_dedup_sequence[-1].angle
+                        "heading": interpolated_dedup_sequence[-1].angle
                     },
                 )
                 interpolated_dedup_sequence.append(
@@ -221,11 +221,11 @@ def process_sequence(
             sequence_uuid = str(uuid.uuid4())
             for image in interpolated_dedup_sequence[idx: idx + MAX_SEQUENCE_LENGTH]:
                 desc: types.Sequence = {
-                    "SequenceUUID": sequence_uuid,
+                    "sequenceUuid": sequence_uuid,
                 }
-                heading = image.desc.get("Heading")
+                heading = image.desc.get("heading")
                 if heading is not None:
-                    desc["Heading"] = heading
+                    desc["heading"] = heading
                 image_log.log_in_memory(image.filename, "sequence_process", desc)
 
 

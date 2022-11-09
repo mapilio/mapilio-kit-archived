@@ -59,8 +59,8 @@ def single_feature_to_desc(
             return None
     lng, lat = feature["geometry"]["coordinates"]
     desc = {
-        "Latitude": lng,
-        "Longitude": lat,
+        "latitude": lng,
+        "longitude": lat,
         **feature["properties"],
     }
     return T.cast(types.FinalImageDescriptionFromGeoJSON, desc)
@@ -95,13 +95,13 @@ def single_desc_to_feature(
         except jsonschema.exceptions.ValidationError:
             return None
     properties = {**desc}
-    del properties["Longitude"]
-    del properties["Latitude"]
+    del properties["longitude"]
+    del properties["latitude"]
     return {
         "type": "Feature",
         "geometry": {
             "type": "Point",
-            "coordinates": [desc["Longitude"], desc["Latitude"]],
+            "coordinates": [desc["longitude"], desc["latitude"]],
         },
         "properties": properties,
     }
