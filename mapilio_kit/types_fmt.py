@@ -22,13 +22,13 @@ class User(TypedDict, total=False):
 
 
 class ImageRequired(TypedDict, total=True):
-    Latitude: float
-    Longitude: float
-    CaptureTime: str
+    latitude: float
+    longitude: float
+    captureTime: str
 
 
 class Image(ImageRequired, total=False):
-    Altitude: float
+    altitude: float
     PhotoUUID: str
     Heading: float
     Roll: float
@@ -96,35 +96,39 @@ UserItemSchema = {
 FinalImageDescriptionSchema = {
     "type": "object",
     "properties": {
-        "Latitude": {"type": "number", "description": "Latitude of the image"},
-        "Longitude": {"type": "number", "description": "Longitude of the image"},
-        "Altitude": {"type": "number", "description": "Altitude of the image"},
-        "CaptureTime": {
+        "latitude": {"type": "number", "description": "latitude of the image"},
+        "longitude": {"type": "number", "description": "longitude of the image"},
+        "altitude": {"type": "number", "description": "altitude of the image"},
+        "captureTime": {
             "type": "string",
             "description": "Capture time of the image",
         },
-        "PhotoUUID": {"type": "string"},
-        "Heading": {"type": "number"},
-        "SequenceUUID": {
+        "photoUuid": {"type": "string"},
+        "heading": {"type": "number"},
+        "sequenceUuid": {
             "type": "string",
             "description": "Arbitrary key used to group images",
         },
-        "DeviceModel": {"type": "string"},
-        "DeviceMake": {"type": "string"},
-        "CameraUUID": {"type": "string"},
-        "ImageSize": {"type": "string"},
-        "FoV": {"type": "number"},
+        "deviceModel": {"type": "string"},
+        "deviceMake": {"type": "string"},
+        "cameraUuid": {"type": "string"},
+        "imageSize": {"type": "string"},
+        "fov": {"type": "number"},
         "anomaly": {"type": "number"},
-        "Roll": {"type": "number"},
-        "Pitch": {"type": "number"},
-        "Path": {"type": "string"},
-        "Filename": {"type": "string"},
-        "Orientation": {"type": "integer"},
+
+        "yaw": {"type": "number"},
+        "carSpeed": {"type": "number"},
+        "pitch": {"type": "number"},
+        "roll": {"type": "number"},
+
+        "path": {"type": "string"},
+        "filename": {"type": "string"},
+        "orientation": {"type": "integer"},
     },
     "required": [
-        "Latitude",
-        "Longitude",
-        "CaptureTime",
+        "latitude",
+        "longitude",
+        "captureTime",
     ],
     "additionalProperties": False,
 }
@@ -199,12 +203,12 @@ class GPXPoint(T.NamedTuple):
 
     def as_desc(self) -> Image:
         desc: Image = {
-            "Latitude": self.lat,
-            "Longitude": self.lon,
-            "CaptureTime": datetime_to_map_capture_time(self.time),
+            "latitude": self.lat,
+            "longitude": self.lon,
+            "captureTime": datetime_to_map_capture_time(self.time),
         }
         if self.alt is not None:
-            desc["Altitude"] = self.alt
+            desc["altitude"] = self.alt
         return desc
 
 
@@ -215,7 +219,7 @@ class GPXPointAngle(T.NamedTuple):
     def as_desc(self) -> Image:
         desc = self.point.as_desc()
         if self.angle is not None:
-            desc["Heading"] = self.angle
+            desc["heading"] = self.angle
         return desc
 
 
