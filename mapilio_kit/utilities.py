@@ -9,21 +9,34 @@ __RULES__ = [{('HERO7', 'Wide', '4:3'): 122.6}, {('HERO7', 'Wide', '16:9'): 118.
              {('HERO8', 'Linear', '4:3'): 86.7},
              {('HERO8', 'Narrow', '4:3'): 68.0}, {('HERO8', 'Unknown (X)', '16:9'): 122.6},
              {('HERO8', 'Linear', '16:9'): 85.8}, {('HERO8', 'Linear', '16:9'): 87.6},
-             {('HERO8', 'Narrow', '16:9'): 68.0},{ ('GOPRO', 'Super View', '16:9'): 99.0},
-             {('HERO9 Black', 'Wide', '4:3'): 122.0},
-             {('HERO9 Black', 'Linear', '4:3'): 92.0},
-             {('HERO9 Black', 'Narrow', '4:3'): 73.0},
-             {('HERO9 Black', 'Unknown (X)', '16:9'): 121.0},
-             {('HERO9 Black', 'Wide', '16:9'): 118.0},
-             {('HERO9 Black', 'Linear', '16:9'): 92.0},
-             {('HERO9 Black', 'Narrow', '16.9'): 73.0},
-             {('GoPro Max', 'Unknown (X)', '4:3'): 148.8},
+             {('HERO8', 'Narrow', '16:9'): 68.0}, {('GOPRO', 'Super View', '16:9'): 99.0},
+             {('HERO9 Black', 'Wide', '4:3'): 122.0}, {('GOPRO', 'Linear', '16:9'): 75.0},
+             {('HERO9 Black', 'Linear', '4:3'): 92.0}, {('GOPRO', 'Linear', '16:9'): 87.0},
+             {('HERO9 Black', 'Narrow', '4:3'): 73.0}, {('GOPRO', 'Linear', '16:9'): 92.0},
+             {('HERO9 Black', 'Unknown (X)', '16:9'): 121.0}, {('GOPRO', 'Wide', '16:9'): 92.0},
+             {('HERO9 Black', 'Wide', '16:9'): 118.0}, {('GOPRO', 'Wide', '16:9'): 109.0},
+             {('HERO9 Black', 'Linear', '16:9'): 92.0}, {('GOPRO', 'Wide', '16:9'): 118.0},
+             {('HERO9 Black', 'Narrow', '16.9'): 73.0}, {('GOPRO', 'Linear + Horizon Levelling', '16:9'): 75.0},
+             {('GoPro Max', 'Unknown (X)', '4:3'): 148.8}, {('GOPRO', 'Linear + Horizon Levelling', '16:9'): 87.0},
              {('GoPro Max', 'Wide', '4:3'): 122.6}, {('GoPro Max', 'Linear', '4:3'): 86.0},
-             {('GoPro Max', 'Narrow', '4:3'): 68.0},
-             {('GoPro Max', 'Unknown (X)', '16:9'): 148.8},
-             {('GoPro Max', 'Wide', '16:9'): 122.6}, {('GoPro Max', 'Linear', '16:9'): 86.0},
+             {('GoPro Max', 'Narrow', '4:3'): 68.0}, {('GOPRO', 'Narrow', '16:9'): 75.0},
+             {('GoPro Max', 'Unknown (X)', '16:9'): 148.8}, {('GOPRO', 'Narrow', '16:9'): 67.0},
+             {('GoPro Max', 'Wide', '16:9'): 122.6}, {('GoPro Max', 'Linear', '16:9'): 73.0},
              {('GoPro Max', 'Narrow', '16:9'): 68.0}, {('GOPRO', 'Unknown (X)', '4:3'): 94.0},
-             {('GOPRO', 'Unknown (X)', '16:9'): 121.0}]
+             {('GOPRO', 'Unknown (X)', '16:9'): 121.0}, {('GOPRO', 'Wide', '4:3'): 92.0},
+             {('GOPRO', 'Wide', '4:3'): 113.0}, {('GOPRO', 'Wide', '4:3'): 122.0}, {('GOPRO', 'Linear', '4:3'): 75.0},
+             {('GOPRO', 'Linear', '4:3'): 87.0}, {('GOPRO', 'Linear', '4:3'): 92.0},
+             {('GOPRO', 'Linear + Horizon Levelling', '4:3'): 75.0},
+             {('GOPRO', 'Linear + Horizon Levelling', '4:3'): 87.0}, {('GOPRO', 'Narrow', '4:3'): 73.0},
+             {('GOPRO', 'Narrow', '4:3'): 67.0},
+             {('GOPRO', 'Max SuperView', '16:9'): 128.0}, {('GOPRO', 'Max SuperView', '16:9'): 140.0},
+             {('GOPRO', 'Wide', '16:9'): 109.0}, {('GOPRO', 'Wide', '16:9'): 122.0},
+             {('GOPRO', 'Linear', '16:9'): 88.0},
+             {('GOPRO', 'Linear', '16:9'): 86.0}, {('GOPRO', 'Max SuperView', '4:3'): 128.0},
+             {('GOPRO', 'Max SuperView', '4:3'): 140.0},
+             {('GOPRO', 'Wide', '4:3'): 113.0}, {('GOPRO', 'Wide', '4:3'): 122.0}, {('GOPRO', 'Linear', '4:3'): 88.0},
+             {('GOPRO', 'Linear', '4:3'): 92.0},
+             ]
 """
 Source:
 https://gopro.com/help/articles/question_answer/hero7-field-of-view-fov-information?sf96748270=1
@@ -31,6 +44,7 @@ https://community.gopro.com/s/article/HERO8-Black-Digital-Lenses-formerly-known-
 https://community.gopro.com/s/article/HERO9-Black-Digital-Lenses-FOV-Information?language=en_US
 https://community.gopro.com/s/article/MAX-Digital-Lenses-formerly-known-as-FOV?language=en_US
 """
+
 
 def find_fov2(model, mode, asp_rat):
     result = ChainMap(*__RULES__)
@@ -74,10 +88,10 @@ def get_exiftool_specific_feature(video_or_image_path: str) -> Dict[str, Union[N
         'device_make': None,
         'device_model': None,
         'image_size': None,
-        'roll' : None,
-        'yaw':None,
-        'pitch':None,
-        'carSpeed':None
+        'roll': None,
+        'yaw': None,
+        'pitch': None,
+        'carSpeed': None
     }
     fov_str = None
     fov_deg = None
@@ -85,7 +99,7 @@ def get_exiftool_specific_feature(video_or_image_path: str) -> Dict[str, Union[N
         try:
             line = process.stdout.readline()
             filtered_line = line.rstrip().decode('utf-8')
-            if not line: # noqa
+            if not line:  # noqa
                 break
             if 'yaw' in filtered_line:
                 dict_object['yaw'] = filtered_line.split(':')[1].lstrip(' ')
