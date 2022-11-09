@@ -9,7 +9,7 @@ __RULES__ = [{('HERO7', 'Wide', '4:3'): 122.6}, {('HERO7', 'Wide', '16:9'): 118.
              {('HERO8', 'Linear', '4:3'): 86.7},
              {('HERO8', 'Narrow', '4:3'): 68.0}, {('HERO8', 'Unknown (X)', '16:9'): 122.6},
              {('HERO8', 'Linear', '16:9'): 85.8}, {('HERO8', 'Linear', '16:9'): 87.6},
-             {('HERO8', 'Narrow', '16:9'): 68.0},
+             {('HERO8', 'Narrow', '16:9'): 68.0},{ ('GOPRO', 'Super View', '16:9'): 99.0},
              {('HERO9 Black', 'Wide', '4:3'): 122.0},
              {('HERO9 Black', 'Linear', '4:3'): 92.0},
              {('HERO9 Black', 'Narrow', '4:3'): 73.0},
@@ -73,7 +73,11 @@ def get_exiftool_specific_feature(video_or_image_path: str) -> Dict[str, Union[N
         'field_of_view': None,
         'device_make': None,
         'device_model': None,
-        'image_size': None
+        'image_size': None,
+        'roll' : None,
+        'yaw':None,
+        'pitch':None,
+        'carSpeed':None
     }
     fov_str = None
     fov_deg = None
@@ -83,6 +87,17 @@ def get_exiftool_specific_feature(video_or_image_path: str) -> Dict[str, Union[N
             filtered_line = line.rstrip().decode('utf-8')
             if not line: # noqa
                 break
+            if 'yaw' in filtered_line:
+                dict_object['yaw'] = filtered_line.split(':')[1].lstrip(' ')
+
+            if 'pitch' in filtered_line:
+                dict_object['pitch'] = filtered_line.split(':')[1].lstrip(' ')
+
+            if 'roll' in filtered_line:
+                dict_object['roll'] = filtered_line.split(':')[1].lstrip(' ')
+
+            if 'carSpeed' in filtered_line:
+                dict_object['carSpeed'] = filtered_line.split(':')[1].lstrip(' ')
             if 'Field Of View' in filtered_line:
                 fov_str = filtered_line.split(':')[1].lstrip(' ')
                 dict_object['field_of_view'] = fov_str
@@ -127,8 +142,8 @@ def photo_uuid_generate(user_email: str, descs: list) -> list:
     import hashlib
 
     for desc in descs[:-1]:
-        code = f'{user_email}--{desc["CaptureTime"]}'
+        code = f'{user_email}--{desc["captureTime"]}'
         hash_object = hashlib.md5(code.encode())
-        desc['PhotoUUID'] = hash_object.hexdigest()
+        desc['photoUuid'] = hash_object.hexdigest()
 
     return descs

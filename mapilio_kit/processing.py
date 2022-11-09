@@ -250,26 +250,26 @@ def overwrite_exif_tags(
     # also try to set time and gps so image can be placed on the map for testing and
     # qc purposes
     if overwrite_all_EXIF_tags or overwrite_EXIF_time_tag:
-        dt = types.map_capture_time_to_datetime(desc["CaptureTime"])
+        dt = types.map_capture_time_to_datetime(desc["captureTime"])
         image_exif.add_date_time_original(dt)
         modified = True
 
     if overwrite_all_EXIF_tags or overwrite_EXIF_gps_tag:
         image_exif.add_lat_lon(
-            desc["Latitude"],
-            desc["Longitude"],
+            desc["latitude"],
+            desc["longitude"],
         )
         modified = True
 
     if overwrite_all_EXIF_tags or overwrite_EXIF_direction_tag:
-        heading = desc.get("Heading")
+        heading = desc.get("heading")
         if heading is not None:
-            image_exif.add_direction(heading["Heading"])
+            image_exif.add_direction(heading["heading"])
             modified = True
 
     if overwrite_all_EXIF_tags or overwrite_EXIF_orientation_tag:
-        if "Orientation" in desc:
-            image_exif.add_orientation(desc["Orientation"])
+        if "orientation" in desc:
+            image_exif.add_orientation(desc["orientation"])
             modified = True
 
     if modified:
@@ -289,6 +289,6 @@ def format_orientation(orientation: int) -> int:
         270: 6,
     }
     if orientation not in mapping:
-        raise ValueError("Orientation value has to be 0, 90, 180, or 270")
+        raise ValueError("orientation value has to be 0, 90, 180, or 270")
 
     return mapping[orientation]

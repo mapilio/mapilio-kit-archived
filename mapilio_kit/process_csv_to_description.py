@@ -18,8 +18,8 @@ def process_csv_to_description(
     """
 
     with open(csv_path) as f:
-        float_columns = ['Latitude', 'Longitude', 'Heading', 'FoV',
-                         'Roll', 'Pitch', 'Altitude', 'Orientation']
+        float_columns = ['latitude', 'longitude', 'heading', 'fov','yaw','carSpeed',
+                         'roll', 'pitch', 'altitude', 'orientation']
         mapilio_description = [
             {
                 k: float(v) if k in float_columns else v for k, v in row.items()
