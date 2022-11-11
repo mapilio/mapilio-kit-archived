@@ -108,20 +108,25 @@ def upload(
 
         descs = read_image_descriptions(desc_path)
         descs = photo_uuid_generate(user_email=user_name, descs=descs)
+
         anomaly = Anomaly()
+
         descs, failed_imgs, anomaly_points = anomaly.anomaly_detector(descs)
+
         if len(failed_imgs) > 0:
 
             LOG.warning(f"Some images has failed."
                         f" These images is => {failed_imgs}")
         if not descs:
             LOG.warning(f"No images found in {desc_path}. Exiting...")
+
             return
         user_items = fetch_user_items(user_name, organization_key)
 
         LOG.warning(f"If shooting was taken at a point outside the polygon,"
                     f" these points and images will be published publicly...")
         time.sleep(5)
+        
         uploader.upload_image_dir_and_description(
             import_path, descs, user_items,
             dry_run=dry_run,

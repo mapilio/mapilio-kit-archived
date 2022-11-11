@@ -121,6 +121,7 @@ def get_import_meta_properties_exif(image: str) -> MetaProperties:
     import_meta_data_properties["deviceModel"] = ebi['device_model'] if ebi['device_model'] else exif.extract_model()
     import_meta_data_properties["imageSize"] = ebi['image_size'] if ebi['image_size'] else exif.extract_resolution()
     import_meta_data_properties["fov"] = ebi['field_of_view'] if ebi['field_of_view'] else exif.extract_field_of_view()
+    import_meta_data_properties["megapixels"] = ebi['megapixels'] if ebi['megapixels'] else exif.extract_megapixel()
 
     # import_meta_data_properties["MetaTags"] = eval(exif.extract_image_history())
 

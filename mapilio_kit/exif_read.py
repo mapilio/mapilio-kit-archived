@@ -287,7 +287,14 @@ class ExifRead:
         if yaw[0] == 0:
             yaw = 0
         return yaw
-
+    def extract_megapixel(self) -> float:
+        fields = ["megapixels"]
+        mg = self._extract_alternative_fields(
+            fields, default=0, field_type=float
+        )
+        if mg[0] == 0:
+            mg = 0
+        return mg
     def extract_roll(self) -> float:
         fields = ["roll"]
         roll = self._extract_alternative_fields(
@@ -380,5 +387,6 @@ if __name__ == "__main__":
                 "pitch": exif.extract_pitch(),
                 "yaw": exif.extract_yaw(),
                 "carSpeed": exif.extract_speed(),
+                "megapixels": exif.extract_megapixel(),
             }
         )

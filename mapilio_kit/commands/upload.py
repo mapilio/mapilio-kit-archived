@@ -8,10 +8,12 @@ class Command:
     help = "upload images and descriptions to Mapilio"
 
     def add_basic_arguments(self, parser):
+
         group = parser.add_argument_group("upload options")
         group.add_argument(
             "--user_name", help="Upload to which Mapilio user account", required=False
         )
+
         group.add_argument(
             "--organization_username",
             help="Specify organization user name",
