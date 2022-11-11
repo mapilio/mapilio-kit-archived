@@ -6,7 +6,10 @@ from collections import ChainMap
 __RULES__ = [{('HERO7', 'Wide', '4:3'): 122.6}, {('HERO7', 'Wide', '16:9'): 118.2},
              {('HERO7', 'Linear', '4:3'): 86.7}, {('HERO7', 'Linear', '16:9'): 87.6},
              {('HERO8', 'Wide', '4:3'): 122.6}, {('HERO8', 'Wide', '16:9',): 118.2},
-             {('HERO8', 'Linear', '4:3'): 86.7},
+             {('HERO8', 'Linear', '4:3'): 86.7}, {('HERO7', 'Linear', '4:3'): 86.0},
+             {('HERO7', 'Linear', '4:3'): 86.7}, {('HERO7', 'Linear', '16:9'): 85.8},
+             {('HERO7', 'Linear', '16:9'): 87.6}, {('HERO7', 'Linear', '16:9'): 50.0},
+             {('HERO7', 'Linear', '16:9'): 51.0},
              {('HERO8', 'Narrow', '4:3'): 68.0}, {('HERO8', 'Unknown (X)', '16:9'): 122.6},
              {('HERO8', 'Linear', '16:9'): 85.8}, {('HERO8', 'Linear', '16:9'): 87.6},
              {('HERO8', 'Narrow', '16:9'): 68.0}, {('GOPRO', 'Super View', '16:9'): 99.0},
@@ -35,7 +38,15 @@ __RULES__ = [{('HERO7', 'Wide', '4:3'): 122.6}, {('HERO7', 'Wide', '16:9'): 118.
              {('GOPRO', 'Linear', '16:9'): 86.0}, {('GOPRO', 'Max SuperView', '4:3'): 128.0},
              {('GOPRO', 'Max SuperView', '4:3'): 140.0},
              {('GOPRO', 'Wide', '4:3'): 113.0}, {('GOPRO', 'Wide', '4:3'): 122.0}, {('GOPRO', 'Linear', '4:3'): 88.0},
-             {('GOPRO', 'Linear', '4:3'): 92.0}, {('GOPRO', 'Wide', '169:95'): 122.0}
+             {('GOPRO', 'Linear', '4:3'): 92.0}, {('GOPRO', 'Wide', '169:95'): 122.0},
+             {('HERO8', 'Wide', '16:9',): 62.2}, {('HERO8', 'Linear', '16:9',): 50.0},
+             {('HERO8', 'Linear', '16:9',): 51.0}, {('HERO8', 'Linear', '4:3',): 51.0},
+             {('HERO8', 'Linear', '4:3',): 50.0}, {('GoPro Max', 'Max SuperView', '4:3'): 148.8},
+             {('GoPro Max', 'Max SuperView', '16:9'): 148.8}, {('GoPro Max', 'Wide', '4:3'): 122.6},
+             {('GoPro Max', 'Wide', '16:9'): 122.6}, {('GoPro Max', 'Linear', '4:3'): 86.0},
+             {('GoPro Max', 'Linear', '16:9'): 86.0}, {('GoPro Max', 'Narrow', '4:3'): 68.0},
+             {('GoPro Max', 'Narrow', '16:9'): 68.0}
+
              ]
 """
 Source:
@@ -82,6 +93,7 @@ def get_exiftool_specific_feature(video_or_image_path: str) -> Dict[str, Union[N
     Returns:
 
     """
+
     process = subprocess.Popen(["exiftool", video_or_image_path], stdout=subprocess.PIPE)
     dict_object = {
         'field_of_view': None,
@@ -91,39 +103,52 @@ def get_exiftool_specific_feature(video_or_image_path: str) -> Dict[str, Union[N
         'roll': None,
         'yaw': None,
         'pitch': None,
-        'carSpeed': None
+        'carSpeed': None,
+        'megapixels': None
+
     }
     fov_str = None
     fov_deg = None
+    gyroscope = {"gyroscope": {"x": 3,
+                               "y": 4,
+                               "z": 5
+                               }}
     while True:
         try:
             line = process.stdout.readline()
-            filtered_line = line.rstrip().decode('utf-8')
+
+            filtered_line = (line.rstrip().decode('utf-8')).lower()
+
             if not line:  # noqa
                 break
+            if 'megapixels' in filtered_line:
+                dict_object['megapixels'] = float(filtered_line.split(':')[1].lstrip(' '))
+
             if 'yaw' in filtered_line:
-                dict_object['yaw'] = filtered_line.split(':')[1].lstrip(' ')
+                dict_object['yaw'] = float(filtered_line.split(':')[1].lstrip(' '))
 
             if 'pitch' in filtered_line:
-                dict_object['pitch'] = filtered_line.split(':')[1].lstrip(' ')
+                dict_object['pitch'] = float(filtered_line.split(':')[1].lstrip(' '))
 
             if 'roll' in filtered_line:
-                dict_object['roll'] = filtered_line.split(':')[1].lstrip(' ')
+                dict_object['roll'] = float(filtered_line.split(':')[1].lstrip(' '))
 
-            if 'carSpeed' in filtered_line:
-                dict_object['carSpeed'] = filtered_line.split(':')[1].lstrip(' ')
-            if 'Field Of View' in filtered_line:
+            if 'carspeed' in filtered_line:
+                dict_object['carSpeed'] = float(filtered_line.split(':')[1].lstrip(' '))
+
+            if 'field of view' in filtered_line:
                 fov_str = filtered_line.split(':')[1].lstrip(' ')
                 dict_object['field_of_view'] = fov_str
-            elif 'Camera Elevation Angle' in filtered_line:
+
+            elif 'camera elevation angle' in filtered_line:
                 fov_deg = float(filtered_line.split(':')[1].lstrip(' '))
-            if 'Color Mode' in filtered_line:
+            if 'color mode' in filtered_line:
                 dict_object['device_make'] = filtered_line.split(':')[1].lstrip(' ')
-            elif 'Make' in filtered_line:
+            elif 'make' in filtered_line:
                 dict_object['device_make'] = filtered_line.split(':')[1].lstrip(' ')
-            if 'Camera Model Name' in filtered_line:
+            if 'camera model name' in filtered_line:
                 dict_object['device_model'] = filtered_line.split(':')[1].lstrip(' ')
-            if 'Image Size' in filtered_line:
+            if 'image size' in filtered_line:
                 dict_object['image_size'] = filtered_line.split(':')[1].lstrip(' ')
         except TypeError:
             raise f"Exif data does not Exist !" \

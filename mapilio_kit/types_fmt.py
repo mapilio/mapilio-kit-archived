@@ -115,12 +115,11 @@ FinalImageDescriptionSchema = {
         "imageSize": {"type": "string"},
         "fov": {"type": "number"},
         "anomaly": {"type": "number"},
-
         "yaw": {"type": "number"},
         "carSpeed": {"type": "number"},
         "pitch": {"type": "number"},
         "roll": {"type": "number"},
-
+        "megapixels": {"type": "number"},
         "path": {"type": "string"},
         "filename": {"type": "string"},
         "orientation": {"type": "integer"},
