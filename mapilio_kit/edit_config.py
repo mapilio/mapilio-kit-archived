@@ -87,3 +87,4 @@ def edit_config(
         user_items = login.prompt_user_for_user_items(user_name)
 
     config.update_config(config_file, user_name, user_items)
+    return True

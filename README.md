@@ -133,6 +133,14 @@ sudo apt install ffmpeg
 sudo apt install exiftool
 ```
 
+On **Windows**:
+Open the powershell.exe 
+```shell
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+choco install ffmpeg
+choco install exiftool
+```
+
 ## Usage
 
 ### User Authentication

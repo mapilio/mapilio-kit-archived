@@ -127,7 +127,7 @@ FinalImageDescriptionSchema = {
         "path": {"type": "string"},
         "filename": {"type": "string"},
         "orientation": {"type": "integer"},
-        "acceleration": {"type": "string"},
+        "acceleration": {"type": "string","accx":"int","accy":"int","accz":"int"},
 
     },
     "required": [
