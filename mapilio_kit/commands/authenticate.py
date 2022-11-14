@@ -48,7 +48,7 @@ class Command:
         )
 
     def run(self, vars_args: dict):
-        edit_config(
+        return edit_config(
             **(
                 {
                     k: v
