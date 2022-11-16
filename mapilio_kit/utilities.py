@@ -109,10 +109,7 @@ def get_exiftool_specific_feature(video_or_image_path: str) -> Dict[str, Union[N
     }
     fov_str = None
     fov_deg = None
-    gyroscope = {"gyroscope": {"x": 3,
-                               "y": 4,
-                               "z": 5
-                               }}
+
     while True:
         try:
             line = process.stdout.readline()

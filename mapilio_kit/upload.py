@@ -108,7 +108,6 @@ def upload(
 
         descs = read_image_descriptions(desc_path)
         descs = photo_uuid_generate(user_email=user_name, descs=descs)
-
         anomaly = Anomaly()
 
         descs, failed_imgs, anomaly_points = anomaly.anomaly_detector(descs)
