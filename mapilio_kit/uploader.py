@@ -138,7 +138,6 @@ def upload_image_dir_and_description(
         organization_key: str = None,
         project_key: str = None
 ):
-
     jsonschema.validate(instance=user_items, schema=types.UserItemSchema)
 
     image_descs = [desc for desc in descs if "heading" in desc]

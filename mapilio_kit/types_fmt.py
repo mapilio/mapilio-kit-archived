@@ -54,8 +54,6 @@ class MetaProperties(TypedDict, total=False):
     Orientation: int
     ImageSize: str
     FoV: int
-    gyroscope: str
-    acceleration: str
     PhotoUUID: str
 
 
@@ -114,7 +112,6 @@ FinalImageDescriptionSchema = {
         },
         "deviceModel": {"type": "string"},
         "deviceMake": {"type": "string"},
-        "gyroscope" : {"type":"string"},
         "cameraUuid": {"type": "string"},
         "imageSize": {"type": "string"},
         "fov": {"type": "number"},
@@ -127,7 +124,6 @@ FinalImageDescriptionSchema = {
         "path": {"type": "string"},
         "filename": {"type": "string"},
         "orientation": {"type": "integer"},
-        "acceleration": {"type": "string","accx":"int","accy":"int","accz":"int"},
 
     },
     "required": [

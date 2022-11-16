@@ -364,7 +364,6 @@ class ExifRead:
         field_of_view = self._extract_alternative_fields(
             fields, default="none", field_type=float
         )
-
         return field_of_view
 
 
