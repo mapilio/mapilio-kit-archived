@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 import os
-import platform
 import re
 import subprocess
-import sys
 from distutils.version import LooseVersion
 
 from setuptools import setup
@@ -52,6 +50,7 @@ class MakeBuild(build_ext):
         subprocess.run(['cp', os.path.join('extras', 'max2sphere-batch/MAX2spherebatch'),
                         export_path])
 
+
 def install_maxextractor():
     subprocess.run(['bash', 'max_extractor_install.sh'])
 
@@ -62,9 +61,24 @@ def read_requirements():
         return [row.strip() for row in fp if row.strip()]
 
 
+def win_read_requirements():
+    with open('requirements.txt') as fp:
+        return [row.strip() for row in fp if row.strip()]
+
+
 about = {}
 with open(os.path.join(here, 'mapilio_kit', '__init__.py'), 'r') as f:
     exec(f.read(), about)
+
+if os.name == 'nt':
+    requires = win_read_requirements()
+    ext_modules = []
+    cmdclass = {}
+else:
+    requires = read_requirements()
+    ext_modules = [MakeExtension('extras/max2sphere-batch')]
+    cmdclass = dict(build_ext=MakeBuild)
+
 
 setup(name='mapilio_kit',
       version=about['VERSION'],
@@ -73,13 +87,13 @@ setup(name='mapilio_kit',
       author='Mapilio',
       license='BSD',
       python_requires='>=3.6',
-      ext_modules=[MakeExtension('extras/max2sphere-batch')],
-      cmdclass=dict(build_ext=MakeBuild),
+      ext_modules=ext_modules,
+      cmdclass=cmdclass,
       packages=['mapilio_kit', 'mapilio_kit.commands'],
       entry_points='''
       [console_scripts]
       mapilio_kit=mapilio_kit.__main__:main
       ''',
-      install_requires=read_requirements()
+      install_requires=requires
 
       )
