@@ -19,7 +19,6 @@ six==1.16.0
 tqdm==4.62.3
 typing-extensions==3.10.0.2
 tzwhere==3.0.3
-git+https://github.com/mapilio/gps_anomaly_detection.git
 simple-term-menu
 virtualenv
 windows-curses; platform_system  == "Windows"
