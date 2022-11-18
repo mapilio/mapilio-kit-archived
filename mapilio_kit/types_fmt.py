@@ -55,6 +55,8 @@ class MetaProperties(TypedDict, total=False):
     ImageSize: str
     FoV: int
     PhotoUUID: str
+    acceleration: str
+    gyroscope: str
 
 
 class FinalImageDescription(_SequenceOnly, User, Image):
@@ -124,7 +126,8 @@ FinalImageDescriptionSchema = {
         "path": {"type": "string"},
         "filename": {"type": "string"},
         "orientation": {"type": "integer"},
-
+        "acceleration": {"type": "string"},
+        "gyroscope": {"type": "string"},
     },
     "required": [
         "latitude",
