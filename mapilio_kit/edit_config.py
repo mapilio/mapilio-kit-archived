@@ -13,6 +13,7 @@ def edit_config(
     jwt=None,
     force_overwrite=False,
     user_key=None,
+    gui=None
 ):
     if config_file is None:
         config_file = config.MAPILIO_CONFIG_PATH
@@ -43,9 +44,14 @@ def edit_config(
         return
 
     if not user_name:
-        user_name = input(
-            "Enter the Mapilio mail you would like to (re)authenticate: "
-        )
+        if  gui is not None:
+            print("gui" ,gui)
+            user_name = input(
+                "Enter the Mapilio mail you would like to (re)authenticate: "
+            )
+        else:
+            return
+
 
     # config file must exist at this step
     config_object = config.load_config(config_file)
@@ -68,7 +74,10 @@ def edit_config(
         config_object.add_section(user_name)
 
     if user_email and user_password:
-        data = api_v1.get_upload_token(user_email, user_password)
+        try:
+            data = api_v1.get_upload_token(user_email, user_password)
+        except:
+            return False
         upload_token = data["token"]
         user_key = data["id"]
 
@@ -84,7 +93,10 @@ def edit_config(
         }
     else:
         # fill in the items and save
-        user_items = login.prompt_user_for_user_items(user_name)
+        if gui is  None:
+            return False
+        else:
+            user_items = login.prompt_user_for_user_items(user_name)
 
     config.update_config(config_file, user_name, user_items)
     return True

@@ -5,6 +5,7 @@ charset-normalizer==2.0.7
 construct==2.8.8
 ExifRead==2.3.2
 gpxpy==0.9.8
+pip>22.3.0
 idna==2.7
 jsonschema==4.1.1
 key==0.4
@@ -19,7 +20,7 @@ six==1.16.0
 tqdm==4.62.3
 typing-extensions==3.10.0.2
 tzwhere==3.0.3
-gps-anomaly
+git+https://github.com/sametcanyazici/mapilio-kit.git@dev-samet
 simple-term-menu
 virtualenv
 windows-curses; platform_system  == "Windows"

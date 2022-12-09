@@ -1,0 +1,5 @@
+[submodule "gps_anomaly_detection"]
+	path = gps_anomaly_detection
+	url = git@github.com:mapilio/gps_anomaly_detection.git
+
+
