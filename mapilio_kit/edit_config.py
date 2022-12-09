@@ -6,14 +6,14 @@ from . import config
 
 
 def edit_config(
-    config_file=None,
-    user_name=None,
-    user_email=None,
-    user_password=None,
-    jwt=None,
-    force_overwrite=False,
-    user_key=None,
-    gui=None
+        config_file=None,
+        user_name=None,
+        user_email=None,
+        user_password=None,
+        jwt=None,
+        force_overwrite=False,
+        user_key=None,
+        gui=None
 ):
     if config_file is None:
         config_file = config.MAPILIO_CONFIG_PATH
@@ -44,14 +44,12 @@ def edit_config(
         return
 
     if not user_name:
-        if  gui is not None:
-            print("gui" ,gui)
+        if gui is not None:
             user_name = input(
                 "Enter the Mapilio mail you would like to (re)authenticate: "
             )
         else:
             return
-
 
     # config file must exist at this step
     config_object = config.load_config(config_file)
@@ -93,7 +91,7 @@ def edit_config(
         }
     else:
         # fill in the items and save
-        if gui is  None:
+        if gui is None:
             return False
         else:
             user_items = login.prompt_user_for_user_items(user_name)
