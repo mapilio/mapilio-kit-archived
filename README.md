@@ -61,6 +61,8 @@ git clone https://github.com/mapilio/mapilio-kit.git
 cd mapilio-kit
 chmod +x install.sh
 source ./install.sh
+
+pip install -r requirements.txt 
 ```
 
 or
