@@ -17,13 +17,12 @@ with warnings.catch_warnings():
 here = os.path.abspath(os.path.dirname(__file__))
 
 
-def read_requirements():
+def read_requirements_macos():
     with open('requirements.txt') as fp:
         return [row.strip() for row in fp if row.strip()]
 
 
-if platform.system()=="Darwin":
-
+if platform.system() == "Darwin":
     about = {}
     with open(os.path.join(here, 'mapilio_kit', '__init__.py'), 'r') as f:
         exec(f.read(), about)
@@ -40,7 +39,9 @@ if platform.system()=="Darwin":
           [console_scripts]
           mapilio_kit=mapilio_kit.__main__:main
           ''',
-          install_requires=read_requirements(),
+          install_requires=[
+              'gps-anomaly @ git+https://github.com/mapilio/gps_anomaly_detection.git',
+              read_requirements_macos()]
           )
     exit()
 
@@ -107,7 +108,6 @@ else:
     ext_modules = [MakeExtension('extras/max2sphere-batch')]
     cmdclass = dict(build_ext=MakeBuild)
 
-
 setup(name='mapilio_kit',
       version=about['VERSION'],
       description='MAPILIO Image/Video Upload and Download Pipeline',
@@ -122,6 +122,8 @@ setup(name='mapilio_kit',
       [console_scripts]
       mapilio_kit=mapilio_kit.__main__:main
       ''',
-      install_requires=requires
+      install_requires=[
+          'gps-anomaly @ git+https://github.com/mapilio/gps_anomaly_detection.git', requires
+      ]
 
       )
