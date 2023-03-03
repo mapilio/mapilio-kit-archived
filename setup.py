@@ -2,6 +2,7 @@
 import os
 import re
 import subprocess
+import sys
 from distutils.version import LooseVersion
 import platform
 
@@ -41,7 +42,8 @@ if platform.system() == "Darwin":
           ''',
           install_requires=read_requirements_macos()
           )
-    exit()
+    print("Installed..")
+    sys.exit(1)
 
 class MakeExtension(Extension):
     def __init__(self, name, sourcedir=''):
