@@ -1,52 +1,38 @@
 import subprocess
 from typing import Dict, Union
-
+import math
 from collections import ChainMap
 
-__RULES__ = [{('hero7', 'wide', '4:3'): 122.6}, {('hero7', 'wide', '16:9'): 118.2},
-             {('hero7', 'linear', '4:3'): 86.7}, {('hero7', 'linear', '16:9'): 87.6},
-             {('hero8', 'wide', '4:3'): 122.6}, {('hero8', 'wide', '16:9',): 118.2},
-             {('hero8', 'linear', '4:3'): 86.7}, {('hero7', 'linear', '4:3'): 86.0},
-             {('hero7', 'linear', '4:3'): 86.7}, {('hero7', 'linear', '16:9'): 85.8},
-             {('hero7', 'linear', '16:9'): 87.6}, {('hero7', 'linear', '16:9'): 50.0},
-             {('hero7', 'linear', '16:9'): 51.0},
-             {('hero8', 'narrow', '4:3'): 68.0}, {('hero8', 'unknown (x)', '16:9'): 122.6},
-             {('hero8', 'linear', '16:9'): 85.8}, {('hero8', 'linear', '16:9'): 87.6},
-             {('hero8', 'narrow', '16:9'): 68.0}, {('gopro', 'super view', '16:9'): 99.0},
-             {('hero9 black', 'wide', '4:3'): 122.0}, {('gopro', 'linear', '16:9'): 75.0},
-             {('hero9 black', 'linear', '4:3'): 92.0}, {('gopro', 'linear', '16:9'): 87.0},
-             {('hero9 black', 'narrow', '4:3'): 73.0}, {('gopro', 'linear', '16:9'): 92.0},
-             {('hero9 black', 'unknown (x)', '16:9'): 121.0}, {('gopro', 'wide', '16:9'): 92.0},
-             {('hero9 black', 'wide', '16:9'): 118.0}, {('gopro', 'wide', '16:9'): 109.0},
-             {('hero9 black', 'linear', '16:9'): 92.0}, {('gopro', 'wide', '16:9'): 118.0},
-             {('hero9 black', 'narrow', '16.9'): 73.0}, {('gopro', 'linear + horizon levelling', '16:9'): 75.0},
-             {('gopro max', 'unknown (x)', '4:3'): 148.8}, {('gopro', 'linear + horizon levelling', '16:9'): 87.0},
-             {('gopro max', 'wide', '4:3'): 122.6}, {('gopro max', 'linear', '4:3'): 86.0},
-             {('gopro max', 'narrow', '4:3'): 68.0}, {('gopro', 'narrow', '16:9'): 75.0},
-             {('gopro max', 'unknown (x)', '16:9'): 148.8}, {('gopro', 'narrow', '16:9'): 67.0},
-             {('gopro max', 'wide', '16:9'): 122.6}, {('gopro max', 'linear', '16:9'): 73.0},
-             {('gopro max', 'narrow', '16:9'): 68.0}, {('gopro', 'unknown (x)', '4:3'): 94.0},
-             {('gopro', 'unknown (x)', '16:9'): 121.0}, {('gopro', 'wide', '4:3'): 92.0},
-             {('gopro', 'wide', '4:3'): 113.0}, {('gopro', 'wide', '4:3'): 122.0}, {('gopro', 'linear', '4:3'): 75.0},
-             {('gopro', 'linear', '4:3'): 87.0}, {('gopro', 'linear', '4:3'): 92.0},
-             {('gopro', 'linear + horizon levelling', '4:3'): 75.0},
-             {('gopro', 'linear + horizon levelling', '4:3'): 87.0}, {('gopro', 'narrow', '4:3'): 73.0},
-             {('gopro', 'narrow', '4:3'): 67.0},
-             {('gopro', 'max superview', '16:9'): 128.0}, {('gopro', 'max superview', '16:9'): 140.0},
-             {('gopro', 'wide', '16:9'): 109.0}, {('gopro', 'wide', '16:9'): 122.0},
-             {('gopro', 'linear', '16:9'): 88.0},
-             {('gopro', 'linear', '16:9'): 86.0}, {('gopro', 'max superview', '4:3'): 128.0},
-             {('gopro', 'max superview', '4:3'): 140.0},
-             {('gopro', 'wide', '4:3'): 113.0}, {('gopro', 'wide', '4:3'): 122.0}, {('gopro', 'linear', '4:3'): 88.0},
-             {('gopro', 'linear', '4:3'): 92.0}, {('gopro', 'wide', '169:95'): 122.0},
-             {('hero8', 'wide', '16:9',): 62.2}, {('hero8', 'linear', '16:9',): 50.0},
-             {('hero8', 'linear', '16:9',): 51.0}, {('hero8', 'linear', '4:3',): 51.0},
-             {('hero8', 'linear', '4:3',): 50.0}, {('gopro max', 'max superview', '4:3'): 148.8},
-             {('gopro max', 'max superview', '16:9'): 148.8}, {('gopro max', 'wide', '4:3'): 122.6},
-             {('gopro max', 'wide', '16:9'): 122.6}, {('gopro max', 'linear', '4:3'): 86.0},
-             {('gopro max', 'linear', '16:9'): 86.0}, {('gopro max', 'narrow', '4:3'): 68.0},
-             {('gopro max', 'narrow', '16:9'): 68.0}
-
+__RULES__ = [{('hero7', 'wide', '4:3'): [122.6, 94.4]}, {('hero7', 'wide', '16:9'): [118.2, 69.5]},
+             {('hero7', 'linear', '4:3'): [86.7, 71.0]}, {('hero7', 'linear', '16:9'): [87.6, 56.7]},
+             {('hero8', 'wide', '4:3'): [122.6, 94.4]}, {('hero8', 'wide', '16:9'): [118.2, 69.5]},
+             {('hero8', 'linear', '4:3'): [86.7, 71.0]},
+             {('hero8', 'narrow', '4:3'): [68.0, 53.7]}, {('hero8', 'unknown (x)', '16:9'): [122.6, 94.4]},
+             {('hero8', 'linear', '16:9'): [85.8, 55.2]},
+             {('hero8', 'narrow', '16:9'): [68.0, 41.6]}, {('gopro', 'super view', '16:9'): [99.0, 75.0]},
+             {('hero9 black', 'wide', '4:3'): [122.0, 94.0]},
+             {('hero9 black', 'linear', '4:3'): [92.0, 76.0]},
+             {('hero9 black', 'narrow', '4:3'): [73.0, 58.0]},
+             {('hero9 black', 'unknown (x)', '16:9'): [121.0, 93]},
+             {('hero9 black', 'wide', '16:9'): [118.0, 69.0]},
+             {('hero9 black', 'linear', '16:9'): [92.0, 61.0]},
+             {('hero9 black', 'narrow', '16.9'): [73.0, 45.0]},
+             {('gopro max', 'unknown (x)', '4:3'): [148.8, 118.9]},
+             {('gopro', 'linear + horizon levelling', '16:9'): [87.0, 56.0]},
+             {('gopro max', 'wide', '4:3'): [122.6, 94.4]}, {('gopro max', 'linear', '4:3'): [86.0, 69.9]},
+             {('gopro max', 'narrow', '4:3'): [68.0, 53.7]}, {('gopro', 'narrow', '16:9'): [73.0, 45.0]},
+             {('gopro max', 'unknown (x)', '16:9'): [148.8, 92.3]},
+             {('gopro max', 'wide', '16:9'): [122.6, 72.2]}, {('gopro max', 'linear', '16:9'): [86.0, 55.4]},
+             {('gopro max', 'narrow', '16:9'): [68.0, 41.6]}, {('gopro', 'unknown (x)', '4:3'): [94.0, 75]},
+             {('gopro', 'unknown (x)', '16:9'): [121.0, 93.0]},{('gopro', 'wide', '4:3'): [121.0,93.0]},
+             {('gopro', 'linear + horizon levelling', '4:3'): [87.0, 71.0]}, {('gopro', 'narrow', '4:3'): [73.0, 58.0]},
+             {('gopro', 'max superview', '16:9'): [140.0, 75.0]},
+             {('gopro', 'wide', '16:9'): [109.0, 63.0]},
+             {('gopro', 'linear', '16:9'): [86.0, 55.0]},
+             {('gopro', 'max superview', '4:3'): [140.0, 108.0]},
+             {('gopro', 'linear', '4:3'): [88.0, 71.0]}, {('gopro', 'wide', '169:95'): [122.0, 72.0]},
+             {('gopro max', 'max superview', '4:3'): [148.8, 118.9]},
+             {('gopro max', 'max superview', '16:9'): [148.8, 92.3]}
              ]
 """
 Source:
@@ -60,6 +46,14 @@ https://community.gopro.com/s/article/MAX-Digital-Lenses-formerly-known-as-FOV?l
 def find_fov2(model, mode, asp_rat):
     result = ChainMap(*__RULES__)
     return result[(model, mode, asp_rat)]
+
+
+def calculation_vfov(fov, aspect_ratio):
+    hfov = math.radians(fov)
+    vfov = 2 * math.atan(
+        math.tan(hfov / 2) / (float(aspect_ratio[0]) / float(aspect_ratio[1])))
+    vfov = math.degrees(vfov)
+    return vfov
 
 
 def calculate_aspect_ratio(image_size: str) -> str:
@@ -104,11 +98,13 @@ def get_exiftool_specific_feature(video_or_image_path: str) -> Dict[str, Union[N
         'yaw': None,
         'pitch': None,
         'carSpeed': None,
-        'megapixels': None
+        'megapixels': None,
+        'vfov': None
 
     }
     fov_str = None
     fov_deg = None
+    global vfov_str
 
     while True:
         try:
@@ -153,15 +149,24 @@ def get_exiftool_specific_feature(video_or_image_path: str) -> Dict[str, Union[N
 
     if dict_object['field_of_view'] and "deg" in dict_object['field_of_view']:
         dict_object['field_of_view'] = float(dict_object['field_of_view'].replace('deg', ''))
+        aspect_ratio = calculate_aspect_ratio(dict_object['image_size'])
+        dict_object['vfov'] = calculation_vfov(float(dict_object['field_of_view']), aspect_ratio.split(":"))
+        if isinstance(dict_object['field_of_view'], str):
+            dict_object['field_of_view'], vfov_str = find_fov2(dict_object['device_make'],
+                                                               dict_object['field_of_view'],
+                                                               aspect_ratio)
+            vfov_str = calculation_vfov(dict_object['field_of_view'], aspect_ratio)
+            dict_object['vfov'] = vfov_str
         return dict_object
     if isinstance(fov_deg, float):
         dict_object['field_of_view'] = fov_deg
+        dict_object['vfov'] = vfov_str
         return dict_object
     if isinstance(fov_str, str):
         aspect_ratio = calculate_aspect_ratio(dict_object['image_size'])
-        dict_object['field_of_view'] = find_fov2(dict_object['device_make'],
-                                                 dict_object['field_of_view'],
-                                                 aspect_ratio)
+        dict_object['field_of_view'], vfov_str = find_fov2(dict_object['device_make'],
+                                                           dict_object['field_of_view'],
+                                                           aspect_ratio)
         return dict_object
 
 
