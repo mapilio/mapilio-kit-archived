@@ -128,6 +128,7 @@ FinalImageDescriptionSchema = {
         "orientation": {"type": "integer"},
         "acceleration": {"type": "string"},
         "gyroscope": {"type": "string"},
+        "vfov": {"type": "number"}
     },
     "required": [
         "latitude",

@@ -366,6 +366,13 @@ class ExifRead:
         )
         return field_of_view
 
+    def extract_vfov(self):
+
+        fields = ["vfov"]
+        vfov = self._extract_alternative_fields(
+            fields, default=0, field_type=float
+        )
+        return vfov
 
 if __name__ == "__main__":
     import pprint
@@ -387,5 +394,6 @@ if __name__ == "__main__":
                 "yaw": exif.extract_yaw(),
                 "carSpeed": exif.extract_speed(),
                 "megapixels": exif.extract_megapixel(),
+                "vfov": exif.extract_vfov()
             }
         )
