@@ -29,7 +29,7 @@ __RULES__ = [{('hero7', 'wide', '4:3'): [122.6, 94.4]}, {('hero7', 'wide', '16:9
              {('gopro', 'max superview', '16:9'): [140.0, 75.0]},
              {('gopro', 'wide', '16:9'): [109.0, 63.0]},
              {('gopro', 'linear', '16:9'): [86.0, 55.0]},
-             {('gopro', 'max superview', '4:3'): [140.0, 108.0]},
+             {('gopro', 'max superview', '4:3'): [140.0, 108.0]},{('gopro', 'unknown (x)', '169:95'): [121.0, 93.0]},
              {('gopro', 'linear', '4:3'): [88.0, 71.0]}, {('gopro', 'wide', '169:95'): [122.0, 72.0]},
              {('gopro max', 'max superview', '4:3'): [148.8, 118.9]},
              {('gopro max', 'max superview', '16:9'): [148.8, 92.3]}
