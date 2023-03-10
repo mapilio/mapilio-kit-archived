@@ -53,7 +53,7 @@ def calculation_vfov(fov, aspect_ratio):
     vfov = 2 * math.atan(
         math.tan(hfov / 2) / (float(aspect_ratio[0]) / float(aspect_ratio[1])))
     vfov = math.degrees(vfov)
-    return vfov
+    return round(vfov, 2)
 
 
 def calculate_aspect_ratio(image_size: str) -> str:
@@ -135,6 +135,8 @@ def get_exiftool_specific_feature(video_or_image_path: str) -> Dict[str, Union[N
 
             elif 'camera elevation angle' in filtered_line:
                 fov_deg = float(filtered_line.split(':')[1].lstrip(' '))
+                if fov_deg == 360:
+                    vfov_str = fov_deg/2
             if 'color mode' in filtered_line:
                 dict_object['device_make'] = filtered_line.split(':')[1].lstrip(' ')
             elif 'make' in filtered_line:
