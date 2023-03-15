@@ -2,6 +2,7 @@
 import os
 import re
 import subprocess
+import sys
 from distutils.version import LooseVersion
 import platform
 
@@ -39,9 +40,11 @@ if platform.system() == "Darwin":
           [console_scripts]
           mapilio_kit=mapilio_kit.__main__:main
           ''',
-          install_requires=read_requirements_macos()
+          install_requires=[read_requirements_macos(),
+                            'gps-anomaly @ git+https://github.com/mapilio/gps_anomaly_detection.git#egg=gps-anomaly']
           )
-    exit()
+    print("Installed")
+    sys.exit(1)
 
 class MakeExtension(Extension):
     def __init__(self, name, sourcedir=''):
@@ -120,6 +123,6 @@ setup(name='mapilio_kit',
       [console_scripts]
       mapilio_kit=mapilio_kit.__main__:main
       ''',
-      install_requires=requires
-
+      install_requires=['gps-anomaly @ git+https://github.com/mapilio/gps_anomaly_detection.git#egg=gps-anomaly',
+                         requires]
       )

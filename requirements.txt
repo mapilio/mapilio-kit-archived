@@ -22,5 +22,4 @@ typing-extensions==3.10.0.2
 tzwhere==3.0.3
 simple-term-menu
 virtualenv
-git+https://github.com/mapilio/gps_anomaly_detection.git#egg=gps-anomaly
 windows-curses; platform_system  == "Windows"
