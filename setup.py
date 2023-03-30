@@ -40,8 +40,8 @@ if platform.system() == "Darwin":
           [console_scripts]
           mapilio_kit=mapilio_kit.__main__:main
           ''',
-          install_requires=[read_requirements_macos(),
-                            'gps-anomaly @ git+https://github.com/mapilio/gps_anomaly_detection.git#egg=gps-anomaly']
+          install_requires=read_requirements_macos(),
+
           )
     print("Installed")
     sys.exit(1)
@@ -123,6 +123,5 @@ setup(name='mapilio_kit',
       [console_scripts]
       mapilio_kit=mapilio_kit.__main__:main
       ''',
-      install_requires=['gps-anomaly @ git+https://github.com/mapilio/gps_anomaly_detection.git#egg=gps-anomaly',
-                         requires]
+      install_requires=requires
       )
