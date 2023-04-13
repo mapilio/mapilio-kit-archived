@@ -44,7 +44,7 @@ if platform.system() == "Darwin":
 
           )
     print("Installed")
-    sys.exit(1)
+
 
 class MakeExtension(Extension):
     def __init__(self, name, sourcedir=''):
@@ -100,7 +100,7 @@ about = {}
 with open(os.path.join(here, 'mapilio_kit', '__init__.py'), 'r') as f:
     exec(f.read(), about)
 
-if os.name == 'nt':
+if os.name == 'nt' or 'darwin':
     requires = win_read_requirements()
     ext_modules = []
     cmdclass = {}
