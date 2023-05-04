@@ -100,14 +100,14 @@ about = {}
 with open(os.path.join(here, 'mapilio_kit', '__init__.py'), 'r') as f:
     exec(f.read(), about)
 
-if os.name == 'nt' or 'darwin':
-    requires = win_read_requirements()
-    ext_modules = []
-    cmdclass = {}
-else:
+if os.name == 'posix':
     requires = read_requirements()
     ext_modules = [MakeExtension('extras/max2sphere-batch')]
     cmdclass = dict(build_ext=MakeBuild)
+else:
+    requires = win_read_requirements()
+    ext_modules = []
+    cmdclass = {}
 
 setup(name='mapilio_kit',
       version=about['VERSION'],
