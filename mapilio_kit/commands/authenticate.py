@@ -46,9 +46,14 @@ class Command:
             default=False,
             required=False,
         )
+        parser.add_argument(
+            "--gui",
+            help="is use gui",
+            default=False,
+        )
 
     def run(self, vars_args: dict):
-        edit_config(
+        return edit_config(
             **(
                 {
                     k: v

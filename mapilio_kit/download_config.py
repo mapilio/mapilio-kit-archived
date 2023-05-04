@@ -1,4 +1,8 @@
-from simple_term_menu import TerminalMenu
+import os
+
+if not os.name == 'nt':
+    from simple_term_menu import TerminalMenu
+
 import logging
 
 LOG = logging.getLogger(__name__)

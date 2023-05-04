@@ -89,10 +89,10 @@ class ExifRead:
             self.tags = exifread.process_file(filename, details=details, debug=True)
 
     def _extract_alternative_fields(
-        self,
-        fields: List[str],
-        default: Optional[Union[str, int]] = None,
-        field_type: Union[Type[float], Type[str], Type[int]] = float,
+            self,
+            fields: List[str],
+            default: Optional[Union[str, int]] = None,
+            field_type: Union[Type[float], Type[str], Type[int]] = float,
     ) -> Union[Tuple[Any, Any]]:
         """
         Extract a value for a list of ordered fields.
@@ -260,12 +260,13 @@ class ExifRead:
             fields, default="none", field_type=str
         )
         return make
+
     def extract_speed(self) -> float:
-        fields = ["Speeds"]
+        fields = ["carSpeed"]
         speeds = self._extract_alternative_fields(
             fields, default=0, field_type=float
         )
-        if not len(speeds) == 1:
+        if speeds[0] == 0:
             speeds = 0
         return speeds
 
@@ -274,7 +275,7 @@ class ExifRead:
         pitch = self._extract_alternative_fields(
             fields, default=0, field_type=float
         )
-        if not len(pitch) == 1:
+        if pitch[0] == 0:
             pitch = 0
         return pitch
 
@@ -283,17 +284,26 @@ class ExifRead:
         yaw = self._extract_alternative_fields(
             fields, default=0, field_type=float
         )
-        if not len(yaw) == 1:
+        if yaw[0] == 0:
             yaw = 0
         return yaw
+    def extract_megapixel(self) -> float:
+        fields = ["megapixels"]
+        mg = self._extract_alternative_fields(
+            fields, default=0, field_type=float
+        )
+        if mg[0] == 0:
+            mg = 0
+        return mg
     def extract_roll(self) -> float:
         fields = ["roll"]
         roll = self._extract_alternative_fields(
             fields, default=0, field_type=float
         )
-        if not len(roll) == 1:
+        if roll[0] == 0:
             roll = 0
         return roll
+
     def extract_model(self) -> str:
         """
         Extract camera model
@@ -356,6 +366,13 @@ class ExifRead:
         )
         return field_of_view
 
+    def extract_vfov(self):
+
+        fields = ["vfov"]
+        vfov = self._extract_alternative_fields(
+            fields, default=0, field_type=float
+        )
+        return vfov
 
 if __name__ == "__main__":
     import pprint
@@ -376,5 +393,7 @@ if __name__ == "__main__":
                 "pitch": exif.extract_pitch(),
                 "yaw": exif.extract_yaw(),
                 "carSpeed": exif.extract_speed(),
+                "megapixels": exif.extract_megapixel(),
+                "vfov": exif.extract_vfov()
             }
         )
