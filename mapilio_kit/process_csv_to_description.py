@@ -18,7 +18,7 @@ def process_csv_to_description(
     """
 
     with open(csv_path) as f:
-        float_columns = ['latitude', 'longitude', 'heading', 'fov','yaw','carSpeed',
+        float_columns = ['latitude', 'longitude', 'heading', 'fov', 'yaw', 'megapixels', 'carSpeed',
                          'roll', 'pitch', 'altitude', 'orientation']
         mapilio_description = [
             {
@@ -32,7 +32,8 @@ def process_csv_to_description(
                 "processed_images": processed,
                 "failed_images": 0,
                 "duplicated_images": 0,
-                "id": "8323ff0a01fe49d1b55e610279f62828"
+                "id": "8323ff0a01fe49d1b55e610279f62828",
+                "device_type": "Desktop"
             }
         }
         mapilio_description.append(description_information)

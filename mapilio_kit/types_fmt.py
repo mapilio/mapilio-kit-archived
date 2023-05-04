@@ -54,6 +54,9 @@ class MetaProperties(TypedDict, total=False):
     Orientation: int
     ImageSize: str
     FoV: int
+    PhotoUUID: str
+    acceleration: str
+    gyroscope: str
 
 
 class FinalImageDescription(_SequenceOnly, User, Image):
@@ -115,15 +118,17 @@ FinalImageDescriptionSchema = {
         "imageSize": {"type": "string"},
         "fov": {"type": "number"},
         "anomaly": {"type": "number"},
-
         "yaw": {"type": "number"},
         "carSpeed": {"type": "number"},
         "pitch": {"type": "number"},
         "roll": {"type": "number"},
-
+        "megapixels": {"type": "number"},
         "path": {"type": "string"},
         "filename": {"type": "string"},
         "orientation": {"type": "integer"},
+        "acceleration": {"type": "string"},
+        "gyroscope": {"type": "string"},
+        "vfov": {"type": "number"}
     },
     "required": [
         "latitude",

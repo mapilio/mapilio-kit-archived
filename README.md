@@ -61,6 +61,8 @@ git clone https://github.com/mapilio/mapilio-kit.git
 cd mapilio-kit
 chmod +x install.sh
 source ./install.sh
+
+pip install -r requirements.txt 
 ```
 
 or
@@ -131,6 +133,14 @@ On **Debian/Ubuntu**:
 ```shell
 sudo apt install ffmpeg
 sudo apt install exiftool
+```
+
+On **Windows**:
+Open the powershell.exe 
+```shell
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+choco install ffmpeg
+choco install exiftool
 ```
 
 ## Usage

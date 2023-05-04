@@ -120,6 +120,7 @@ def insert_MAPJson(
             "failed_images": len(not_processed_images) - len(duplicated_images),
             "duplicated_images": len(duplicated_images),
             "id": uuid.uuid4().hex,
+            "device_type": "Desktop"
         }
     }
     descs.append(
