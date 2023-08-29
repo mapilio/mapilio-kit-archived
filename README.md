@@ -147,7 +147,7 @@ choco install exiftool
 
 ### User Authentication
 
-To upload images to **Visiosoft**, an account is required and can be created [here](https://www.mapilio.com/). When
+To upload images to **Mapilio**, an account is required and can be created [here](https://www.mapilio.com/). When
 using the tools for the first time, user authentication is required. You will be prompted to enter your account
 credentials.
 
