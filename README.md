@@ -1,6 +1,11 @@
+## Mapilio Kit V2
+
+**We came back with exiting news! :rocket: Mapilio Kit V2 is being developed, recently. It'll be out as soon as possible, to help us for any kind of improvements see here: [Mapilio Kit V2](https://github.com/mapilio/mapilio-kit-v2)**
+
 ## Mapilio Kit
 
 Mapilio Kit is a library for processing and uploading images to [Mapilio](https://www.mapilio.com/).
+
 
 ```mermaid
   graph TD;
